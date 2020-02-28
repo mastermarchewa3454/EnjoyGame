@@ -12,7 +12,8 @@ public class EnemyMovement : MonoBehaviour
     Animator anim;
 
     Vector2 movement;
-    bool moving;
+    bool moving = false;
+    bool faceRight = false;
 
     void Start()
     {
@@ -22,24 +23,27 @@ public class EnemyMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        // Move sprite
         rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
     }
 
     IEnumerator NewHeading()
     {
-        moving = false;
         while (true)
         {
+            // Alternates between movement and non-movement phase
             moving = !moving;
             anim.SetBool("isMoving", moving);
 
             if (moving)
             {
+                // Sets a new direction to head in
                 NewHeadingRoutine();
                 yield return new WaitForSeconds(movementInterval);
             }
             else
             {
+                // Stops moving
                 StopHeading();
                 yield return new WaitForSeconds(stopInterval);
             }
@@ -56,5 +60,12 @@ public class EnemyMovement : MonoBehaviour
     {
         movement.x = Random.Range(-1f, 1f);
         movement.y = Random.Range(-1f, 1f);
+
+        // Flip sprite if moving in opposite direction
+        if ((movement.x > 0 && !faceRight) || (movement.x < 0 && faceRight))
+        {
+            rb.transform.localScale = new Vector2(rb.transform.localScale.x * -1, 1);
+            faceRight = !faceRight;
+        }
     }
 }
