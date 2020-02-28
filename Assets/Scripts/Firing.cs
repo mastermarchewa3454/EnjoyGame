@@ -12,6 +12,7 @@ public class Firing : MonoBehaviour
     public Camera cam;
 
     Vector2 mousePos;
+    float distance = 0.7f;
 
     // Update is called once per frame
     void Update()
@@ -27,14 +28,18 @@ public class Firing : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 lookDir = mousePos - rb.position;
-        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
-        rb.rotation = angle;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x);
+        firePoint.position = new Vector2(distance * Mathf.Cos(angle) + rb.position.x,
+                                         distance * Mathf.Sin(angle) + rb.position.y);
+        firePoint.transform.eulerAngles = new Vector3(firePoint.transform.eulerAngles.x,
+                                                      firePoint.transform.eulerAngles.y,
+                                                      angle * Mathf.Rad2Deg);
     }
 
     void Shoot()
     {
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
-        projectileRb.AddForce(firePoint.right * -rb.transform.localScale.x * bulletForce, ForceMode2D.Impulse);
+        projectileRb.AddForce(firePoint.right * rb.transform.localScale.x * bulletForce, ForceMode2D.Impulse);
     }
 }
