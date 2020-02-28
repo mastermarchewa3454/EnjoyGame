@@ -40,6 +40,6 @@ public class Firing : MonoBehaviour
     {
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
-        projectileRb.AddForce(firePoint.right * rb.transform.localScale.x * bulletForce, ForceMode2D.Impulse);
+        projectileRb.AddForce(firePoint.right * bulletForce, ForceMode2D.Impulse);
     }
 }
