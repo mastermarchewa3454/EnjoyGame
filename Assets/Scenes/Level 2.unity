@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c83e34533267fc4f9588fbb19250aca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &916914590
+--- !u!1001 &729403534
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -149,7 +149,7 @@ PrefabInstance:
     - target: {fileID: 7825229818540032753, guid: 7960db6b7cc4b024bb7a3e927d8932a6,
         type: 3}
       propertyPath: m_Name
-      value: GridLevel2
+      value: Level2
       objectReference: {fileID: 0}
     - target: {fileID: 7825229818540032759, guid: 7960db6b7cc4b024bb7a3e927d8932a6,
         type: 3}
