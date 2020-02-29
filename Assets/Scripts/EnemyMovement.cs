@@ -29,7 +29,7 @@ public class EnemyMovement : MonoBehaviour
 
     IEnumerator NewHeading()
     {
-        while (true)
+        while (this != null)
         {
             // Alternates between movement and non-movement phase
             moving = !moving;
