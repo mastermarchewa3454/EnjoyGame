@@ -10,25 +10,40 @@ public class AutoFire : MonoBehaviour
     public Transform firePoint;
     public GameObject projectilePrefab;
     public Rigidbody2D rb;
-    public Camera cam;
 
-    Vector2 mousePos;
-
-    // Update is called once per frame
-    void Update()
-    {
-        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-    }
+    Vector2 playerPos;
 
     void FixedUpdate()
     {
-        Vector2 lookDir = mousePos - rb.position;
+        FindClosestPlayer();
+
+        Vector2 lookDir = playerPos - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x);
         firePoint.position = new Vector2(fpRadius * Mathf.Cos(angle) + rb.position.x,
                                          fpRadius * Mathf.Sin(angle) + rb.position.y);
         firePoint.transform.eulerAngles = new Vector3(firePoint.transform.eulerAngles.x,
                                                       firePoint.transform.eulerAngles.y,
                                                       angle * Mathf.Rad2Deg);
+    }
+
+    void FindClosestPlayer()
+    {
+        float distanceToClosest = Mathf.Infinity;
+        GameObject closestPlayer = null;
+        GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject player in allPlayers)
+        {
+            float distance = (player.transform.position - this.transform.position).sqrMagnitude;
+            if (distance < distanceToClosest)
+            {
+                distanceToClosest = distance;
+                closestPlayer = player;
+            }
+        }
+
+        playerPos = closestPlayer.transform.position;
+        Debug.Log(distanceToClosest);
     }
 
     public void Shoot()
