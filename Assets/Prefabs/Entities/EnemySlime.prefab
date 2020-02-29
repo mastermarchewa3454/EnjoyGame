@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 377587030481339104}
   - component: {fileID: 377587030481339105}
   - component: {fileID: 377587030481339106}
-  - component: {fileID: 377587030481339107}
+  - component: {fileID: 1697539654934543092}
   - component: {fileID: 377587030481339108}
   m_Layer: 0
   m_Name: EnemySlime
@@ -344,7 +344,7 @@ MonoBehaviour:
   movementInterval: 1
   stopInterval: 2
   rb: {fileID: 377587030481339104}
---- !u!114 &377587030481339107
+--- !u!114 &1697539654934543092
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -353,7 +353,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 377587030481339109}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9e1d8ba401465749a45aaf6559eaf39, type: 3}
+  m_Script: {fileID: 11500000, guid: 57237f12dafe4734980e1000a71e77bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bulletForce: 20

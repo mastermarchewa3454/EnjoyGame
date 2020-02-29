@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 2645619741389328964}
   - component: {fileID: 2645619741389328971}
   - component: {fileID: 2645619741389328970}
-  - component: {fileID: 2645619741389328969}
+  - component: {fileID: 5750503083308259091}
   - component: {fileID: 2645619741389328968}
   m_Layer: 0
   m_Name: KingGhost
@@ -59,7 +59,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2645619741389328974}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.0707495, y: 0.6572106, z: 0}
+  m_LocalPosition: {x: -2.0707495, y: 0.6572106, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 888634569070212026}
@@ -131,7 +131,7 @@ MonoBehaviour:
   movementInterval: 2
   stopInterval: 2
   rb: {fileID: 2645619741389328964}
---- !u!114 &2645619741389328969
+--- !u!114 &5750503083308259091
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,10 +140,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2645619741389328974}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9e1d8ba401465749a45aaf6559eaf39, type: 3}
+  m_Script: {fileID: 11500000, guid: 57237f12dafe4734980e1000a71e77bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bulletForce: 20
+  fpRadius: 0.8
   firePoint: {fileID: 2645619740356918227}
   projectilePrefab: {fileID: 4323874535557496874, guid: d2e4022efd24c924fa049a759de7a40e,
     type: 3}

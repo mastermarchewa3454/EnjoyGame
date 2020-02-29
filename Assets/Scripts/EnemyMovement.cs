@@ -9,15 +9,18 @@ public class EnemyMovement : MonoBehaviour
     public float stopInterval = 2;
 
     public Rigidbody2D rb;
-    Animator anim;
 
+    Animator anim;
     Vector2 movement;
-    bool moving = false;
+    AutoFire autoFire;
+    bool moving = true;
+    bool attacking = false;
     bool faceRight = false;
 
     void Start()
     {
         anim = GameObject.Find("Sprite").GetComponent<Animator>();
+        autoFire = GetComponent<AutoFire>();
         StartCoroutine(NewHeading());
     }
 
@@ -31,21 +34,30 @@ public class EnemyMovement : MonoBehaviour
     {
         while (this != null)
         {
-            // Alternates between movement and non-movement phase
-            moving = !moving;
+            // Alternates between idle, movement, idle, attack phase
+
             anim.SetBool("isMoving", moving);
+            anim.SetBool("isAttacking", attacking);
 
             if (moving)
             {
                 // Sets a new direction to head in
                 NewHeadingRoutine();
+                moving = false;
                 yield return new WaitForSeconds(movementInterval);
             }
             else
             {
                 // Stops moving
                 StopHeading();
-                yield return new WaitForSeconds(stopInterval);
+
+                if (attacking)
+                {
+                    autoFire.Shoot();
+                    moving = true;
+                }
+                attacking = !attacking;
+                yield return new WaitForSeconds(stopInterval / 2);
             }
         }
     }
