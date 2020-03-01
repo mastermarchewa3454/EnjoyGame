@@ -32,18 +32,20 @@ public class AutoFire : MonoBehaviour
         GameObject closestPlayer = null;
         GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
 
-        foreach (GameObject player in allPlayers)
+        if (allPlayers != null)
         {
-            float distance = (player.transform.position - this.transform.position).sqrMagnitude;
-            if (distance < distanceToClosest)
+            foreach (GameObject player in allPlayers)
             {
-                distanceToClosest = distance;
-                closestPlayer = player;
+                float distance = (player.transform.position - this.transform.position).sqrMagnitude;
+                if (distance < distanceToClosest)
+                {
+                    distanceToClosest = distance;
+                    closestPlayer = player;
+                }
             }
         }
 
         playerPos = closestPlayer.transform.position;
-        Debug.Log(distanceToClosest);
     }
 
     public void Shoot()
