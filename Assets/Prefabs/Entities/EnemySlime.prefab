@@ -356,10 +356,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57237f12dafe4734980e1000a71e77bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletForce: 20
+  bulletForce: 10
   fpRadius: 0.7
   firePoint: {fileID: 377587030394247425}
-  projectilePrefab: {fileID: 4323874535557496874, guid: d2e4022efd24c924fa049a759de7a40e,
+  projectilePrefab: {fileID: 208029046170667836, guid: ed720e285369fb04599684186f94ae5c,
     type: 3}
   rb: {fileID: 377587030481339104}
 --- !u!114 &377587030481339108

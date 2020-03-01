@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AutoFire : MonoBehaviour
 {
-    public float bulletForce = 20f;
+    public float bulletForce = 10f;
     public float fpRadius = 0.7f;
 
     public Transform firePoint;

@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57237f12dafe4734980e1000a71e77bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletForce: 20
+  bulletForce: 10
   fpRadius: 0.8
   firePoint: {fileID: 2645619740356918227}
   projectilePrefab: {fileID: 4323874535557496874, guid: d2e4022efd24c924fa049a759de7a40e,

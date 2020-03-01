@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Firing : MonoBehaviour
 {
-    public float bulletForce = 20f;
+    public float bulletForce = 10f;
 
     public Transform firePoint;
     public GameObject projectilePrefab;
