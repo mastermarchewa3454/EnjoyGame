@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
-public class AutoFire : NetworkBehaviour
+public class AutoFire : MonoBehaviour
 {
     public float bulletForce = 10f;
     public float fpRadius = 0.7f;

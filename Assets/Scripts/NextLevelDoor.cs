@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor.SceneManagement;
+
 public class NextLevelDoor : MonoBehaviour
 {
     SceneChanger sceneChanger;
