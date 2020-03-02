@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
-public class EnemyMovement : NetworkBehaviour
+public class EnemyMovement : MonoBehaviour
 {
     public float speed = 1;
     public float movementInterval = 1;
