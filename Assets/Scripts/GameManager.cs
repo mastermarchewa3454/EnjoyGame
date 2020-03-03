@@ -24,8 +24,18 @@ public class GameManager : MonoBehaviour
 
     public void OnMouseEnter()
     {
-        Debug.Log("Button Selected");
-        questionInput.text = "";
-        answerInput.text = "";
+        bool questionBoolean = string.IsNullOrEmpty(questionInput.text);
+        bool answerBoolean = string.IsNullOrEmpty(answerInput.text);
+
+        if(questionBoolean || answerBoolean)
+        {
+            Debug.Log("Please complete all fields");
+        }
+        else
+        {
+            Debug.Log("Button Selected");
+            questionInput.text = "";
+            answerInput.text = "";
+        }
     }
 }

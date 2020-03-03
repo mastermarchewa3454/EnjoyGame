@@ -6,6 +6,7 @@ public class ButtonCounter : MonoBehaviour
 {
     public Text counterText; 
     public int counterValue=1;
+
     public void counter()
     {
         if(counterValue == 20)
