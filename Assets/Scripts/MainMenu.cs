@@ -11,10 +11,20 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    public void Leaderboard()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 4);
+    }
+
     public void QuitGame()
     {
         Debug.Log("Sucessfully Exitted");
         Application.Quit();
         
+    }
+
+    public void ReturnMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }
