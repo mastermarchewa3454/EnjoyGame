@@ -9,11 +9,10 @@ public class Bullet : NetworkBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        /*
         if (col.gameObject.CompareTag("Enemy") || col.gameObject.CompareTag("Player"))
         {
             col.gameObject.SendMessage("OnDamage", damage);
-        }*/
+        }
 
         Destroy(gameObject);
     }

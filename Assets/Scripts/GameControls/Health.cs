@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class Health : MonoBehaviour
+public class Health : NetworkBehaviour
 {
-    public int totalHealth = 100;
+    [SerializeField]
+    private int totalHealth = 100;
 
+    [SyncVar]
     int currHealth;
     Transform bar;
 
@@ -16,20 +19,24 @@ public class Health : MonoBehaviour
         bar = transform.Find("HealthBar/Bar");
     }
 
-    void SetSize(float sizeNormalized)
+    [ClientRpc]
+    void RpcSetSize(float sizeNormalized)
     {
         bar.localScale = new Vector2(sizeNormalized, 1f);
     }
 
     void OnDamage(int damage)
     {
-        currHealth -= damage;
-
-        if (currHealth <= 0)
+        if (this.isServer)
         {
-            Destroy(gameObject);
-        }
+            currHealth -= damage;
 
-        SetSize((float)currHealth / totalHealth);
+            if (currHealth <= 0)
+            {
+                Destroy(gameObject);
+            }
+
+            RpcSetSize((float)currHealth / totalHealth);
+        }
     }
 }
