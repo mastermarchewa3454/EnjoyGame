@@ -11,8 +11,11 @@ public class EnemyMovement : NetworkBehaviour
 
     public Rigidbody2D rb;
 
-    Animator anim;
+
+    [SyncVar]
     Vector2 movement;
+
+    Animator anim;
     AutoFire autoFire;
     bool moving = true;
     bool attacking = false;
@@ -33,7 +36,7 @@ public class EnemyMovement : NetworkBehaviour
 
     IEnumerator NewHeading()
     {
-        while (this != null)
+        while (true)
         {
             // Alternates between idle, movement, idle, attack phase
 
@@ -43,7 +46,8 @@ public class EnemyMovement : NetworkBehaviour
             if (moving)
             {
                 // Sets a new direction to head in
-                NewHeadingRoutine();
+                if (this.isServer)
+                    NewHeadingRoutine();
                 moving = false;
                 yield return new WaitForSeconds(movementInterval);
             }
@@ -54,7 +58,8 @@ public class EnemyMovement : NetworkBehaviour
 
                 if (attacking)
                 {
-                    autoFire.CmdShoot();
+                    if (this.isServer)
+                        autoFire.CmdShoot();
                     moving = true;
                 }
                 attacking = !attacking;
