@@ -27,4 +27,14 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+
+    public void EnterSocialMenu()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 6);
+    }
+
+    public void EnterCustomLobby()
+    {
+        SceneManager.LoadScene(5);
+    }
 }
