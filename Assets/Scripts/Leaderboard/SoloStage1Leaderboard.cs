@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class Leaderboard : MonoBehaviour
+public class SoloStage1Leaderboard : MonoBehaviour
 {
     private Transform entryContainer;
     private Transform entryTemplate;
@@ -17,8 +17,10 @@ public class Leaderboard : MonoBehaviour
 
         entryTemplate.gameObject.SetActive(false);
 
+        AddHighscoreEntry("Han Liong", 123456);
+
         //Load highscore data
-        string jsonString = PlayerPrefs.GetString("highscoreTable");
+        string jsonString = PlayerPrefs.GetString("highscoreTableSS1");
         Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
         highscoreEntryList = highscores.highscoreEntryList;
 
@@ -34,7 +36,7 @@ public class Leaderboard : MonoBehaviour
 
     private void CreateHighscoreEntryTransform(HighscoreEntry highscoreEntry, Transform container, List<Transform> transformList){
         Transform entryTransform = Instantiate(entryTemplate, container);
-        float templateHeight = 20f;
+        float templateHeight = 51f;
         RectTransform entryRectTransform = entryTransform.GetComponent<RectTransform>();
         entryRectTransform.anchoredPosition = new Vector2(0, -templateHeight * transformList.Count);
         entryTransform.gameObject.SetActive(true);
@@ -94,10 +96,16 @@ public class Leaderboard : MonoBehaviour
 
     private void AddHighscoreEntry(string name, int score){
         HighscoreEntry highscoreEntry = new HighscoreEntry{name = name, score = score};
+        Highscores highscores;
 
         //Load highscore data
-        string jsonString = PlayerPrefs.GetString("highscoreTable");
-        Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
+        string jsonString = PlayerPrefs.GetString("highscoreTableSS1");
+        if(jsonString == null){
+            highscores = new Highscores();
+        }
+        else{
+            highscores = JsonUtility.FromJson<Highscores>(jsonString);
+        }
 
         highscores.highscoreEntryList.Add(highscoreEntry);
 
@@ -109,7 +117,7 @@ public class Leaderboard : MonoBehaviour
 
         //Save highscore data
         string json = JsonUtility.ToJson(highscores);
-        PlayerPrefs.SetString("highscoreTable", json);
+        PlayerPrefs.SetString("highscoreTableSS1", json);
         PlayerPrefs.Save();
 
     }
