@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Button Selected");
                 questionInput.text = "";
                 answerInput.text = "";
+                
                 counterValue++;  
                 counterText.text = counterValue.ToString() + "/20";
 
