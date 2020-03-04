@@ -1740,6 +1740,7 @@ GameObject:
   - component: {fileID: 314611558}
   - component: {fileID: 314611557}
   - component: {fileID: 314611556}
+  - component: {fileID: 314611560}
   m_Layer: 0
   m_Name: WAButton
   m_TagString: Untagged
@@ -1865,6 +1866,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 314611554}
   m_CullTransparentMesh: 0
+--- !u!114 &314611560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314611554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 293e7f328ee8a5c4d9848d3f7be56398, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnPress:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2053792706}
+        m_MethodName: OpenWhatsApp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &347229565
 GameObject:
   m_ObjectHideFlags: 0
@@ -6278,6 +6305,7 @@ GameObject:
   - component: {fileID: 1365614992}
   - component: {fileID: 1365614991}
   - component: {fileID: 1365614994}
+  - component: {fileID: 1365614995}
   m_Layer: 0
   m_Name: FBButton
   m_TagString: Untagged
@@ -6403,6 +6431,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1365614995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365614989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 293e7f328ee8a5c4d9848d3f7be56398, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnPress:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2053792706}
+        m_MethodName: OpenFacebook
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1378210122
 GameObject:
   m_ObjectHideFlags: 0
@@ -7867,6 +7921,7 @@ GameObject:
   - component: {fileID: 1872441965}
   - component: {fileID: 1872441964}
   - component: {fileID: 1872441963}
+  - component: {fileID: 1872441967}
   m_Layer: 0
   m_Name: InstaButton
   m_TagString: Untagged
@@ -7992,6 +8047,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1872441961}
   m_CullTransparentMesh: 0
+--- !u!114 &1872441967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872441961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 293e7f328ee8a5c4d9848d3f7be56398, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnPress:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2053792706}
+        m_MethodName: OpenInstagram
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1930790694
 GameObject:
   m_ObjectHideFlags: 0
@@ -8352,8 +8433,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2053792705}
   - component: {fileID: 2053792704}
+  - component: {fileID: 2053792706}
   m_Layer: 0
-  m_Name: MainMenuManager
+  m_Name: SocialFunctionsManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8385,6 +8467,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2053792706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2053792703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a529d4595c50ce243b90d5f368caf4f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2078908380
 GameObject:
   m_ObjectHideFlags: 0
