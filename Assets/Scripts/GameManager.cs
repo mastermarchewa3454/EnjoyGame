@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+
+    public Text counterText; 
+    public int counterValue=1;
+
     [SerializeField]
     private InputField questionInput;
     [SerializeField]
@@ -24,18 +28,30 @@ public class GameManager : MonoBehaviour
 
     public void OnMouseEnter()
     {
-        bool questionBoolean = string.IsNullOrEmpty(questionInput.text);
-        bool answerBoolean = string.IsNullOrEmpty(answerInput.text);
-
-        if(questionBoolean || answerBoolean)
+        if (counterValue == 20)
         {
-            Debug.Log("Please complete all fields");
+            return;
         }
         else
         {
-            Debug.Log("Button Selected");
-            questionInput.text = "";
-            answerInput.text = "";
+            bool questionBoolean = string.IsNullOrEmpty(questionInput.text);
+            bool answerBoolean = string.IsNullOrEmpty(answerInput.text);
+        
+
+            if(questionBoolean || answerBoolean)
+            {
+                Debug.Log("Please complete all fields");
+            }
+            else
+            {
+                Debug.Log("Button Selected");
+                questionInput.text = "";
+                answerInput.text = "";
+                
+                counterValue++;  
+                counterText.text = counterValue.ToString() + "/20";
+
+            }
         }
     }
 }
