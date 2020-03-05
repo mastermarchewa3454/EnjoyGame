@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class Bullet : NetworkBehaviour
+public class Bullet1 : NetworkBehaviour
 {
     public int damage = 5;
 
