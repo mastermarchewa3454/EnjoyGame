@@ -29,4 +29,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestEnemyAI.unity
     guid: b9135a28b33070c41bf5847a2a75996f
+  - enabled: 1
+    path: Assets/Scenes/Item room.unity
+    guid: 346a7ba78f78bf446aa7486783ff0811
+  - enabled: 1
+    path: Assets/Scenes/Item Choice.unity
+    guid: f311abd8c2cf54341a77a563f867cd5e
   m_configObjects: {}
