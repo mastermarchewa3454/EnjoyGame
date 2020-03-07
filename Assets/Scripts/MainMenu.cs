@@ -13,12 +13,12 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Level 1");
     }
 
     public void Leaderboard()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 4);
+        SceneManager.LoadScene("Leaderboard");
     }
 
     public void QuitGame()
@@ -30,16 +30,16 @@ public class MainMenu : MonoBehaviour
 
     public void ReturnMainMenu()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("StartScreen");
     }
 
     public void EnterSocialMenu()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 6);
+        SceneManager.LoadScene("Social");
     }
 
     public void EnterCustomLobby()
     {
-        SceneManager.LoadScene(5);
+        SceneManager.LoadScene("QnA");
     }
 }

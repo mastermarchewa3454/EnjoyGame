@@ -25,6 +25,9 @@ public class SceneChanger : MonoBehaviour
         PlayerPrefs.SetInt("health", playerHealth.GetCurrHealth());
         PlayerPrefs.SetInt("level", level + 1);
 
+        if (level % 3 == 2)
+            PlayerPrefs.SetInt("treasure", 1);
+
         theCurrentScene = SceneManager.GetActiveScene().buildIndex;
         if (level % 3 == 0)
         {

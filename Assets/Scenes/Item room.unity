@@ -195,7 +195,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d1a746273433bc40ac5baff4a0826e7, type: 3}
---- !u!1001 &760588055
+--- !u!1001 &665777234
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -261,16 +261,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Item Room
-      objectReference: {fileID: 0}
-    - target: {fileID: 7430220085684246192, guid: cfa68cd9e9d95ee4b86cd6bb5d71f12b,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8388391660233342967, guid: cfa68cd9e9d95ee4b86cd6bb5d71f12b,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfa68cd9e9d95ee4b86cd6bb5d71f12b, type: 3}

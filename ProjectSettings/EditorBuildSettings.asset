@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Item room.unity
     guid: 346a7ba78f78bf446aa7486783ff0811
   - enabled: 1
+    path: Assets/Scenes/Item Choice.unity
+    guid: f311abd8c2cf54341a77a563f867cd5e
+  - enabled: 1
     path: Assets/Scenes/GameEnd.unity
     guid: 016d3dd3604d1d84fac5506a814e7905
   - enabled: 1
@@ -29,7 +32,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Social.unity
     guid: 0f08b30e5730a2840a9128ffe425c97d
-  - enabled: 1
-    path: Assets/Scenes/Item Choice.unity
-    guid: f311abd8c2cf54341a77a563f867cd5e
   m_configObjects: {}

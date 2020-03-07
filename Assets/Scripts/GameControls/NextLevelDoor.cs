@@ -15,7 +15,7 @@ public class NextLevelDoor : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
-            if (allEnemies.Length == 0)
+            if (allEnemies.Length == 0 && PlayerPrefs.GetInt("treasure", 0) == 0)
                 sceneChanger.ChangeToNextScene();
         }
     }
