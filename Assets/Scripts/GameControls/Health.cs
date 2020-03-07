@@ -1,42 +1,54 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
-public class Health : NetworkBehaviour
+public class Health : MonoBehaviour
 {
     [SerializeField]
     private int totalHealth = 100;
-
-    [SyncVar]
     int currHealth;
     Transform bar;
 
     // Start is called before the first frame update
     void Start()
     {
-        currHealth = totalHealth;
+        if (gameObject.tag == "Player")
+            currHealth = PlayerPrefs.GetInt("health", totalHealth);
+        else
+            currHealth = totalHealth;
         bar = transform.Find("HealthBar/Bar");
+        UpdateBar();
     }
 
-    [ClientRpc]
-    void RpcSetSize(float sizeNormalized)
+    void UpdateBar()
     {
+        float sizeNormalized = (float) currHealth / totalHealth;
         bar.localScale = new Vector2(sizeNormalized, 1f);
     }
 
     void OnDamage(int damage)
     {
-        if (this.isServer)
+        SetCurrHealth(currHealth - damage);
+
+        if (currHealth <= 0)
         {
-            currHealth -= damage;
-
-            if (currHealth <= 0)
-            {
-                Destroy(gameObject);
-            }
-
-            RpcSetSize((float)currHealth / totalHealth);
+            Destroy(gameObject);
         }
+    }
+
+    public int GetCurrHealth()
+    {
+        return currHealth;
+    }
+
+    public void SetCurrHealth(int health)
+    {
+        currHealth = health;
+        UpdateBar();
+    }
+
+    public int GetMaxHealth()
+    {
+        return totalHealth;
     }
 }

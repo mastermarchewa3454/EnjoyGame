@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
-public class AutoFire : NetworkBehaviour
+public class AutoFire : MonoBehaviour
 {
     public float bulletForce = 10f;
     public float fpRadius = 0.7f;
@@ -49,12 +48,10 @@ public class AutoFire : NetworkBehaviour
         playerPos = closestPlayer.transform.position;
     }
 
-    [Command]
-    public void CmdShoot()
+    public void Shoot()
     {
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
         projectileRb.AddForce(firePoint.right * bulletForce, ForceMode2D.Impulse);
-        NetworkServer.Spawn(projectile);
     }
 }

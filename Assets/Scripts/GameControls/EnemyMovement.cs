@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
-public class EnemyMovement : NetworkBehaviour
+public class EnemyMovement : MonoBehaviour
 {
     public float speed = 1;
     public float movementInterval = 1;
@@ -11,8 +10,6 @@ public class EnemyMovement : NetworkBehaviour
 
     public Rigidbody2D rb;
 
-
-    [SyncVar]
     Vector2 movement;
 
     Animator anim;
@@ -46,8 +43,7 @@ public class EnemyMovement : NetworkBehaviour
             if (moving)
             {
                 // Sets a new direction to head in
-                if (this.isServer)
-                    NewHeadingRoutine();
+                NewHeadingRoutine();
                 moving = false;
                 yield return new WaitForSeconds(movementInterval);
             }
@@ -58,8 +54,7 @@ public class EnemyMovement : NetworkBehaviour
 
                 if (attacking)
                 {
-                    if (this.isServer)
-                        autoFire.CmdShoot();
+                    autoFire.Shoot();
                     moving = true;
                 }
                 attacking = !attacking;
