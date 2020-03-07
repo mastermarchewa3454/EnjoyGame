@@ -25,8 +25,6 @@ public class SceneChanger : MonoBehaviour
         PlayerPrefs.SetInt("health", playerHealth.GetCurrHealth());
         PlayerPrefs.SetInt("level", level + 1);
 
-        Debug.Log(PlayerPrefs.GetInt("health"));
-
         theCurrentScene = SceneManager.GetActiveScene().buildIndex;
         if (level % 3 == 0)
         {
@@ -41,6 +39,12 @@ public class SceneChanger : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+
+    public void ChangeToEndScene()
+    {
+        SceneManager.LoadScene("GameEnd");
+    }
+
     public void QuitGame()
     {
         Application.Quit();

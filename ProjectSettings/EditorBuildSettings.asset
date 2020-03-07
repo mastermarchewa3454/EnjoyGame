@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Item room.unity
     guid: 346a7ba78f78bf446aa7486783ff0811
   - enabled: 1
+    path: Assets/Scenes/GameEnd.unity
+    guid: c173d82b15b417643993df51630fe266
+  - enabled: 1
     path: Assets/Scenes/Leaderboard.unity
     guid: 88ec96a56cc575c48acd143f358b3adc
   - enabled: 1

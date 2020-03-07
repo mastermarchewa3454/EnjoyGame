@@ -36,4 +36,9 @@ public class GameHUD : MonoBehaviour
         string seconds = (timer % 60).ToString("00");
         timerText.text = minutes + ":" + seconds;
     }
+
+    public void UpdateHealth(int health)
+    {
+        healthText.text = "Health: " + health + " / 100";
+    }
 }

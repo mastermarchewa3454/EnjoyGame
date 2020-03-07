@@ -8,6 +8,8 @@ public class Health : MonoBehaviour
     private int totalHealth = 100;
     int currHealth;
     Transform bar;
+    SceneChanger sceneChanger;
+    GameHUD gameHUD;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +20,9 @@ public class Health : MonoBehaviour
             currHealth = totalHealth;
         bar = transform.Find("HealthBar/Bar");
         UpdateBar();
+
+        sceneChanger = FindObjectOfType<SceneChanger>();
+        gameHUD = FindObjectOfType<GameHUD>();
     }
 
     void UpdateBar()
@@ -32,7 +37,14 @@ public class Health : MonoBehaviour
 
         if (currHealth <= 0)
         {
-            Destroy(gameObject);
+            if (gameObject.tag == "Player")
+            {
+                sceneChanger.ChangeToStartScene();
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -45,6 +57,11 @@ public class Health : MonoBehaviour
     {
         currHealth = health;
         UpdateBar();
+
+        if (gameObject.tag == "Player")
+        {
+            gameHUD.UpdateHealth(currHealth);
+        }
     }
 
     public int GetMaxHealth()
