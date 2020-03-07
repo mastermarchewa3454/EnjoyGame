@@ -39,7 +39,7 @@ public class Health : MonoBehaviour
         {
             if (gameObject.tag == "Player")
             {
-                sceneChanger.ChangeToStartScene();
+                sceneChanger.ChangeToEndScene();
             }
             else
             {

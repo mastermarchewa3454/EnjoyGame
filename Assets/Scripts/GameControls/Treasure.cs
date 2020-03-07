@@ -9,6 +9,7 @@ public class Treasure : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("YES");
             //Loading level with build index
             SceneManager.LoadScene("Item Choice");
         }

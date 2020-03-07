@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7699132693474637863}
   - component: {fileID: 1043900085828144799}
   - component: {fileID: 114991938841198994}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Lazer2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,3 +145,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitEffect: {fileID: 8709470169737130820, guid: 27ab13718802efd44a45343db796ed75,
     type: 3}
+  damage: 10
