@@ -3,20 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameHeader : MonoBehaviour
+public class GameHUD : MonoBehaviour
 {
-    public Text timerText;
+    public Text healthText;
     public Text levelText;
+    public Text timerText;
 
+    int health;
+    int level;
     float timer;
-    float level;
 
     void Start()
     {
+        health = PlayerPrefs.GetInt("health", 100);
+        level = PlayerPrefs.GetInt("level", 1);
         timer = PlayerPrefs.GetFloat("timer", 0f);
-        level = PlayerPrefs.GetInt("level", 1);     // Level set in SceneChanger
 
+        healthText.text = "Health: " + health + " / 100";
         levelText.text = "Level " + level;
+    }
+
+    void OnDestroy()
+    {
+        PlayerPrefs.SetFloat("timer", timer);
     }
 
     // Update is called once per frame

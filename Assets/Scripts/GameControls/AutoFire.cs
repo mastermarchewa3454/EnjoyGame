@@ -32,7 +32,7 @@ public class AutoFire : MonoBehaviour
         GameObject closestPlayer = null;
         GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
 
-        if (allPlayers != null)
+        if (allPlayers.Length != 0)
         {
             foreach (GameObject player in allPlayers)
             {

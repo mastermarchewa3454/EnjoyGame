@@ -14,7 +14,9 @@ public class NextLevelDoor : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            sceneChanger.ChangeToNextScene();
+            GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+            if (allEnemies.Length == 0)
+                sceneChanger.ChangeToNextScene();
         }
     }
 }
