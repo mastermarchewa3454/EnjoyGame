@@ -32,4 +32,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Social.unity
     guid: 0f08b30e5730a2840a9128ffe425c97d
+  - enabled: 1
+    path: Assets/Scenes/TeacherScreen.unity
+    guid: 9ebb530198a18954c8ef9e0617adcb6f
+  - enabled: 1
+    path: Assets/Scenes/TeacherReport.unity
+    guid: d779afb35644d0742bb88f3e8d418cf8
+  - enabled: 1
+    path: Assets/Scenes/SummaryReportDetails.unity
+    guid: 2b68ce2739bb7b641a54aac261124a48
   m_configObjects: {}

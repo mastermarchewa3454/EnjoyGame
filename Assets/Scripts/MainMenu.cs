@@ -25,7 +25,6 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("Sucessfully Exitted");
         Application.Quit();
-        
     }
 
     public void ReturnMainMenu()
@@ -42,4 +41,15 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("QnA");
     }
+
+    public void EnterTeacherReport()
+    {
+        SceneManager.LoadScene("TeacherReport");
+    }
+
+    public void EnterTeacherScreen()
+    {
+        SceneManager.LoadScene("TeacherScreen");
+    }
+
 }
