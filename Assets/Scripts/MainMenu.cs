@@ -52,4 +52,9 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("TeacherScreen");
     }
 
+    public void EnterReportSummary()
+    {
+        SceneManager.LoadScene("SummaryReportDetails");
+    }
+
 }

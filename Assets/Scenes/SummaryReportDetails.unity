@@ -1305,7 +1305,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "-4/10\n Stages Cleared"
+  m_Text: "2/10\n Stages Cleared"
 --- !u!222 &371625519
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2920,7 +2920,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maximum: 10
-  current: -4
+  current: 2
   minimum: 0
   mask: {fileID: 1508682328}
   fill: {fileID: 1508682328}
@@ -3525,7 +3525,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0
+  m_FillAmount: 0.2
   m_FillClockwise: 1
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
