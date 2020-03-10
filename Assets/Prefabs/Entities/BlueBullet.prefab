@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5604942813027251187}
   - component: {fileID: 3866646389739365263}
   - component: {fileID: 4159528667385628580}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BlueBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
