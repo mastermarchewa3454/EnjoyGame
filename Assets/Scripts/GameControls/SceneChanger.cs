@@ -6,7 +6,7 @@ public class SceneChanger : MonoBehaviour
 {
 
     GameObject player;
-    Health playerHealth;
+    HealthController playerHealth;
 
     int theCurrentScene;
 
@@ -16,7 +16,7 @@ public class SceneChanger : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
-        playerHealth = player.GetComponent<Health>();
+        playerHealth = player.GetComponent<HealthController>();
         level = PlayerPrefs.GetInt("level", 1);
     }
 

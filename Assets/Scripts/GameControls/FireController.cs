@@ -2,25 +2,54 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AutoFire : MonoBehaviour
+public class FireController : MonoBehaviour
 {
-    public float bulletForce = 10f;
-    public float fpRadius = 0.7f;
+    [SerializeField]
+    private float bulletForce = 10f;
 
-    public Transform firePoint;
+    [SerializeField]
+    private float distance = 0.7f;
+
     public GameObject projectilePrefab;
-    public Rigidbody2D rb;
 
-    Vector2 playerPos;
+    private Transform firePoint;
+    private Rigidbody2D rb;
+    private Camera cam;
+
+    Vector2 aimPos;
+
+    void Start()
+    {
+        firePoint = gameObject.transform.Find("FirePoint");
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        cam = Camera.main;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (gameObject.CompareTag("Player"))
+        {
+            aimPos = cam.ScreenToWorldPoint(Input.mousePosition);
+
+            if (Input.GetButtonDown("Fire1"))
+            {
+                Shoot();
+            }
+        }
+    }
 
     void FixedUpdate()
     {
-        FindClosestPlayer();
+        if (gameObject.CompareTag("Enemy"))
+        {
+            FindClosestPlayer();
+        }
 
-        Vector2 lookDir = playerPos - rb.position;
+        Vector2 lookDir = aimPos - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x);
-        firePoint.position = new Vector2(fpRadius * Mathf.Cos(angle) + rb.position.x,
-                                         fpRadius * Mathf.Sin(angle) + rb.position.y);
+        firePoint.position = new Vector2(distance * Mathf.Cos(angle) + rb.position.x,
+                                         distance * Mathf.Sin(angle) + rb.position.y);
         firePoint.transform.eulerAngles = new Vector3(firePoint.transform.eulerAngles.x,
                                                       firePoint.transform.eulerAngles.y,
                                                       angle * Mathf.Rad2Deg);
@@ -45,7 +74,7 @@ public class AutoFire : MonoBehaviour
             }
         }
 
-        playerPos = closestPlayer.transform.position;
+        aimPos = closestPlayer.transform.position;
     }
 
     public void Shoot()
@@ -55,3 +84,4 @@ public class AutoFire : MonoBehaviour
         projectileRb.AddForce(firePoint.right * bulletForce, ForceMode2D.Impulse);
     }
 }
+

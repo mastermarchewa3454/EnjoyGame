@@ -13,7 +13,7 @@ public class EnemyMovement : MonoBehaviour
     Vector2 movement;
 
     Animator anim;
-    AutoFire autoFire;
+    FireController enemyFire;
     bool moving = true;
     bool attacking = false;
     bool faceRight = false;
@@ -21,7 +21,7 @@ public class EnemyMovement : MonoBehaviour
     void Start()
     {
         anim = GameObject.Find("Sprite").GetComponent<Animator>();
-        autoFire = GetComponent<AutoFire>();
+        enemyFire = gameObject.GetComponent<FireController>();
         StartCoroutine(NewHeading());
     }
 
@@ -54,7 +54,7 @@ public class EnemyMovement : MonoBehaviour
 
                 if (attacking)
                 {
-                    autoFire.Shoot();
+                    enemyFire.Shoot();
                     moving = true;
                 }
                 attacking = !attacking;

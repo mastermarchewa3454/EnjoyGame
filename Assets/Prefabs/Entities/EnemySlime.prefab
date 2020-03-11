@@ -255,8 +255,8 @@ GameObject:
   - component: {fileID: 377587030481339104}
   - component: {fileID: 377587030481339105}
   - component: {fileID: 9154223836650072930}
-  - component: {fileID: 1697539654934543092}
   - component: {fileID: 377587030481339108}
+  - component: {fileID: 358649955178084465}
   m_Layer: 9
   m_Name: EnemySlime
   m_TagString: Enemy
@@ -344,24 +344,6 @@ MonoBehaviour:
   movementInterval: 1
   stopInterval: 2
   rb: {fileID: 377587030481339104}
---- !u!114 &1697539654934543092
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 377587030481339109}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57237f12dafe4734980e1000a71e77bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletForce: 10
-  fpRadius: 0.7
-  firePoint: {fileID: 377587030394247425}
-  projectilePrefab: {fileID: 208029046170667836, guid: ed720e285369fb04599684186f94ae5c,
-    type: 3}
-  rb: {fileID: 377587030481339104}
 --- !u!114 &377587030481339108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,6 +357,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalHealth: 50
+--- !u!114 &358649955178084465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377587030481339109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4de0a971e492e4e4fb125f4952bfe6d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletForce: 10
+  distance: 0.7
+  projectilePrefab: {fileID: 208029046170667836, guid: ed720e285369fb04599684186f94ae5c,
+    type: 3}
 --- !u!1 &377587030570376348
 GameObject:
   m_ObjectHideFlags: 0
