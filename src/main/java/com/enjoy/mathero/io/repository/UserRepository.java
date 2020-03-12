@@ -1,4 +1,4 @@
-package com.enjoy.mathero;
+package com.enjoy.mathero.io.repository;
 
 import com.enjoy.mathero.io.entity.UserEntity;
 import org.springframework.data.repository.CrudRepository;
