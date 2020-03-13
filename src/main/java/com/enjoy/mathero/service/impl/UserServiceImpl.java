@@ -1,10 +1,12 @@
 package com.enjoy.mathero.service.impl;
 
+import com.enjoy.mathero.exceptions.UserServiceException;
 import com.enjoy.mathero.io.repository.UserRepository;
 import com.enjoy.mathero.io.entity.UserEntity;
 import com.enjoy.mathero.service.UserService;
 import com.enjoy.mathero.shared.Utils;
 import com.enjoy.mathero.shared.dto.UserDto;
+import com.enjoy.mathero.ui.model.response.ErrorMessages;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -45,6 +47,23 @@ public class UserServiceImpl implements UserService {
         BeanUtils.copyProperties(storedUserDetails, returnValue);
 
         return returnValue;
+    }
+
+    @Override
+    public UserDto updateUser(String userId, UserDto user) {
+        UserDto userDto = new UserDto();
+        UserEntity userEntity = userRepository.findByUserId(userId);
+
+        if(userEntity == null)
+            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+
+        userEntity.setFirstName(user.getFirstName());
+        userEntity.setLastName(user.getLastName());
+
+        UserEntity updatedUserDetails = userRepository.save(userEntity);
+        BeanUtils.copyProperties(updatedUserDetails, userDto);
+
+        return userDto;
     }
 
     @Override
