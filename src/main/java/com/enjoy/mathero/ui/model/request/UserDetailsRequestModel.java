@@ -2,10 +2,20 @@ package com.enjoy.mathero.ui.model.request;
 
 public class UserDetailsRequestModel {
 
+    private String username;
     private String firstName;
     private String lastName;
+    private String classId;
     private String email;
     private String password;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -39,5 +49,11 @@ public class UserDetailsRequestModel {
         this.password = password;
     }
 
+    public String getClassId() {
+        return classId;
+    }
 
+    public void setClassId(String classId) {
+        this.classId = classId;
+    }
 }
