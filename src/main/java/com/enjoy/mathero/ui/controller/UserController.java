@@ -19,11 +19,11 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping(path="/{id}")
-    public UserRest getUser(@PathVariable String id){
+    @GetMapping(path="/{userId}")
+    public UserRest getUser(@PathVariable String userId){
         UserRest returnValue = new UserRest();
 
-        UserDto userDto = userService.getUserByUserId(id);
+        UserDto userDto = userService.getUserByUserId(userId);
         BeanUtils.copyProperties(userDto, returnValue);
 
         return returnValue;
@@ -42,7 +42,7 @@ public class UserController {
         return returnValue;
     }
 
-    @PutMapping(path="/{id}")
+    @PutMapping(path="/{userId}")
     public UserRest updateUser(@PathVariable String userId, @RequestBody UserDetailsRequestModel userDetails){
         UserRest returnValue = new UserRest();
 
@@ -55,7 +55,7 @@ public class UserController {
         return returnValue;
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/{userId}")
     public OperationStatusModel deleteUser(@PathVariable String userId){
         OperationStatusModel returnValue = new OperationStatusModel();
         returnValue.setOperationName("DELETE");
