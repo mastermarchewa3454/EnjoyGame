@@ -7,16 +7,16 @@ public class ItemChoice : MonoBehaviour
 {
     public void GetHealth()
     {
-        SceneManager.LoadScene("Item room");
+        SceneManager.LoadScene("QuestionDisplay");
     }
 
     public void GetAttack()
     {
-        SceneManager.LoadScene("Item room");
+        SceneManager.LoadScene("QuestionDisplay");
     }
 
     public void GetSpeed()
     {
-        SceneManager.LoadScene("Item room");
+        SceneManager.LoadScene("QuestionDisplay");
     }
 }
