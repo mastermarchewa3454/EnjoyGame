@@ -59,5 +59,9 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("SummaryReportDetails");
     }
+    public void EnterLogIn()
+    {
+        SceneManager.LoadScene("LoginScreen");
+    }
 
 }
