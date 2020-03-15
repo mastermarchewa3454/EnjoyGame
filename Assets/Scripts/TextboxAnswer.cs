@@ -24,5 +24,4 @@ public class TextboxAnswer : MonoBehaviour
     {
         SceneManager.LoadScene("Item Choice");
     }
-
 }
