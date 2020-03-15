@@ -5,36 +5,59 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public void Start()
+    {
+        PlayerPrefs.DeleteKey("health");
+        PlayerPrefs.DeleteKey("timer");
+        PlayerPrefs.DeleteKey("level");
+        PlayerPrefs.DeleteKey("treasure");
+    }
+
 
     public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("StageSelection");
     }
 
     public void Leaderboard()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 4);
+        SceneManager.LoadScene("Leaderboard");
     }
 
     public void QuitGame()
     {
         Debug.Log("Sucessfully Exitted");
         Application.Quit();
-        
     }
 
     public void ReturnMainMenu()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("StartScreen");
     }
 
     public void EnterSocialMenu()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 6);
+        SceneManager.LoadScene("Social");
     }
 
     public void EnterCustomLobby()
     {
-        SceneManager.LoadScene(5);
+        SceneManager.LoadScene("QnA");
     }
+
+    public void EnterTeacherReport()
+    {
+        SceneManager.LoadScene("TeacherReport");
+    }
+
+    public void EnterTeacherScreen()
+    {
+        SceneManager.LoadScene("TeacherScreen");
+    }
+
+    public void EnterReportSummary()
+    {
+        SceneManager.LoadScene("SummaryReportDetails");
+    }
+
 }
