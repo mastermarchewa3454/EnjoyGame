@@ -1,10 +1,9 @@
 package com.enjoy.mathero.io.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name="users")
 public class UserEntity implements Serializable {
@@ -35,6 +34,9 @@ public class UserEntity implements Serializable {
 
     @Column(nullable=false)
     private String encryptedPassword;
+
+    @OneToMany(mappedBy = "userDetails", cascade = CascadeType.ALL)
+    private List<SoloResultEntity> soloResults = new ArrayList<>();
 
     public long getId() {
         return id;

@@ -1,10 +1,14 @@
 package com.enjoy.mathero.ui.controller;
 
+import com.enjoy.mathero.service.SoloResultService;
 import com.enjoy.mathero.service.UserService;
+import com.enjoy.mathero.shared.dto.SoloResultDto;
 import com.enjoy.mathero.shared.dto.UserDto;
 import com.enjoy.mathero.ui.model.request.UserDetailsRequestModel;
 import com.enjoy.mathero.ui.model.response.OperationStatusModel;
+import com.enjoy.mathero.ui.model.response.SoloResultRest;
 import com.enjoy.mathero.ui.model.response.UserRest;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +22,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    SoloResultService soloResultService;
 
     @GetMapping(path="/{userId}")
     public UserRest getUser(@PathVariable String userId){
@@ -80,6 +87,25 @@ public class UserController {
         }
 
         return returnValue;
+    }
+
+    @GetMapping(path = "/{userId}/results")
+    public List<SoloResultRest> getUserSoloResults(@PathVariable String userId){
+        List<SoloResultRest> returnValue = new ArrayList<>();
+
+        List<SoloResultDto> soloResultDtos = soloResultService.getSoloResultsByUserId(userId);
+
+        ModelMapper modelMapper = new ModelMapper();
+
+        for(SoloResultDto soloResultDto: soloResultDtos){
+            SoloResultRest soloResultRest = new SoloResultRest();
+            BeanUtils.copyProperties(soloResultDto, soloResultRest);
+            soloResultRest.setUserId(userId);
+            returnValue.add(soloResultRest);
+        }
+
+        return returnValue;
+
     }
 
 }

@@ -7,6 +7,7 @@ import com.enjoy.mathero.service.UserService;
 import com.enjoy.mathero.shared.Utils;
 import com.enjoy.mathero.shared.dto.UserDto;
 import com.enjoy.mathero.ui.model.response.ErrorMessages;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -84,13 +85,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserByUserId(String userId) {
-        UserDto userDto = new UserDto();
         UserEntity userEntity = userRepository.findByUserId(userId);
 
         if(userEntity == null)
             throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
-        BeanUtils.copyProperties(userEntity, userDto);
+        ModelMapper modelMapper = new ModelMapper();
+        UserDto userDto = modelMapper.map(userEntity, UserDto.class);
 
         return userDto;
     }
