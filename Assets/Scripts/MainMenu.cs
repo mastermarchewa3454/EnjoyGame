@@ -7,7 +7,10 @@ public class MainMenu : MonoBehaviour
 {
     public void Start()
     {
-        PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteKey("health");
+        PlayerPrefs.DeleteKey("timer");
+        PlayerPrefs.DeleteKey("level");
+        PlayerPrefs.DeleteKey("treasure");
     }
 
 
