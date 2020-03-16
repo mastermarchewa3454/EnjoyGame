@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Class to contain the functions required during custom creation lobby
@@ -51,7 +52,7 @@ public class GameManager : MonoBehaviour
     {
         if (counterValue == 20)
         {
-            return;
+            SceneManager.LoadScene("CustomLobbyComplete");
         }
         else
         {

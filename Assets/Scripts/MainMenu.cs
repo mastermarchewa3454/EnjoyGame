@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class MainMenu : MonoBehaviour
 {
+
+
     public void Start()
     {
         PlayerPrefs.DeleteKey("health");
@@ -92,5 +94,13 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("LoginScreen");
     }
-
+    /// <summary>
+    /// Method call to choose the class and students to view the report for the teacher.
+    /// </summary>
+    public void EnterCustomLobbyTeacherEdt()
+    {
+        PlayerPrefs.SetInt("Teacher", SceneManager.GetActiveScene().buildIndex);
+        PlayerPrefs.Save();
+        SceneManager.LoadScene("QnA");
+    }
 }
