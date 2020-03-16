@@ -33,6 +33,14 @@ public class MainMenu : MonoBehaviour
     }
 
     /// <summary>
+    /// Method call to view the duo mode screen
+    /// </summary>
+    public void DuoMode()
+    {
+        SceneManager.LoadScene("DuoMode");
+    }
+
+    /// <summary>
     /// Method call to End the game.
     /// </summary>
     public void QuitGame()
