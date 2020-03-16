@@ -7,4 +7,5 @@ import java.util.List;
 public interface SoloResultService {
     SoloResultDto createSoloResult(SoloResultDto soloResultDto);
     List<SoloResultDto> getSoloResultsByUserId(String userId);
+    List<SoloResultDto> getTop10();
 }

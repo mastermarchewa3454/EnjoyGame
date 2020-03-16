@@ -64,4 +64,18 @@ public class SoloResultServiceImpl implements SoloResultService {
 
         return returnValue;
     }
+
+    @Override
+    public List<SoloResultDto> getTop10() {
+        List<SoloResultDto> returnValue = new ArrayList<>();
+
+        List<SoloResultEntity> top10 = soloResultRepository.findTop10ByOrderByScoreDesc();
+        ModelMapper modelMapper = new ModelMapper();
+
+        for(SoloResultEntity soloResultEntity: top10){
+            returnValue.add(modelMapper.map(soloResultEntity, SoloResultDto.class));
+        }
+
+        return returnValue;
+    }
 }

@@ -16,6 +16,8 @@ public class UserDto implements Serializable {
     private String password;
     private String encryptedPassword;
     private List<SoloResultDto> soloResults;
+    private List<FriendshipDto> friendsRequests;
+    private List<FriendshipDto> friendOf;
 
     public long getId() {
         return id;
@@ -95,5 +97,21 @@ public class UserDto implements Serializable {
 
     public void setSoloResults(List<SoloResultDto> soloResults) {
         this.soloResults = soloResults;
+    }
+
+    public List<FriendshipDto> getFriendsRequests() {
+        return friendsRequests;
+    }
+
+    public void setFriendsRequests(List<FriendshipDto> friendsRequests) {
+        this.friendsRequests = friendsRequests;
+    }
+
+    public List<FriendshipDto> getFriendOf() {
+        return friendOf;
+    }
+
+    public void setFriendOf(List<FriendshipDto> friendOf) {
+        this.friendOf = friendOf;
     }
 }

@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface SoloResultRepository extends CrudRepository<SoloResultEntity, Long> {
     List<SoloResultEntity> findAllByUserDetails(UserEntity userEntity);
+    List<SoloResultEntity> findTop10ByOrderByScoreDesc();
 }

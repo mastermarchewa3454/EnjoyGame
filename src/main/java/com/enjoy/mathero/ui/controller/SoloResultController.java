@@ -13,6 +13,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -33,6 +34,20 @@ public class SoloResultController {
     public List<SoloResultRest> getResultsByUserId(@PathVariable String userId){
         return null;
     }*/
+
+    @GetMapping(path = "/results/top10")
+    public List<SoloResultRest> getTop10(){
+        List<SoloResultRest> returnValue = new ArrayList<>();
+
+        List<SoloResultDto> soloResultDtos = resultService.getTop10();
+        for(SoloResultDto soloResultDto: soloResultDtos){
+            SoloResultRest soloResultRest = new SoloResultRest();
+            BeanUtils.copyProperties(soloResultDto, soloResultRest);
+            soloResultRest.setUserId(soloResultDto.getUserDetails().getUserId());
+            returnValue.add(soloResultRest);
+        }
+        return returnValue;
+    }
 
     @GetMapping(path = "/results")
     public List<SoloResultRest> getAllResults(){

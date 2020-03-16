@@ -1,11 +1,20 @@
 package com.enjoy.mathero.shared.dto;
 
 public class SoloResultDto {
+    private long id;
     private String resultId;
     private float score;
     private int stageNumber;
     private float time;
     private UserDto userDetails;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getResultId() {
         return resultId;
