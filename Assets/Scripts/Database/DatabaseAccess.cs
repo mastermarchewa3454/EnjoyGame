@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
+using UnityEngine.Networking;
 
 public class DatabaseAccess : MonoBehaviour
 {
-    public InputField nameField;
-    public InputField passwordField;
+    public TMP_Dropdown dropdownMenu;
+    public TMP_InputField email;
+    public TMP_InputField usernameField;
+    public TMP_InputField passwordField;
+    public TMP_InputField firstNameField;
+    public TMP_InputField lastNameField;
+    public Button registerButton;
 
-    public Button submitButton;
 
     public void CallRegister()
     {
@@ -18,11 +24,23 @@ public class DatabaseAccess : MonoBehaviour
 
     IEnumerator Register()
     {
-        WWWForm form = new WWWForm();
-        form.AddField("name", nameField.text);
+        //get the selected index
+        int menuIndex = dropdownMenu.value;
+        //get all options available within this dropdown menu
+        List<TMP_Dropdown.OptionData> menuOptions = dropdownMenu.options;
+        //get the string value of the selected index
+        string value = menuOptions[menuIndex].text;
+
+
+        WWWForm form = new WWWForm(); ///creation of an empty form
+        form.AddField("class", value);
+        form.AddField("email", email.text);
+        form.AddField("firstName", firstNameField.text);
+        form.AddField("lastName", lastNameField.text);
+        form.AddField("userName", usernameField.text);
         form.AddField("password", passwordField.text);
-        WWW www = new WWW("http://13.229.205.106:8080/mathero");
-        yield return www;
+        UnityWebRequest www = new UnityWebRequest.Get("http://13.229.205.106:8080/mathero/users");
+        yield return www.SendWebRequest();
         if (www.text == "0")
         {
             Debug.Log("User created successfully.");
@@ -41,6 +59,6 @@ public class DatabaseAccess : MonoBehaviour
     /// </summary>
     public void VerifyInputs()
     {
-        submitButton.interactable = (nameField.text.Length >= 8 && passwordField.text.Length >= 8);
+        registerButton.interactable = (usernameField.text.Length >= 8 && passwordField.text.Length >= 8);
     }
 }
