@@ -1,22 +1,21 @@
-package com.enjoy.mathero.ui.model.request;
+package com.enjoy.mathero.ui.model.response;
 
-public class SoloResultRequestModel {
-
-    private int score;
+public class StageSummaryReportRest {
+    private String userId;
     private int stageNumber;
     private int easyCorrect;
-    private int mediumCorrect;
-    private int hardCorrect;
     private int easyTotal;
+    private int mediumCorrect;
     private int mediumTotal;
+    private int hardCorrect;
     private int hardTotal;
 
-    public int getScore() {
-        return score;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public int getStageNumber() {
@@ -35,22 +34,6 @@ public class SoloResultRequestModel {
         this.easyCorrect = easyCorrect;
     }
 
-    public int getMediumCorrect() {
-        return mediumCorrect;
-    }
-
-    public void setMediumCorrect(int mediumCorrect) {
-        this.mediumCorrect = mediumCorrect;
-    }
-
-    public int getHardCorrect() {
-        return hardCorrect;
-    }
-
-    public void setHardCorrect(int hardCorrect) {
-        this.hardCorrect = hardCorrect;
-    }
-
     public int getEasyTotal() {
         return easyTotal;
     }
@@ -59,12 +42,28 @@ public class SoloResultRequestModel {
         this.easyTotal = easyTotal;
     }
 
+    public int getMediumCorrect() {
+        return mediumCorrect;
+    }
+
+    public void setMediumCorrect(int mediumCorrect) {
+        this.mediumCorrect = mediumCorrect;
+    }
+
     public int getMediumTotal() {
         return mediumTotal;
     }
 
     public void setMediumTotal(int mediumTotal) {
         this.mediumTotal = mediumTotal;
+    }
+
+    public int getHardCorrect() {
+        return hardCorrect;
+    }
+
+    public void setHardCorrect(int hardCorrect) {
+        this.hardCorrect = hardCorrect;
     }
 
     public int getHardTotal() {

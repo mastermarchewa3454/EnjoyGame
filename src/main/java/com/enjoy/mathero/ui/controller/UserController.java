@@ -1,13 +1,10 @@
 package com.enjoy.mathero.ui.controller;
 
 import com.enjoy.mathero.exceptions.UserServiceException;
-import com.enjoy.mathero.service.FriendshipService;
 import com.enjoy.mathero.service.SoloResultService;
 import com.enjoy.mathero.service.UserService;
-import com.enjoy.mathero.shared.dto.FriendshipDto;
 import com.enjoy.mathero.shared.dto.SoloResultDto;
 import com.enjoy.mathero.shared.dto.UserDto;
-import com.enjoy.mathero.ui.model.request.FriendshipRequestModel;
 import com.enjoy.mathero.ui.model.request.UserDetailsRequestModel;
 import com.enjoy.mathero.ui.model.response.*;
 import org.modelmapper.ModelMapper;
@@ -28,10 +25,7 @@ public class UserController {
     @Autowired
     SoloResultService soloResultService;
 
-    @Autowired
-    FriendshipService friendshipService;
-
-
+    
     @GetMapping(path="/{userId}")
     public UserRest getUser(@PathVariable String userId){
         UserRest returnValue = new UserRest();
@@ -114,27 +108,4 @@ public class UserController {
 
     }
 
-    @PostMapping(path = "/{userId}/friends")
-    public FriendshipRest createFriendship(@PathVariable String userId, @RequestBody FriendshipRequestModel friendshipRequestModel){
-        FriendshipRest returnValue = new FriendshipRest();
-
-        UserDto requester = userService.getUserByUserId(userId);
-        UserDto friend = userService.getUserByUserId(friendshipRequestModel.getFriendId());
-
-        if(requester == null || friend == null || requester.getUserId().equals(friend.getUserId()))
-            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
-
-        FriendshipDto friendshipDto = new FriendshipDto();
-        friendshipDto.setRequester(requester);
-        friendshipDto.setFriend(friend);
-        friendshipDto.setActive(false);
-
-        FriendshipDto saved = friendshipService.createFriendship(friendshipDto);
-
-        returnValue.setRequesterId(saved.getRequester().getUserId());
-        returnValue.setFriendId(saved.getFriend().getUserId());
-        returnValue.setActive(saved.getActive());
-
-        return returnValue;
-    }
 }

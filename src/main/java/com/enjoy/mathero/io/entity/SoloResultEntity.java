@@ -15,13 +15,28 @@ public class SoloResultEntity implements Serializable {
     private String resultId;
 
     @Column(nullable = false)
-    private float score;
+    private int score;
 
     @Column(nullable = false)
     private int stageNumber;
 
     @Column(nullable = false)
-    private float time;
+    private int easyCorrect;
+
+    @Column(nullable = false)
+    private int mediumCorrect;
+
+    @Column(nullable = false)
+    private int hardCorrect;
+
+    @Column(nullable = false)
+    private int easyTotal;
+
+    @Column(nullable = false)
+    private int mediumTotal;
+
+    @Column(nullable = false)
+    private int hardTotal;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -43,11 +58,11 @@ public class SoloResultEntity implements Serializable {
         this.resultId = resultId;
     }
 
-    public float getScore() {
+    public int getScore() {
         return score;
     }
 
-    public void setScore(float score) {
+    public void setScore(int score) {
         this.score = score;
     }
 
@@ -59,20 +74,60 @@ public class SoloResultEntity implements Serializable {
         this.stageNumber = stageNumber;
     }
 
-    public float getTime() {
-        return time;
-    }
-
-    public void setTime(float time) {
-        this.time = time;
-    }
-
     public UserEntity getUserDetails() {
         return userDetails;
     }
 
     public void setUserDetails(UserEntity userDetails) {
         this.userDetails = userDetails;
+    }
+
+    public int getEasyCorrect() {
+        return easyCorrect;
+    }
+
+    public void setEasyCorrect(int easyCorrect) {
+        this.easyCorrect = easyCorrect;
+    }
+
+    public int getMediumCorrect() {
+        return mediumCorrect;
+    }
+
+    public void setMediumCorrect(int mediumCorrect) {
+        this.mediumCorrect = mediumCorrect;
+    }
+
+    public int getHardCorrect() {
+        return hardCorrect;
+    }
+
+    public void setHardCorrect(int hardCorrect) {
+        this.hardCorrect = hardCorrect;
+    }
+
+    public int getEasyTotal() {
+        return easyTotal;
+    }
+
+    public void setEasyTotal(int easyTotal) {
+        this.easyTotal = easyTotal;
+    }
+
+    public int getMediumTotal() {
+        return mediumTotal;
+    }
+
+    public void setMediumTotal(int mediumTotal) {
+        this.mediumTotal = mediumTotal;
+    }
+
+    public int getHardTotal() {
+        return hardTotal;
+    }
+
+    public void setHardTotal(int hardTotal) {
+        this.hardTotal = hardTotal;
     }
 
     @Override

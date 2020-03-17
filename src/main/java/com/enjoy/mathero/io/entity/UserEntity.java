@@ -39,11 +39,6 @@ public class UserEntity implements Serializable {
     @OneToMany(mappedBy = "userDetails", cascade = CascadeType.ALL)
     private List<SoloResultEntity> soloResults = new ArrayList<>();
 
-    @OneToMany(mappedBy = "requester", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<FriendshipEntity> friendsRequests = new ArrayList<>();
-
-    @OneToMany(mappedBy = "friend", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<FriendshipEntity> friendOf = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -117,19 +112,4 @@ public class UserEntity implements Serializable {
         this.soloResults = soloResults;
     }
 
-    public List<FriendshipEntity> getFriendsRequests() {
-        return friendsRequests;
-    }
-
-    public void setFriendsRequests(List<FriendshipEntity> friendsRequests) {
-        this.friendsRequests = friendsRequests;
-    }
-
-    public List<FriendshipEntity> getFriendOf() {
-        return friendOf;
-    }
-
-    public void setFriendOf(List<FriendshipEntity> friendOf) {
-        this.friendOf = friendOf;
-    }
 }

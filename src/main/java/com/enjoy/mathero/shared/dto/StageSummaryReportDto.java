@@ -1,8 +1,7 @@
-package com.enjoy.mathero.ui.model.request;
+package com.enjoy.mathero.shared.dto;
 
-public class SoloResultRequestModel {
-
-    private int score;
+public class StageSummaryReportDto {
+    private String userId;
     private int stageNumber;
     private int easyCorrect;
     private int mediumCorrect;
@@ -11,12 +10,12 @@ public class SoloResultRequestModel {
     private int mediumTotal;
     private int hardTotal;
 
-    public int getScore() {
-        return score;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public int getStageNumber() {

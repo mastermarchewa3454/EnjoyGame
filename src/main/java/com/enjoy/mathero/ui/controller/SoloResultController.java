@@ -5,10 +5,13 @@ import com.enjoy.mathero.io.entity.UserEntity;
 import com.enjoy.mathero.service.SoloResultService;
 import com.enjoy.mathero.service.UserService;
 import com.enjoy.mathero.shared.dto.SoloResultDto;
+import com.enjoy.mathero.shared.dto.StageSummaryReportDto;
 import com.enjoy.mathero.shared.dto.UserDto;
 import com.enjoy.mathero.ui.model.request.SoloResultRequestModel;
 import com.enjoy.mathero.ui.model.response.ErrorMessages;
 import com.enjoy.mathero.ui.model.response.SoloResultRest;
+import com.enjoy.mathero.ui.model.response.StageSummaryReportRest;
+import javafx.stage.Stage;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -72,4 +75,40 @@ public class SoloResultController {
 
         return returnValue;
     }
+
+    @GetMapping(path = "/users/{userId}/summary-report")
+    public StageSummaryReportRest getStageSummaryReport(@RequestParam(name = "stageNumber") int stageNumber, @PathVariable String userId){
+        StageSummaryReportRest returnValue = new StageSummaryReportRest();
+
+        UserDto userDto = userService.getUserByUserId(userId);
+        if(userDto == null)
+            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+
+        StageSummaryReportDto stageSummaryReportDto = resultService.getStageSummaryReportByUserId(userId, stageNumber);
+        BeanUtils.copyProperties(stageSummaryReportDto, returnValue);
+
+        return returnValue;
+
+    }
+
+    @GetMapping(path = "/users/{userId}/summary-report-all")
+    public List<StageSummaryReportRest> getAllStageSummaryReport(@PathVariable String userId){
+        List<StageSummaryReportRest> returnValue = new ArrayList<>();
+
+        UserDto userDto = userService.getUserByUserId(userId);
+        if(userDto == null)
+            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+
+        List<StageSummaryReportDto> results = resultService.getAllStagesReportsByUserId(userId);
+
+        for(StageSummaryReportDto dto: results){
+            StageSummaryReportRest rest = new StageSummaryReportRest();
+            BeanUtils.copyProperties(dto, rest);
+            returnValue.add(rest);
+        }
+
+        return returnValue;
+
+    }
+
 }
