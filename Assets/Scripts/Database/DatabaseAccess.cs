@@ -39,16 +39,16 @@ public class DatabaseAccess : MonoBehaviour
         form.AddField("lastName", lastNameField.text);
         form.AddField("userName", usernameField.text);
         form.AddField("password", passwordField.text);
-        UnityWebRequest www = new UnityWebRequest.Get("http://13.229.205.106:8080/mathero/users");
+        UnityWebRequest www = UnityWebRequest.Get("http://13.229.205.106:8080/mathero/users");
         yield return www.SendWebRequest();
-        if (www.text == "0")
+        if (www.isNetworkError || www.isHttpError)
         {
-            Debug.Log("User created successfully.");
-            //SceneManager.LoadScene(0) Include this if you want to load a certain scene after registering acc.
+            Debug.Log("User Creation failed. Error #" + www.error);
         }
         else
         {
-            Debug.Log("User Creation failed. Error #" + www.text);
+            Debug.Log("User created successfully.");
+            //SceneManager.LoadScene(0) Include this if you want to load a certain scene after registering acc.
         }
     }
     /// <summary>
