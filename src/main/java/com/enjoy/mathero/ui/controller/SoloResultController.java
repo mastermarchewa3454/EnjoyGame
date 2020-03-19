@@ -11,7 +11,6 @@ import com.enjoy.mathero.ui.model.request.SoloResultRequestModel;
 import com.enjoy.mathero.ui.model.response.ErrorMessages;
 import com.enjoy.mathero.ui.model.response.SoloResultRest;
 import com.enjoy.mathero.ui.model.response.StageSummaryReportRest;
-import javafx.stage.Stage;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -1,5 +1,7 @@
 package com.enjoy.mathero.shared.dto;
 
+import com.enjoy.mathero.io.entity.ClassEntity;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,11 +13,12 @@ public class UserDto implements Serializable {
     private String username;
     private String firstName;
     private String lastName;
-    private String classId;
+    private ClassDto classDetails;
     private String email;
     private String password;
     private String encryptedPassword;
     private List<SoloResultDto> soloResults;
+    private List<ClassDto> teachClasses;
 
     public long getId() {
         return id;
@@ -81,12 +84,12 @@ public class UserDto implements Serializable {
         this.encryptedPassword = encryptedPassword;
     }
 
-    public String getClassId() {
-        return classId;
+    public ClassDto getClassDetails() {
+        return classDetails;
     }
 
-    public void setClassId(String classId) {
-        this.classId = classId;
+    public void setClassDetails(ClassDto classDetails) {
+        this.classDetails = classDetails;
     }
 
     public List<SoloResultDto> getSoloResults() {
@@ -97,4 +100,11 @@ public class UserDto implements Serializable {
         this.soloResults = soloResults;
     }
 
+    public List<ClassDto> getTeachClasses() {
+        return teachClasses;
+    }
+
+    public void setTeachClasses(List<ClassDto> teachClasses) {
+        this.teachClasses = teachClasses;
+    }
 }

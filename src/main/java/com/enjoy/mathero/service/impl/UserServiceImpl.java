@@ -1,18 +1,30 @@
 package com.enjoy.mathero.service.impl;
 
 import com.enjoy.mathero.exceptions.UserServiceException;
+import com.enjoy.mathero.io.entity.ClassEntity;
+import com.enjoy.mathero.io.entity.RoleEntity;
+import com.enjoy.mathero.io.repository.ClassRepository;
+import com.enjoy.mathero.io.repository.RoleRepository;
 import com.enjoy.mathero.io.repository.UserRepository;
 import com.enjoy.mathero.io.entity.UserEntity;
 import com.enjoy.mathero.service.UserService;
 import com.enjoy.mathero.shared.Utils;
+import com.enjoy.mathero.shared.dto.ClassDto;
 import com.enjoy.mathero.shared.dto.UserDto;
+import com.enjoy.mathero.ui.model.response.ErrorMessage;
 import com.enjoy.mathero.ui.model.response.ErrorMessages;
+import org.hibernate.Hibernate;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,13 +32,22 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
 
+    static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
+
+    @Autowired
+    ClassRepository classRepository;
 
     @Autowired
     Utils utils;
@@ -35,22 +56,32 @@ public class UserServiceImpl implements UserService {
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public UserDto createUser(UserDto user) {
+    public UserDto createUser(UserDto user, String role, String className) {
 
         if(userRepository.findByUsername(user.getUsername()) != null)
             throw new UserServiceException(ErrorMessages.RECORD_ALREADY_EXISTS.getErrorMessage());
 
+        ClassEntity studentClass = classRepository.findByClassName(className);
+        if(studentClass == null && role.equals("ROLE_STUDENT"))
+            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
         UserEntity userEntity = new UserEntity();
         BeanUtils.copyProperties(user, userEntity);
 
         String publicUserId = utils.generateUserID(30);
         userEntity.setEncryptedPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userEntity.setUserId(publicUserId);
+        List<RoleEntity> roles = new ArrayList<>();
+        roles.add(roleRepository.findByRoleName(role));
+        userEntity.setRoles(roles);
+        userEntity.setClassDetails(studentClass);
 
         UserEntity storedUserDetails = userRepository.save(userEntity);
+        ClassDto classDto = new ClassDto();
+        BeanUtils.copyProperties(storedUserDetails.getClassDetails(), classDto);
 
         UserDto returnValue = new UserDto();
         BeanUtils.copyProperties(storedUserDetails, returnValue);
+        returnValue.setClassDetails(classDto);
 
         return returnValue;
     }
@@ -103,7 +134,14 @@ public class UserServiceImpl implements UserService {
         if(userEntity == null)
             throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
-        return new User(userEntity.getUsername(), userEntity.getEncryptedPassword(), new ArrayList<>());
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        List<RoleEntity> roles = userEntity.getRoles();
+        for(RoleEntity role: roles){
+            authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+            logger.info("Roles {}", new SimpleGrantedAuthority(role.getRoleName()));
+        }
+
+        return new User(userEntity.getUsername(), userEntity.getEncryptedPassword(), authorities);
     }
 
     @Override
@@ -133,4 +171,5 @@ public class UserServiceImpl implements UserService {
 
         return returnValue;
     }
+
 }

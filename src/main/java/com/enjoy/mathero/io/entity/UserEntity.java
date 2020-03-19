@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity(name="users")
 public class UserEntity implements Serializable {
@@ -30,14 +29,25 @@ public class UserEntity implements Serializable {
     @Column(nullable=false, length = 120)
     private String email;
 
-    @Column(length = 50)
-    private String classId;
+    @ManyToOne
+    @JoinColumn(name = "class_id")
+    private ClassEntity classDetails;
 
     @Column(nullable=false)
     private String encryptedPassword;
 
     @OneToMany(mappedBy = "userDetails", cascade = CascadeType.ALL)
     private List<SoloResultEntity> soloResults = new ArrayList<>();
+
+    @OneToMany(mappedBy = "teacherDetails")
+    private List<ClassEntity> teachClasses = new ArrayList<>();
+
+    @ManyToMany(cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinTable(
+            name="user_role",
+            joinColumns={@JoinColumn(name="user_id")},
+            inverseJoinColumns={@JoinColumn(name="role_id")})
+    private List<RoleEntity> roles;
 
 
     public long getId() {
@@ -96,12 +106,12 @@ public class UserEntity implements Serializable {
         return username;
     }
 
-    public String getClassId() {
-        return classId;
+    public ClassEntity getClassDetails() {
+        return classDetails;
     }
 
-    public void setClassId(String classId) {
-        this.classId = classId;
+    public void setClassDetails(ClassEntity classDetails) {
+        this.classDetails = classDetails;
     }
 
     public List<SoloResultEntity> getSoloResults() {
@@ -112,4 +122,19 @@ public class UserEntity implements Serializable {
         this.soloResults = soloResults;
     }
 
+    public List<ClassEntity> getTeachClasses() {
+        return teachClasses;
+    }
+
+    public void setTeachClasses(List<ClassEntity> teachClasses) {
+        this.teachClasses = teachClasses;
+    }
+
+    public List<RoleEntity> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<RoleEntity> roles) {
+        this.roles = roles;
+    }
 }

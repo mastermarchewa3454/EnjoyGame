@@ -1,21 +1,14 @@
-package com.enjoy.mathero.ui.model.response;
+package com.enjoy.mathero.ui.model.request;
 
-public class UserRest {
+import java.util.List;
 
-    private String userId;
+public class TeacherDetailsRequestModel {
+
     private String username;
     private String firstName;
     private String lastName;
     private String email;
-    private String className;
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+    private String password;
 
     public String getUsername() {
         return username;
@@ -33,14 +26,6 @@ public class UserRest {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -49,11 +34,19 @@ public class UserRest {
         this.email = email;
     }
 
-    public String getClassName() {
-        return className;
+    public String getPassword() {
+        return password;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }

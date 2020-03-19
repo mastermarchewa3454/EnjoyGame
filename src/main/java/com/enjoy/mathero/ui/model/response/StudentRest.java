@@ -1,29 +1,9 @@
 package com.enjoy.mathero.ui.model.response;
 
-public class UserRest {
-
-    private String userId;
-    private String username;
+public class StudentRest {
     private String firstName;
     private String lastName;
     private String email;
-    private String className;
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -47,13 +27,5 @@ public class UserRest {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
     }
 }

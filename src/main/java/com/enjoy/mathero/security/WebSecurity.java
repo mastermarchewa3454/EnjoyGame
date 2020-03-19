@@ -1,5 +1,6 @@
 package com.enjoy.mathero.security;
 
+import com.enjoy.mathero.io.repository.UserRepository;
 import com.enjoy.mathero.service.UserService;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,10 +15,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     private final UserService userDetailsService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserRepository userRepository;
 
-    public WebSecurity(UserService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder){
+    public WebSecurity(UserService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder, UserRepository userRepository){
         this.userDetailsService = userDetailsService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -25,9 +28,13 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL)
                 .permitAll()
+                .antMatchers(HttpMethod.POST, SecurityConstants.CREATE_TEACHER_URL)
+                .hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, SecurityConstants.CREATE_CLASS_URL)
+                .hasRole("ADMIN")
                 .anyRequest().authenticated().and()
                 .addFilter(getAuthenticationFilter())
-                .addFilter(new AuthorizationFilter(authenticationManager()))
+                .addFilter(new AuthorizationFilter(authenticationManager(), userRepository))
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
