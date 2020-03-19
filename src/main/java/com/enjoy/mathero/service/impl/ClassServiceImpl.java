@@ -13,9 +13,11 @@ import com.enjoy.mathero.ui.model.response.ErrorMessages;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -56,6 +58,27 @@ public class ClassServiceImpl implements ClassService {
 
     @Override
     public List<ClassDto> getClasses() {
-        return null;
+        List<ClassDto> returnValue = new ArrayList<>();
+        ModelMapper modelMapper = new ModelMapper();
+
+        Iterable<ClassEntity> allEntities = classRepository.findAll();
+
+        for(ClassEntity classEntity: allEntities){
+            ClassDto classDto = new ClassDto();
+            UserDto teacher = new UserDto();
+            BeanUtils.copyProperties(classEntity.getTeacherDetails(), teacher);
+            List<UserDto> students = new ArrayList<>();
+            for(UserEntity userEntity: classEntity.getStudents()){
+                UserDto userDto = new UserDto();
+                BeanUtils.copyProperties(userEntity, userDto);
+                students.add(userDto);
+            }
+            classDto.setTeacherDetails(teacher);
+            classDto.setStudents(students);
+            BeanUtils.copyProperties(classEntity, classDto);
+            returnValue.add(classDto);
+        }
+
+        return returnValue;
     }
 }

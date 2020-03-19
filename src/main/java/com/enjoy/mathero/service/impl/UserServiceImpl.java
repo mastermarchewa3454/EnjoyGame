@@ -38,8 +38,6 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-    static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
-
     @Autowired
     UserRepository userRepository;
 
@@ -138,7 +136,6 @@ public class UserServiceImpl implements UserService {
         List<RoleEntity> roles = userEntity.getRoles();
         for(RoleEntity role: roles){
             authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
-            logger.info("Roles {}", new SimpleGrantedAuthority(role.getRoleName()));
         }
 
         return new User(userEntity.getUsername(), userEntity.getEncryptedPassword(), authorities);

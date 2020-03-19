@@ -27,8 +27,6 @@ import java.util.List;
 public class AuthorizationFilter extends BasicAuthenticationFilter {
     private final UserRepository userRepository;
 
-    static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
-
 
     public AuthorizationFilter(AuthenticationManager authenticationManager, UserRepository userRepository){
         super(authenticationManager);
@@ -66,7 +64,6 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
                 List<GrantedAuthority> roles = new ArrayList<>();
                 for(RoleEntity role: userEntity.getRoles()){
                     roles.add(new SimpleGrantedAuthority(role.getRoleName()));
-                    logger.info("Roles once again {}", new SimpleGrantedAuthority(role.getRoleName()));
                 }
 
                 return new UsernamePasswordAuthenticationToken(user, null, roles);
