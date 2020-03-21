@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Date;
 
 @ControllerAdvice
@@ -22,7 +24,13 @@ public class AppExceptionsHandler {
 
     @ExceptionHandler(value = {Exception.class})
     public ResponseEntity<Object> handleOtherException(Exception e, WebRequest request){
-        ErrorMessage errorMessage = new ErrorMessage(new Date(), e.getMessage());
+        StringWriter sw = new StringWriter();
+        e.printStackTrace(new PrintWriter(sw));
+        String exceptionAsString = sw.toString();
+        System.out.println(exceptionAsString);
+
+
+        ErrorMessage errorMessage = new ErrorMessage(new Date(), exceptionAsString);
 
         return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }

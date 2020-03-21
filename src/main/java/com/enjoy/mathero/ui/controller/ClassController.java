@@ -53,9 +53,10 @@ public class ClassController {
             classRest.setClassName(classDto.getClassName());
             classRest.setTeacher(classDto.getTeacherDetails().getFirstName() + " " + classDto.getTeacherDetails().getLastName());
             List<StudentRest> students = new ArrayList<>();
-            for(UserDto student:classDto.getStudents()){
+            List<UserDto> studentsDto = classDto.getStudents();
+            for(int i =0;i<studentsDto.size();i++){
                 StudentRest studentRest = new StudentRest();
-                BeanUtils.copyProperties(student, studentRest);
+                BeanUtils.copyProperties(studentsDto.get(i),studentRest);
                 students.add(studentRest);
             }
             classRest.setStudents(students);

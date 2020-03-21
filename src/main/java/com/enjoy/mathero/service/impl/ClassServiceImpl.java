@@ -14,10 +14,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -61,7 +65,10 @@ public class ClassServiceImpl implements ClassService {
         List<ClassDto> returnValue = new ArrayList<>();
         ModelMapper modelMapper = new ModelMapper();
 
-        Iterable<ClassEntity> allEntities = classRepository.findAll();
+        Pageable pageableRequest = PageRequest.of(0, 1000);
+
+        Page<ClassEntity> usersPage = classRepository.findAll(pageableRequest);
+        List<ClassEntity> allEntities = usersPage.getContent();
 
         for(ClassEntity classEntity: allEntities){
             ClassDto classDto = new ClassDto();
