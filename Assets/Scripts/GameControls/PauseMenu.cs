@@ -2,20 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Script for pausing the game
+/// </summary>
 public class PauseMenu : MonoBehaviour
 {
-    public static bool GameIsPaused = false;
+    static bool GameIsPaused = false;
 
-    public GameObject pauseMenuUI;
+    [SerializeField]
+    private GameObject pauseMenuUI;
     SceneChanger sceneChanger;
 
+    /// <summary>
+    /// Gets relevant components, and hides the pause menu UI
+    /// </summary>
     void Start()
     {
         sceneChanger = FindObjectOfType<SceneChanger>();
         pauseMenuUI.SetActive(false);
     }
 
-    //update is called once per frame
+    /// <summary>
+    /// Checks for pausing of game
+    /// </summary>
     private void Update()
     {
         
@@ -30,27 +39,33 @@ public class PauseMenu : MonoBehaviour
                 Pause();
             }
         }
-        
     }
+
+    /// <summary>
+    /// Resumes the game
+    /// </summary>
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
     }
+
+    /// <summary>
+    /// Pauses the game
+    /// </summary>
     void Pause()
     {
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
     }
-    public void LoadMenu()
-    {
-        Debug.Log("Loading menu...");
-    }
+
+    /// <summary>
+    /// Returns back to main menu screen
+    /// </summary>
     public void QuitGame()
     {
-        Debug.Log("Quitting game...");
         Resume();
         sceneChanger.ChangeToStartScene();
     }

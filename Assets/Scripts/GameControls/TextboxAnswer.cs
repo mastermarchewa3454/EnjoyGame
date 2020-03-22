@@ -4,11 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Gets questions and checks answers
+/// </summary>
 public class TextboxAnswer : MonoBehaviour
 {
-    public string userAnswer;
-    public GameObject inputField;
+    [SerializeField]
+    private string userAnswer;
+    [SerializeField]
+    private GameObject inputField;
 
+    /// <summary>
+    /// Checks if users answer is correct
+    /// </summary>
     public void CheckUserAnswer()
     {
         userAnswer = inputField.GetComponent<Text>().text;

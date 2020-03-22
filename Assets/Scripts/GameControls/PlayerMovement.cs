@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Script for handling player movement
+/// </summary>
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
@@ -13,13 +16,18 @@ public class PlayerMovement : MonoBehaviour
     Vector2 movement;
     Vector2 mousePos;
 
+    /// <summary>
+    /// Gets the relevant components
+    /// </summary>
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Gets player movement inputs
+    /// </summary>
     void Update()
     {
 
@@ -31,6 +39,9 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("Speed", movement.sqrMagnitude);
     }
 
+    /// <summary>
+    /// Moves the player
+    /// </summary>
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);

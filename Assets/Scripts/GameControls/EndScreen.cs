@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
+/// <summary>
+/// Script to handle end screen results
+/// </summary>
 public class EndScreen : MonoBehaviour
 {
     TextMeshProUGUI levelText;
@@ -11,6 +14,9 @@ public class EndScreen : MonoBehaviour
     TextMeshProUGUI scoreText;
     int[] results;
 
+    /// <summary>
+    /// Displays the results
+    /// </summary>
     public void Start()
     {
         results = new int[8];
@@ -49,6 +55,11 @@ public class EndScreen : MonoBehaviour
         timerText.text = CalculateScore(results).ToString();
     }
 
+    /// <summary>
+    /// Calculates score
+    /// </summary>
+    /// <param name="results"></param>
+    /// <returns></returns>
     int CalculateScore(int[] results)
     {
         int correctBonus = 10;
@@ -75,6 +86,9 @@ public class EndScreen : MonoBehaviour
         return score;
     }
 
+    /// <summary>
+    /// Returns to main menu
+    /// </summary>
     public void ReturnMainMenu()
     {
         SceneManager.LoadScene(0);

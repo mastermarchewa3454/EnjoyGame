@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Script to control the firing of players and enemies.
+/// </summary>
 public class FireController : MonoBehaviour
 {
     [SerializeField]
@@ -15,9 +18,11 @@ public class FireController : MonoBehaviour
     private Transform firePoint;
     private Rigidbody2D rb;
     private Camera cam;
+    private Vector2 aimPos;
 
-    Vector2 aimPos;
-
+    /// <summary>
+    /// Finds the relevant components
+    /// </summary>
     void Start()
     {
         firePoint = gameObject.transform.Find("FirePoint");
@@ -25,7 +30,9 @@ public class FireController : MonoBehaviour
         cam = Camera.main;
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Gets update if player is firing
+    /// </summary>
     void Update()
     {
         if (gameObject.CompareTag("Player"))
@@ -39,6 +46,9 @@ public class FireController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Aims the firepoint
+    /// </summary>
     void FixedUpdate()
     {
         if (gameObject.CompareTag("Enemy"))
@@ -55,6 +65,9 @@ public class FireController : MonoBehaviour
                                                       angle * Mathf.Rad2Deg);
     }
 
+    /// <summary>
+    /// Allows enemy to find the closest player
+    /// </summary>
     void FindClosestPlayer()
     {
         float distanceToClosest = Mathf.Infinity;
@@ -77,6 +90,9 @@ public class FireController : MonoBehaviour
         aimPos = closestPlayer.transform.position;
     }
 
+    /// <summary>
+    /// Instantiates a projectile, and adds force
+    /// </summary>
     public void Shoot()
     {
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);

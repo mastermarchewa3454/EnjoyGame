@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Script controlling enemy movement.
+/// Enemy alternates between a few phases:
+/// - Movement
+/// - Stop
+/// - Shoot
+/// </summary>
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField]
@@ -14,15 +21,17 @@ public class EnemyMovement : MonoBehaviour
     private float stopInterval = 2;
 
     private Rigidbody2D rb;
+    private Vector2 movement;
+    private Animator anim;
+    private FireController enemyFire;
 
-    Vector2 movement;
+    private bool moving = true;
+    private bool attacking = false;
+    private bool faceRight = false;
 
-    Animator anim;
-    FireController enemyFire;
-    bool moving = true;
-    bool attacking = false;
-    bool faceRight = false;
-
+    /// <summary>
+    /// Gets relevant components and initiates movement coroutine
+    /// </summary>
     void Start()
     {
         anim = GameObject.Find("Sprite").GetComponent<Animator>();
@@ -31,18 +40,23 @@ public class EnemyMovement : MonoBehaviour
         StartCoroutine(NewHeading());
     }
 
+    /// <summary>
+    /// Moves the enemy
+    /// </summary>
     void FixedUpdate()
     {
-        // Move sprite
         rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
     }
 
+    /// <summary>
+    /// Controls the movement phases of the enemy
+    /// </summary>
+    /// <returns></returns>
     IEnumerator NewHeading()
     {
         while (true)
         {
-            // Alternates between idle, movement, idle, attack phase
-
+            // Alternates between movement, stop, shoot phase
             anim.SetBool("isMoving", moving);
             anim.SetBool("isAttacking", attacking);
 
@@ -69,12 +83,18 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Stops the enemy from moving
+    /// </summary>
     void StopHeading()
     {
         movement.x = 0;
         movement.y = 0;
     }
 
+    /// <summary>
+    /// Finds a new randome direction to move in
+    /// </summary>
     void NewHeadingRoutine()
     {
         movement.x = Random.Range(-1f, 1f);
