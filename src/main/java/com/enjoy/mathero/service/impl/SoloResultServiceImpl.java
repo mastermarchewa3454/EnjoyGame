@@ -7,7 +7,6 @@ import com.enjoy.mathero.io.entity.UserEntity;
 import com.enjoy.mathero.io.repository.SoloResultRepository;
 import com.enjoy.mathero.io.repository.UserRepository;
 import com.enjoy.mathero.service.SoloResultService;
-import com.enjoy.mathero.service.UserService;
 import com.enjoy.mathero.shared.Utils;
 import com.enjoy.mathero.shared.dto.SoloResultDto;
 import com.enjoy.mathero.shared.dto.StageSummaryReportDto;
@@ -16,7 +15,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.List;

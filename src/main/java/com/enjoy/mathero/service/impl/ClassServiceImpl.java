@@ -6,22 +6,19 @@ import com.enjoy.mathero.io.entity.UserEntity;
 import com.enjoy.mathero.io.repository.ClassRepository;
 import com.enjoy.mathero.io.repository.UserRepository;
 import com.enjoy.mathero.service.ClassService;
+import com.enjoy.mathero.shared.MapUtils;
 import com.enjoy.mathero.shared.dto.ClassDto;
 import com.enjoy.mathero.shared.dto.UserDto;
-import com.enjoy.mathero.ui.model.response.ErrorMessage;
 import com.enjoy.mathero.ui.model.response.ErrorMessages;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -57,7 +54,13 @@ public class ClassServiceImpl implements ClassService {
 
     @Override
     public ClassDto getClassByClassName(String className) {
-        return null;
+        ClassDto returnValue;
+
+        ClassEntity classEntity = classRepository.findByClassName(className);
+
+        returnValue = MapUtils.classEntityToClassDto(classEntity);
+
+        return returnValue;
     }
 
     @Override
@@ -71,19 +74,9 @@ public class ClassServiceImpl implements ClassService {
         List<ClassEntity> allEntities = usersPage.getContent();
 
         for(ClassEntity classEntity: allEntities){
-            ClassDto classDto = new ClassDto();
-            UserDto teacher = new UserDto();
-            BeanUtils.copyProperties(classEntity.getTeacherDetails(), teacher);
-            List<UserDto> students = new ArrayList<>();
-            for(UserEntity userEntity: classEntity.getStudents()){
-                UserDto userDto = new UserDto();
-                BeanUtils.copyProperties(userEntity, userDto);
-                students.add(userDto);
-            }
-            classDto.setTeacherDetails(teacher);
-            classDto.setStudents(students);
-            BeanUtils.copyProperties(classEntity, classDto);
-            returnValue.add(classDto);
+
+            returnValue.add(MapUtils.classEntityToClassDto(classEntity));
+
         }
 
         return returnValue;

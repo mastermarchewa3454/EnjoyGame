@@ -83,6 +83,8 @@ public class UserController {
 
         for(UserDto userDto: users){
             UserRest userRest = new UserRest();
+            if(userDto.getClassDetails() != null)
+                userRest.setClassName(userDto.getClassDetails().getClassName());
             BeanUtils.copyProperties(userDto, userRest);
             returnValue.add(userRest);
         }

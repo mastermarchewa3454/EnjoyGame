@@ -4,6 +4,7 @@ import com.enjoy.mathero.exceptions.UserServiceException;
 import com.enjoy.mathero.io.entity.UserEntity;
 import com.enjoy.mathero.service.ClassService;
 import com.enjoy.mathero.service.UserService;
+import com.enjoy.mathero.shared.MapUtils;
 import com.enjoy.mathero.shared.dto.ClassDto;
 import com.enjoy.mathero.shared.dto.UserDto;
 import com.enjoy.mathero.ui.model.request.ClassRequestModel;
@@ -49,19 +50,19 @@ public class ClassController {
 
         List<ClassDto> classDtos = classService.getClasses();
         for(ClassDto classDto: classDtos){
-            ClassRest classRest = new ClassRest();
-            classRest.setClassName(classDto.getClassName());
-            classRest.setTeacher(classDto.getTeacherDetails().getFirstName() + " " + classDto.getTeacherDetails().getLastName());
-            List<StudentRest> students = new ArrayList<>();
-            List<UserDto> studentsDto = classDto.getStudents();
-            for(int i =0;i<studentsDto.size();i++){
-                StudentRest studentRest = new StudentRest();
-                BeanUtils.copyProperties(studentsDto.get(i),studentRest);
-                students.add(studentRest);
-            }
-            classRest.setStudents(students);
-            returnValue.add(classRest);
+            returnValue.add(MapUtils.classDtoToClassRest(classDto));
         }
+
+        return returnValue;
+    }
+
+    @GetMapping(path = "/{className}")
+    public ClassRest getClassByName(@PathVariable String className){
+        ClassRest returnValue;
+
+        ClassDto classDto = classService.getClassByClassName(className);
+
+        returnValue = MapUtils.classDtoToClassRest(classDto);
 
         return returnValue;
     }

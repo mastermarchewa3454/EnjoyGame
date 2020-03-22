@@ -11,19 +11,14 @@ import com.enjoy.mathero.service.UserService;
 import com.enjoy.mathero.shared.Utils;
 import com.enjoy.mathero.shared.dto.ClassDto;
 import com.enjoy.mathero.shared.dto.UserDto;
-import com.enjoy.mathero.ui.model.response.ErrorMessage;
 import com.enjoy.mathero.ui.model.response.ErrorMessages;
-import org.hibernate.Hibernate;
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,7 +27,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -162,6 +156,11 @@ public class UserServiceImpl implements UserService {
 
         for(UserEntity userEntity: users){
             UserDto userDto = new UserDto();
+            if(userEntity.getClassDetails() != null){
+                ClassDto classDto = new ClassDto();
+                BeanUtils.copyProperties(userEntity.getClassDetails(), classDto);
+                userDto.setClassDetails(classDto);
+            }
             BeanUtils.copyProperties(userEntity, userDto);
             returnValue.add(userDto);
         }
