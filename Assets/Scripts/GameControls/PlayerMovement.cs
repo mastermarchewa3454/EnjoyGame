@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f;
+    [SerializeField]
+    private float moveSpeed = 5f;
 
-    public Rigidbody2D rb;
-
-    public Animator animator;
+    private Rigidbody2D rb;
+    private Animator animator;
 
     Vector2 movement;
     Vector2 mousePos;
+
+    void Start()
+    {
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        animator = gameObject.GetComponent<Animator>();
+    }
 
     // Update is called once per frame
     void Update()

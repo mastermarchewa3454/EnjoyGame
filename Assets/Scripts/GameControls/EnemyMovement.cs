@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public float speed = 1;
-    public float movementInterval = 1;
-    public float stopInterval = 2;
+    [SerializeField]
+    private float speed = 1;
 
-    public Rigidbody2D rb;
+    [SerializeField]
+    private float movementInterval = 1;
+
+    [SerializeField]
+    private float stopInterval = 2;
+
+    private Rigidbody2D rb;
 
     Vector2 movement;
 
@@ -21,6 +26,7 @@ public class EnemyMovement : MonoBehaviour
     void Start()
     {
         anim = GameObject.Find("Sprite").GetComponent<Animator>();
+        rb = gameObject.GetComponent<Rigidbody2D>();
         enemyFire = gameObject.GetComponent<FireController>();
         StartCoroutine(NewHeading());
     }
