@@ -1,25 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class ItemChoice : MonoBehaviour
 {
-    public void GetHealth()
-    {
-        PlayerPrefs.SetString("difficulty", "easy");
-        SceneManager.LoadScene("QuestionDisplay");
-    }
+    Text difficulty;
 
     public void GetAttack()
     {
-        PlayerPrefs.SetString("difficulty", "medium");
+        difficulty = GameObject.Find("Attack/Text").GetComponent<Text>();
+        PlayerPrefs.SetString("difficulty", difficulty.text);
+        SceneManager.LoadScene("QuestionDisplay");
+    }
+
+    public void GetHealth()
+    {
+        difficulty = GameObject.Find("Health/Text").GetComponent<Text>();
+        PlayerPrefs.SetString("difficulty", difficulty.text);
         SceneManager.LoadScene("QuestionDisplay");
     }
 
     public void GetSpeed()
     {
-        PlayerPrefs.SetString("difficulty", "hard");
+        difficulty = GameObject.Find("Speed/Text").GetComponent<Text>();
+        PlayerPrefs.SetString("difficulty", difficulty.text);
         SceneManager.LoadScene("QuestionDisplay");
     }
 }

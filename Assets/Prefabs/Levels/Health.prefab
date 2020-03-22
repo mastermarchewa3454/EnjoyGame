@@ -73,7 +73,7 @@ MonoBehaviour:
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Health
@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 4846971848989786260}
   - component: {fileID: 4846971848989786261}
   - component: {fileID: 4846971848989786262}
+  - component: {fileID: 1540500526934345624}
   m_Layer: 5
   m_Name: Health
   m_TagString: Untagged
@@ -206,3 +207,15 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1540500526934345624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4846971848989786256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6e8c6deb75873643bb4f8ced58bcaae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

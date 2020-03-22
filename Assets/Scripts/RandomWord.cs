@@ -5,11 +5,12 @@ using UnityEngine.UI;
 
 public class RandomWord : MonoBehaviour
 {
-    public Text changingText;
-    public GameObject changingTextdifficulty;
+    private Text changingText;
+
     // Start is called before the first frame update
     void Start()
     {
+        changingText = gameObject.transform.GetChild(0).gameObject.GetComponent<Text>();
         TextChange();
     }
 
@@ -24,7 +25,6 @@ public class RandomWord : MonoBehaviour
     {
         string difficulty = PickRandom();
         changingText.text = difficulty;
-        changingTextdifficulty.GetComponent<Text>().text = difficulty;
 
     }
 }
