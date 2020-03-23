@@ -19,9 +19,11 @@ public class RandomWord : MonoBehaviour
         TextChange();
     }
 
+    /// <summary>
+    /// Selects a random difficulty: Easy, Medium, Hard
     /// </summary>
     /// <returns>Difficulty</returns>
-    private string PickRandom()
+    private string PickRandomDifficulty()
     {
         string[] difficulty = new string[] { "Easy", "Medium", "Hard" };
         string randomdifficulty = difficulty[Random.Range(0, difficulty.Length)];
@@ -30,6 +32,7 @@ public class RandomWord : MonoBehaviour
 
     /// <summary>
     /// Changes the text of the item
+    /// </summary>
     private void TextChange()
     {
         string difficulty = PickRandom();

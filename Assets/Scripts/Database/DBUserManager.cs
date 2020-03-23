@@ -8,60 +8,6 @@ using UnityEngine.Networking;
 
 public class DBUserManager : DBManager
 {
-    public TMP_Dropdown dropdownMenu;
-    public TMP_InputField email;
-    public TMP_InputField usernameField;
-    public TMP_InputField passwordField;
-    public TMP_InputField firstNameField;
-    public TMP_InputField lastNameField;
-    public Button registerButton;
-
-    /// <summary>
-    /// FOR TESTING PURPOSE
-    /// </summary>
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            StartCoroutine(Register("Booxworm",
-                                    "Wonn Jen",
-                                    "Lee",
-                                    "4C",
-                                    "sth@gmail.com",
-                                    "p@ssw0rd"));
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            StartCoroutine(Login("Booxworm", "p@ssw0rd"));
-        }
-        else if (Input.GetKeyDown(KeyCode.G))
-        {
-            StartCoroutine(GetUser());
-        }
-        else if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log(authHeader);
-            Debug.Log(userId);
-        }
-    }
-
-    public void CallRegister()
-    {
-        //get the selected index
-        int menuIndex = dropdownMenu.value;
-        //get all options available within this dropdown menu
-        List<TMP_Dropdown.OptionData> menuOptions = dropdownMenu.options;
-        //get the string value of the selected index
-        string classValue = menuOptions[menuIndex].text;
-
-        StartCoroutine(Register(usernameField.text,
-                                firstNameField.text,
-                                lastNameField.text,
-                                classValue,
-                                email.text,
-                                passwordField.text));
-    }
-
     public IEnumerator Register(string username,
                         string firstName,
                         string lastName,
@@ -72,11 +18,11 @@ public class DBUserManager : DBManager
         string userDetails = "{\"username\":\"" + username + "\"," +
                               "\"firstName\":\"" + firstName + "\"," +
                               "\"lastName\":\"" + lastName + "\"," +
-                              "\"classId\":\"" + classId + "\"," +
+                              "\"className\":\"" + classId + "\"," +
                               "\"email\":\"" + email + "\"," +
                               "\"password\":\"" + password + "\"}";
 
-        yield return StartCoroutine(PostData("/users", userDetails));
+        yield return StartCoroutine(PostData("/users", userDetails, callback:data=>Debug.Log(data)));
         Debug.Log("Registered!");
     }
 
@@ -104,19 +50,9 @@ public class DBUserManager : DBManager
             Debug.Log(student.email);
         }
     }
-
-    /// <summary>
-    /// This is to check the inputs for nameField and passwordField
-    /// If they satisfy the conditions, then the button will be clickable. 
-    /// Otherwise, the submit button will not be interactable.
-    /// Something like a backend check
-    /// </summary>
-    public void VerifyInputs()
-    {
-        registerButton.interactable = (usernameField.text.Length >= 8 && passwordField.text.Length >= 8);
-    }
 }
 
+[System.Serializable]
 public class Student
 {
     public string userId;
@@ -124,4 +60,5 @@ public class Student
     public string firstName;
     public string lastName;
     public string email;
+    public string className;
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DBResultsManager : DBManager
 {
-    ResultArr results;
+    Result[] results;
 
     void Update()
     {
@@ -40,18 +40,19 @@ public class DBResultsManager : DBManager
         else
         {
             string resultString = "";
-            yield return StartCoroutine(GetData("/users/"+userId+"/results", callback: data => resultString = data));
-            // results = JsonUtility.FromJson<ResultArr>(resultString);
-            Debug.Log(resultString);
+            yield return StartCoroutine(GetData("/results/top10", callback: data => resultString = data));
+            results = JsonHelper.FromJson<Result>(resultString);
+
+            for (int i=0; i<results.Length; i++)
+            {
+                Result r = results[i];
+                Debug.Log(r.score);
+            }
         }
     }
 }
 
-public class ResultArr
-{
-    public Result[] data;
-}
-
+[System.Serializable]
 public class Result
 {
     public string userId;

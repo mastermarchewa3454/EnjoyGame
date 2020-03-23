@@ -58,7 +58,12 @@ public class SceneChanger : MonoBehaviour
     /// </summary>
     public void ChangeToStartScene()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("StartScreen");
+    }
+
+    public void ChangeToItemRoom()
+    {
+        SceneManager.LoadScene("Item room");
     }
 
     /// <summary>

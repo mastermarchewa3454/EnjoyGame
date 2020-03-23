@@ -72,7 +72,7 @@ public class DBManager : MonoBehaviour
                     }
                 }
             }
-            
+
             if (callback != null)
             {
                 callback(www.downloadHandler.text);
@@ -81,4 +81,27 @@ public class DBManager : MonoBehaviour
         }
     }
 
+}
+
+public static class JsonHelper
+{
+    public static T[] FromJson<T>(string json)
+    {
+        Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(json);
+        Debug.Log(wrapper.wrapperList);
+        return wrapper.wrapperList;
+    }
+
+    public static string ToJson<T>(T[] array)
+    {
+        Wrapper<T> wrapper = new Wrapper<T>();
+        wrapper.wrapperList = array;
+        return JsonUtility.ToJson(wrapper);
+    }
+
+    [System.Serializable]
+    private class Wrapper<T>
+    {
+        public T[] wrapperList;
+    }
 }
