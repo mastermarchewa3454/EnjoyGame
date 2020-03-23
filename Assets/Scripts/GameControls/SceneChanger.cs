@@ -23,8 +23,11 @@ public class SceneChanger : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
-        playerHealth = player.GetComponent<Health>();
-        level = PlayerPrefs.GetInt("level", 1);
+        if (player != null)
+        {
+            playerHealth = player.GetComponent<Health>();
+            level = PlayerPrefs.GetInt("level", 1);
+        }
     }
 
     /// <summary>

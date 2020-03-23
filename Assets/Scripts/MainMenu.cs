@@ -17,6 +17,7 @@ public class MainMenu : MonoBehaviour
         PlayerPrefs.DeleteKey("level");
         PlayerPrefs.DeleteKey("treasure");
         PlayerPrefs.DeleteKey("difficulty");
+        PlayerPrefs.DeleteKey("stagesCleared");
         PlayerPrefs.DeleteKey("easyCorrect");
         PlayerPrefs.DeleteKey("easyWrong");
         PlayerPrefs.DeleteKey("mediumCorrect");
