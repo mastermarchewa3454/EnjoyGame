@@ -19,8 +19,6 @@ public class RandomWord : MonoBehaviour
         TextChange();
     }
 
-    /// <summary>
-    /// Chooses a random difficulty: 'Easy', 'Medium', or 'Hard'
     /// </summary>
     /// <returns>Difficulty</returns>
     private string PickRandom()
@@ -32,11 +30,9 @@ public class RandomWord : MonoBehaviour
 
     /// <summary>
     /// Changes the text of the item
-    /// </summary>
     private void TextChange()
     {
-        string difficulty = PickRandom();
+        string difficulty = PickRandomDifficulty();
         changingText.text = difficulty;
-
     }
 }

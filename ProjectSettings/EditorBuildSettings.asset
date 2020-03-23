@@ -65,4 +65,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CustomLobbyComplete.unity
     guid: ea8f4624b45734b43af9fa6417773f9d
+  - enabled: 1
+    path: Assets/Scenes/CustomLobbyScreen.unity
+    guid: 38cef32dc16146b40be3c55a3c613aac
   m_configObjects: {}

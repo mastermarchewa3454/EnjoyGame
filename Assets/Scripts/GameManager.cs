@@ -25,6 +25,11 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Button submitButton;
 
+
+    public DBCustomLobbyManager db;
+    public string[] questionArr = new string[20];
+    public string[] answerArr = new string[20];
+
     /// <summary>
     /// Method to get question from the SerializeField questionInput
     /// </summary>
@@ -32,6 +37,7 @@ public class GameManager : MonoBehaviour
     public void getQuestion(string question)
     {
         Debug.Log("Your question is " + question);
+        questionArr[counterValue - 1] = question;
     }
     /// <summary>
     /// Method to get answer from the SerializeField questionInput
@@ -40,6 +46,7 @@ public class GameManager : MonoBehaviour
     public void getAnswer(string answer)
     {
         Debug.Log("Your answer is " + answer);
+        answerArr[counterValue - 1] = answer;
     }
     
     /// <summary>
@@ -52,6 +59,7 @@ public class GameManager : MonoBehaviour
     {
         if (counterValue == 20)
         {
+            StartCoroutine(db.SaveQuestionsAndAnswers(questionArr, answerArr));
             SceneManager.LoadScene("CustomLobbyComplete");
         }
         else
@@ -76,4 +84,5 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
 }

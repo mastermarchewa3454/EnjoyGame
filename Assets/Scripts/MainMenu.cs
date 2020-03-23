@@ -119,4 +119,10 @@ public class MainMenu : MonoBehaviour
         PlayerPrefs.Save();
         SceneManager.LoadScene("QnA");
     }
+
+
+    public void EnterCustomLobbyScreen()
+    {
+        SceneManager.LoadScene("CustomLobbyScreen");
+    }
 }
