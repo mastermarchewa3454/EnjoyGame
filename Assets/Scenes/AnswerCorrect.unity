@@ -213,7 +213,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 888047578}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bdc21e14c0a7d8488c87abfc801cb83, type: 3}
+  m_Script: {fileID: 11500000, guid: 6c83e34533267fc4f9588fbb19250aca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &888047580
@@ -851,7 +851,7 @@ PrefabInstance:
     - target: {fileID: 4028935866358553896, guid: 927110b54256c3940ab35f57272955b2,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: GetCorrect
+      value: ChangeToItemRoom
       objectReference: {fileID: 0}
     - target: {fileID: 4028935866358553896, guid: 927110b54256c3940ab35f57272955b2,
         type: 3}
