@@ -14,14 +14,14 @@ public class EndScreen : MonoBehaviour
     TextMeshProUGUI scoreText;
     int[] results;
 
-    DBGameManager db;
+    DBResultsManager db;
 
     /// <summary>
     /// Displays the results
     /// </summary>
     public void Start()
     {
-        db = GetComponent<DBGameManager>();
+        db = GetComponent<DBResultsManager>();
 
         results = new int[9];
         GameObject qnContainer = GameObject.Find("StatsPanel/QuestionContainer");

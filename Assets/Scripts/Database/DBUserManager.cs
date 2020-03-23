@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.Networking;
 
-public class DBRegisterManager : DBManager
+public class DBUserManager : DBManager
 {
     public TMP_Dropdown dropdownMenu;
     public TMP_InputField email;

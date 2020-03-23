@@ -33,9 +33,7 @@ public class DBManager : MonoBehaviour
             else
             {
                 if (callback != null)
-                {
                     callback(www.downloadHandler.text);
-                }
             }
         }
     }
@@ -66,13 +64,11 @@ public class DBManager : MonoBehaviour
                     {
                         authHeader = dict.Value;
                         PlayerPrefs.SetString("authHeader", authHeader);
-                        Debug.Log(PlayerPrefs.GetString("authHeader", null));
                     }
                     else if (dict.Key == "UserID")
                     {
                         userId = dict.Value;
                         PlayerPrefs.SetString("userId", userId);
-                        Debug.Log(PlayerPrefs.GetString("userId", null));
                     }
                 }
             }
