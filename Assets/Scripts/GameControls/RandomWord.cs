@@ -32,7 +32,7 @@ public class RandomWord : MonoBehaviour
     /// Changes the text of the item
     private void TextChange()
     {
-        string difficulty = PickRandomDifficulty();
+        string difficulty = PickRandom();
         changingText.text = difficulty;
     }
 }
