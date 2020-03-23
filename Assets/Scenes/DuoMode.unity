@@ -3314,7 +3314,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1031407523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3414,6 +3414,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   searchButton: {fileID: 180908069}
   cancelButton: {fileID: 1874293262}
+  playButton: {fileID: 0}
   waitingText: {fileID: 0}
   lobbyID: {fileID: 0}
 --- !u!1 &1083896698
@@ -4989,7 +4990,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1429353382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6290,6 +6291,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   searchButton: {fileID: 180908069}
   cancelButton: {fileID: 1874293262}
+  playButton: {fileID: 1863900368}
   waitingText: {fileID: 1886999897}
   lobbyID: {fileID: 687140037}
 --- !u!4 &1781798915
