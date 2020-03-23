@@ -736,7 +736,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 445710458}
-        m_MethodName: EnterCustomLobby
+        m_MethodName: EnterCustomLobbyScreen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
