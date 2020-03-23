@@ -5,7 +5,7 @@ public class UserDetailsRequestModel {
     private String username;
     private String firstName;
     private String lastName;
-    private String classId;
+    private String className;
     private String email;
     private String password;
 
@@ -49,11 +49,11 @@ public class UserDetailsRequestModel {
         this.password = password;
     }
 
-    public String getClassId() {
-        return classId;
+    public String getClassName() {
+        return className;
     }
 
-    public void setClassId(String classId) {
-        this.classId = classId;
+    public void setClassName(String className) {
+        this.className = className;
     }
 }
