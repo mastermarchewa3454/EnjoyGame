@@ -14,12 +14,16 @@ public class EndScreen : MonoBehaviour
     TextMeshProUGUI scoreText;
     int[] results;
 
+    DBResultsManager db;
+
     /// <summary>
     /// Displays the results
     /// </summary>
     public void Start()
     {
-        results = new int[8];
+        db = GetComponent<DBResultsManager>();
+
+        results = new int[9];
         GameObject qnContainer = GameObject.Find("StatsPanel/QuestionContainer");
         for (int i = 0; i < 3; i++)
         {
@@ -40,9 +44,16 @@ public class EndScreen : MonoBehaviour
         }
 
         levelText = GameObject.Find("StatsPanel/LevelContainer/LevelValue").GetComponent<TextMeshProUGUI>();
-        int level = PlayerPrefs.GetInt("level", 0);
+        int level = PlayerPrefs.GetInt("level", 1);
         results[6] = level;
         levelText.text = level.ToString() + " / 60";
+
+        int stage = PlayerPrefs.GetInt("stage", 1);
+        int stagesCleared = PlayerPrefs.GetInt("stagesCleared", 0);
+        if (level == 60 && stage ==  stagesCleared + 1)
+        {
+            PlayerPrefs.SetInt("stagesCleared", stagesCleared + 1);
+        }
 
         timerText = GameObject.Find("StatsPanel/TimeContainer/TimeValue").GetComponent<TextMeshProUGUI>();
         float timer = PlayerPrefs.GetFloat("timer", 0f);
@@ -52,7 +63,10 @@ public class EndScreen : MonoBehaviour
         timerText.text = minutes + ":" + seconds;
 
         timerText = GameObject.Find("StatsPanel/ScoreContainer/ScoreValue").GetComponent<TextMeshProUGUI>();
-        timerText.text = CalculateScore(results).ToString();
+        results[8] = CalculateScore(results);
+        timerText.text = results[8].ToString();
+
+        StartCoroutine(db.SaveResults(results));
     }
 
     /// <summary>

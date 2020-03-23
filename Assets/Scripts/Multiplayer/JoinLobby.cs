@@ -50,6 +50,7 @@ public class JoinLobby : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("We are now in the room");
+        waitingText.SetText("Connected to room" + lobbyID.GetParsedText());
     }
     public override void OnJoinRoomFailed(short returnCode, string message)
     {

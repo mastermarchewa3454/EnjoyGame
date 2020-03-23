@@ -17,6 +17,7 @@ public class MainMenu : MonoBehaviour
         PlayerPrefs.DeleteKey("level");
         PlayerPrefs.DeleteKey("treasure");
         PlayerPrefs.DeleteKey("difficulty");
+        PlayerPrefs.DeleteKey("stagesCleared");
         PlayerPrefs.DeleteKey("easyCorrect");
         PlayerPrefs.DeleteKey("easyWrong");
         PlayerPrefs.DeleteKey("mediumCorrect");
@@ -117,5 +118,11 @@ public class MainMenu : MonoBehaviour
         PlayerPrefs.SetInt("Teacher", SceneManager.GetActiveScene().buildIndex);
         PlayerPrefs.Save();
         SceneManager.LoadScene("QnA");
+    }
+
+
+    public void EnterCustomLobbyScreen()
+    {
+        SceneManager.LoadScene("CustomLobbyScreen");
     }
 }
