@@ -1,5 +1,6 @@
 package com.enjoy.mathero.io.repository;
 
+import com.enjoy.mathero.io.entity.ClassStageSummaryEntity;
 import com.enjoy.mathero.io.entity.SoloResultEntity;
 import com.enjoy.mathero.io.entity.StageSummaryReportEntity;
 import com.enjoy.mathero.io.entity.UserEntity;
@@ -20,4 +21,10 @@ public interface SoloResultRepository extends CrudRepository<SoloResultEntity, L
 
     @Query(value = "SELECT u.user_id AS userId, r.stage_number AS stageNumber, SUM(r.easy_correct) AS easyCorrect, SUM(r.medium_correct) AS mediumCorrect, SUM(r.hard_correct) AS hardCorrect, SUM(r.easy_total) AS easyTotal, SUM(r.medium_total) AS mediumTotal, SUM(r.hard_total) AS hardTotal FROM users u INNER JOIN solo_results r ON u.id=r.user_id WHERE u.user_id = :userId GROUP BY u.user_id, r.stage_number;", nativeQuery = true)
     List<StageSummaryReportEntity> getAllStageSummaryReports(@Param("userId") String userId);
+
+    @Query(value = "SELECT c.class_name AS className, r.stage_number AS stageNumber, SUM(r.easy_correct) AS easyCorrect, SUM(r.medium_correct) AS mediumCorrect, SUM(r.hard_correct) AS hardCorrect, SUM(r.easy_total) AS easyTotal, SUM(r.medium_total) AS mediumTotal, SUM(r.hard_total) AS hardTotal FROM users u INNER JOIN solo_results r ON u.id=r.user_id INNER JOIN classes c ON c.class_id = u.class_id WHERE c.class_name = :className AND r.stage_number = :stageNumber GROUP BY c.class_name, r.stage_number;", nativeQuery = true)
+    ClassStageSummaryEntity getClassStageSummary(@Param("className") String className, @Param("stageNumber") int stageNumber);
+
+    @Query(value = "SELECT c.class_name as className, r.stage_number as stageNumber, SUM(r.easy_correct) AS easyCorrect, SUM(r.medium_correct) AS mediumCorrect, SUM(r.hard_correct) AS hardCorrect, SUM(r.easy_total) AS easyTotal, SUM(r.medium_total) AS mediumTotal, SUM(r.hard_total) AS hardTotal FROM users u INNER JOIN solo_results r ON u.id=r.user_id INNER JOIN classes c ON c.class_id = u.class_id WHERE c.class_name = :className GROUP BY c.class_name, r.stage_number;", nativeQuery = true)
+    List<ClassStageSummaryEntity> getAllClassStageSummary(@Param("className") String className);
 }

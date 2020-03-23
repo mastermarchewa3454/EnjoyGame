@@ -2,12 +2,13 @@ package com.enjoy.mathero.ui.controller;
 
 import com.enjoy.mathero.exceptions.UserServiceException;
 import com.enjoy.mathero.io.entity.UserEntity;
+import com.enjoy.mathero.service.ClassService;
 import com.enjoy.mathero.service.SoloResultService;
 import com.enjoy.mathero.service.UserService;
-import com.enjoy.mathero.shared.dto.SoloResultDto;
-import com.enjoy.mathero.shared.dto.StageSummaryReportDto;
-import com.enjoy.mathero.shared.dto.UserDto;
+import com.enjoy.mathero.shared.CustomList;
+import com.enjoy.mathero.shared.dto.*;
 import com.enjoy.mathero.ui.model.request.SoloResultRequestModel;
+import com.enjoy.mathero.ui.model.response.ClassStageSummaryRest;
 import com.enjoy.mathero.ui.model.response.ErrorMessages;
 import com.enjoy.mathero.ui.model.response.SoloResultRest;
 import com.enjoy.mathero.ui.model.response.StageSummaryReportRest;
@@ -27,6 +28,9 @@ public class SoloResultController {
     @Autowired
     SoloResultService resultService;
 
+    @Autowired
+    ClassService classService;
+
     @GetMapping(path = "/results/{resultId}")
     public SoloResultRest getResult(@PathVariable String resultId){
         return null;
@@ -38,8 +42,8 @@ public class SoloResultController {
     }*/
 
     @GetMapping(path = "/results/top10")
-    public List<SoloResultRest> getTop10(){
-        List<SoloResultRest> returnValue = new ArrayList<>();
+    public CustomList<SoloResultRest> getTop10(){
+        CustomList<SoloResultRest> returnValue = new CustomList<>();
 
         List<SoloResultDto> soloResultDtos = resultService.getTop10();
         for(SoloResultDto soloResultDto: soloResultDtos){
@@ -91,8 +95,8 @@ public class SoloResultController {
     }
 
     @GetMapping(path = "/users/{userId}/summary-report-all")
-    public List<StageSummaryReportRest> getAllStageSummaryReport(@PathVariable String userId){
-        List<StageSummaryReportRest> returnValue = new ArrayList<>();
+    public CustomList<StageSummaryReportRest> getAllStageSummaryReport(@PathVariable String userId){
+        CustomList<StageSummaryReportRest> returnValue = new CustomList<>();
 
         UserDto userDto = userService.getUserByUserId(userId);
         if(userDto == null)
@@ -102,6 +106,40 @@ public class SoloResultController {
 
         for(StageSummaryReportDto dto: results){
             StageSummaryReportRest rest = new StageSummaryReportRest();
+            BeanUtils.copyProperties(dto, rest);
+            returnValue.add(rest);
+        }
+
+        return returnValue;
+
+    }
+
+    @GetMapping(path = "/classes/{className}/summary-report")
+    public ClassStageSummaryRest getClassStageSummary(@RequestParam(name = "stageNumber") int stageNumber, @PathVariable String className){
+        ClassStageSummaryRest returnValue = new ClassStageSummaryRest();
+
+        ClassDto classDto = classService.getClassByClassName(className);
+        if(classDto == null)
+            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+
+        ClassStageSummaryDto stageSummaryReportDto = resultService.getClassStageSummaryByClassName(className, stageNumber);
+        BeanUtils.copyProperties(stageSummaryReportDto, returnValue);
+
+        return returnValue;
+    }
+
+    @GetMapping(path = "/classes/{className}/summary-report-all")
+    public CustomList<ClassStageSummaryRest> getAllClassStageSummary(@PathVariable String className){
+        CustomList<ClassStageSummaryRest> returnValue = new CustomList<>();
+
+        ClassDto classDto = classService.getClassByClassName(className);
+        if(classDto == null)
+            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+
+        List<ClassStageSummaryDto> results = resultService.getAllClassStageSummaryByClassName(className);
+
+        for(ClassStageSummaryDto dto: results){
+            ClassStageSummaryRest rest = new ClassStageSummaryRest();
             BeanUtils.copyProperties(dto, rest);
             returnValue.add(rest);
         }

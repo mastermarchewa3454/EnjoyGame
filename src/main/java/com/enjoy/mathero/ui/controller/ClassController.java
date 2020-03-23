@@ -4,6 +4,7 @@ import com.enjoy.mathero.exceptions.UserServiceException;
 import com.enjoy.mathero.io.entity.UserEntity;
 import com.enjoy.mathero.service.ClassService;
 import com.enjoy.mathero.service.UserService;
+import com.enjoy.mathero.shared.CustomList;
 import com.enjoy.mathero.shared.MapUtils;
 import com.enjoy.mathero.shared.dto.ClassDto;
 import com.enjoy.mathero.shared.dto.UserDto;
@@ -45,8 +46,8 @@ public class ClassController {
     }
 
     @GetMapping
-    public List<ClassRest> getAllClasses(){
-        List<ClassRest> returnValue = new ArrayList<>();
+    public CustomList<ClassRest> getAllClasses(){
+        CustomList<ClassRest> returnValue = new CustomList<>();
 
         List<ClassDto> classDtos = classService.getClasses();
         for(ClassDto classDto: classDtos){

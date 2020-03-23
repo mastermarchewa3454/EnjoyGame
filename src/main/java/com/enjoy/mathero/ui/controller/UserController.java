@@ -3,6 +3,7 @@ package com.enjoy.mathero.ui.controller;
 import com.enjoy.mathero.exceptions.UserServiceException;
 import com.enjoy.mathero.service.SoloResultService;
 import com.enjoy.mathero.service.UserService;
+import com.enjoy.mathero.shared.CustomList;
 import com.enjoy.mathero.shared.dto.SoloResultDto;
 import com.enjoy.mathero.shared.dto.UserDto;
 import com.enjoy.mathero.ui.model.request.UserDetailsRequestModel;
@@ -75,9 +76,9 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserRest> getUsers(@RequestParam(value = "page", defaultValue = "0") int page,
+    public CustomList<UserRest> getUsers(@RequestParam(value = "page", defaultValue = "0") int page,
                                    @RequestParam(value = "limit", defaultValue = "25") int limit){
-        List<UserRest> returnValue = new ArrayList<>();
+        CustomList<UserRest> returnValue = new CustomList<>();
 
         List<UserDto> users = userService.getUsers(page, limit);
 
@@ -93,8 +94,8 @@ public class UserController {
     }
 
     @GetMapping(path = "/{userId}/results")
-    public List<SoloResultRest> getUserSoloResults(@PathVariable String userId){
-        List<SoloResultRest> returnValue = new ArrayList<>();
+    public CustomList<SoloResultRest> getUserSoloResults(@PathVariable String userId){
+        CustomList<SoloResultRest> returnValue = new CustomList<>();
 
         List<SoloResultDto> soloResultDtos = soloResultService.getSoloResultsByUserId(userId);
 
