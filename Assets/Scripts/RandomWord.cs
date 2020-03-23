@@ -14,17 +14,17 @@ public class RandomWord : MonoBehaviour
         TextChange();
     }
 
-    public string PickRandom()
+    public string PickRandomDifficulty()
     {
         string[] difficulty = new string[] { "Easy", "Medium", "Hard" };
         string randomdifficulty = difficulty[Random.Range(0, difficulty.Length)];
         return randomdifficulty;
     }
 
+    
     public void TextChange()
     {
-        string difficulty = PickRandom();
+        string difficulty = PickRandomDifficulty();
         changingText.text = difficulty;
-
     }
 }
