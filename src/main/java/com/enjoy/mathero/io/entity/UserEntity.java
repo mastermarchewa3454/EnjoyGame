@@ -42,6 +42,9 @@ public class UserEntity implements Serializable {
     @OneToMany(mappedBy = "teacherDetails")
     private List<ClassEntity> teachClasses = new ArrayList<>();
 
+    @OneToMany(mappedBy = "authorDetails")
+    private List<CustomLobbyEntity> customLobbies = new ArrayList<>();
+
     @ManyToMany(cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(
             name="user_role",
@@ -136,5 +139,13 @@ public class UserEntity implements Serializable {
 
     public void setRoles(List<RoleEntity> roles) {
         this.roles = roles;
+    }
+
+    public List<CustomLobbyEntity> getCustomLobbies() {
+        return customLobbies;
+    }
+
+    public void setCustomLobbies(List<CustomLobbyEntity> customLobbies) {
+        this.customLobbies = customLobbies;
     }
 }

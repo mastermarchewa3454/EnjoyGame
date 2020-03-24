@@ -19,6 +19,7 @@ public class UserDto implements Serializable {
     private String encryptedPassword;
     private List<SoloResultDto> soloResults;
     private List<ClassDto> teachClasses;
+    private List<CustomLobbyDto> customLobbies;
 
     public long getId() {
         return id;
@@ -106,5 +107,13 @@ public class UserDto implements Serializable {
 
     public void setTeachClasses(List<ClassDto> teachClasses) {
         this.teachClasses = teachClasses;
+    }
+
+    public List<CustomLobbyDto> getCustomLobbies() {
+        return customLobbies;
+    }
+
+    public void setCustomLobbies(List<CustomLobbyDto> customLobbies) {
+        this.customLobbies = customLobbies;
     }
 }
