@@ -24,8 +24,6 @@ public class Lobby : MonoBehaviourPunCallbacks
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings(); // Connects to server
-        
-        PhotonNetwork.NickName = "Hans";
         waitingText.SetText("");
         playButton.SetActive(false);
     }
@@ -33,7 +31,6 @@ public class Lobby : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("User has connected to Photon Server ");
-        PhotonNetwork.JoinLobby();
         searchButton.SetActive(true);
     }
 
@@ -46,7 +43,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     }
     
     void CreateRoom()
-    {     
+    {
         Debug.Log("Trying to create a new room");
         int roomID = Random.Range(0, 1000);
         RoomOptions roomOptions = new RoomOptions()
@@ -54,26 +51,17 @@ public class Lobby : MonoBehaviourPunCallbacks
             IsVisible = true,
             IsOpen = true,
             MaxPlayers = 2
-        };    
-        lobbyID.SetText("LOBBY ID: " + roomID.ToString());
-        PhotonNetwork.CreateRoom(roomID.ToString(), roomOptions);
+        };
+        lobbyID.SetText("LOBBY ID: " + roomID);
+        PhotonNetwork.CreateRoom("Room" + roomID, roomOptions);
+        Debug.Log("New room" + roomID + " is created");
     }
 
     public override void OnJoinedRoom()
     {
         Debug.Log("We are now in the room");
-        
     }
-    public override void OnPlayerEnteredRoom(Player newPlayer)
-    {
-        waitingText.SetText("Connected to " + newPlayer.NickName);
-        cancelButton.SetActive(false);
-        playButton.SetActive(true);
-    }
-    public override void OnCreatedRoom()
-    {
-        Debug.Log("New room has been created");
-    }
+
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         Debug.Log("The room already exists");
@@ -88,9 +76,15 @@ public class Lobby : MonoBehaviourPunCallbacks
         lobbyID.SetText("LOBBY ID: <>");
         PhotonNetwork.LeaveRoom();
     }
+    public void OnPlayerConnected(NetworkIdentity player)
+    {
+        waitingText.SetText("Connected to " +player.name);
+        cancelButton.SetActive(false);
+        playButton.SetActive(true);
+    }
     public void OnPlayButtonClick()
     {
-        PhotonNetwork.LoadLevel("StageSelection");
+        SceneManager.LoadScene("StageSelection");
     }
 
     // Update is called once per frame
