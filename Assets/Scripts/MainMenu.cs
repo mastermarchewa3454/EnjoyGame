@@ -55,7 +55,7 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void QuitGame()
     {
-        Debug.Log("Sucessfully Exitted");
+        Debug.Log("Exit Successful!");
         Application.Quit();
     }
     /// <summary>
