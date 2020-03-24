@@ -35,7 +35,7 @@ public class RandomWord : MonoBehaviour
     /// </summary>
     private void TextChange()
     {
-        string difficulty = PickRandom();
+        string difficulty = PickRandomDifficulty();
         changingText.text = difficulty;
     }
 }
