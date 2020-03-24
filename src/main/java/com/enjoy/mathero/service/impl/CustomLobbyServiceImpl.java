@@ -7,6 +7,7 @@ import com.enjoy.mathero.io.entity.UserEntity;
 import com.enjoy.mathero.io.repository.CustomLobbyRepository;
 import com.enjoy.mathero.io.repository.UserRepository;
 import com.enjoy.mathero.service.CustomLobbyService;
+import com.enjoy.mathero.shared.MapUtils;
 import com.enjoy.mathero.shared.Utils;
 import com.enjoy.mathero.shared.dto.CustomLobbyDto;
 import com.enjoy.mathero.shared.dto.QuestionDto;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CustomLobbyServiceImpl implements CustomLobbyService {
@@ -34,7 +36,6 @@ public class CustomLobbyServiceImpl implements CustomLobbyService {
 
     @Override
     public CustomLobbyDto createCustomLobby(CustomLobbyDto customLobbyDto) {
-        CustomLobbyDto returnValue = new CustomLobbyDto();
 
         CustomLobbyEntity toSave = new CustomLobbyEntity();
         BeanUtils.copyProperties(customLobbyDto, toSave);
@@ -57,31 +58,20 @@ public class CustomLobbyServiceImpl implements CustomLobbyService {
 
         CustomLobbyEntity saved = customLobbyRepository.save(toSave);
 
+        CustomLobbyDto returnValue = MapUtils.customLobbyEntityToCustomLobbyDto(saved);
+
         return returnValue;
     }
 
     @Override
     public CustomLobbyDto getCustomLobbyByLobbyId(String lobbyId) {
-        CustomLobbyDto returnValue = new CustomLobbyDto();
 
         CustomLobbyEntity customLobbyEntity = customLobbyRepository.findByLobbyId(lobbyId);
 
         if(customLobbyEntity == null)
             throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
-        BeanUtils.copyProperties(customLobbyEntity, returnValue);
-        UserDto authorDto = new UserDto();
-        BeanUtils.copyProperties(customLobbyEntity.getAuthorDetails(), authorDto);
-        returnValue.setAuthorDetails(authorDto);
-
-        List<QuestionEntity> questionEntities = customLobbyEntity.getQuestions();
-        List<QuestionDto> questionDtos = new ArrayList<>();
-        for(int i=0;i<questionEntities.size();i++){
-            QuestionDto questionDto = new QuestionDto();
-            BeanUtils.copyProperties(questionEntities.get(i), questionDto);
-            questionDtos.add(questionDto);
-        }
-        returnValue.setQuestions(questionDtos);
+        CustomLobbyDto returnValue = MapUtils.customLobbyEntityToCustomLobbyDto(customLobbyEntity);
 
         return returnValue;
     }

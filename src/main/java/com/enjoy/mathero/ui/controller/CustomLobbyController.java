@@ -4,6 +4,7 @@ package com.enjoy.mathero.ui.controller;
 import com.enjoy.mathero.exceptions.UserServiceException;
 import com.enjoy.mathero.service.CustomLobbyService;
 import com.enjoy.mathero.service.UserService;
+import com.enjoy.mathero.shared.MapUtils;
 import com.enjoy.mathero.shared.dto.CustomLobbyDto;
 import com.enjoy.mathero.shared.dto.QuestionDto;
 import com.enjoy.mathero.shared.dto.UserDto;
@@ -11,15 +12,14 @@ import com.enjoy.mathero.ui.model.request.CustomLobbyRequestModel;
 import com.enjoy.mathero.ui.model.request.QuestionRequestModel;
 import com.enjoy.mathero.ui.model.response.CustomLobbyRest;
 import com.enjoy.mathero.ui.model.response.ErrorMessages;
+import com.enjoy.mathero.ui.model.response.QuestionRest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "custom-lobbies")
@@ -33,7 +33,6 @@ public class CustomLobbyController {
 
     @PostMapping
     public CustomLobbyRest createCustomLobby(@RequestBody CustomLobbyRequestModel customLobbyRequestModel){
-        CustomLobbyRest returnValue = new CustomLobbyRest();
 
         CustomLobbyDto customLobbyDto = new CustomLobbyDto();
 
@@ -56,8 +55,21 @@ public class CustomLobbyController {
 
         CustomLobbyDto saved = customLobbyService.createCustomLobby(customLobbyDto);
 
+        CustomLobbyRest returnValue = MapUtils.customLobbyDtoToCustomLobbyRest(saved);
+
         return returnValue;
     }
 
+    @GetMapping(path = "/{lobbyId}")
+    public CustomLobbyRest getCustomLobbyByLobbyId(@PathVariable String lobbyId){
+        CustomLobbyDto customLobbyDto = customLobbyService.getCustomLobbyByLobbyId(lobbyId);
+
+        if(customLobbyDto == null)
+            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+
+        CustomLobbyRest returnValue = MapUtils.customLobbyDtoToCustomLobbyRest(customLobbyDto);
+
+        return returnValue;
+    }
 
 }
