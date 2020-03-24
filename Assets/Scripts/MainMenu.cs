@@ -31,7 +31,7 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void PlayGame()
     {
-        SceneManager.LoadScene("StageSelection");
+        SceneManager.LoadScene("CharacterSelection");
     }
 
     /// <summary>
