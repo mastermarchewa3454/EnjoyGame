@@ -123,8 +123,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  rb: {fileID: 3619070501240016813}
-  animator: {fileID: 3933480378647280562}
 --- !u!95 &3933480378647280562
 Animator:
   serializedVersion: 3
@@ -135,10 +133,10 @@ Animator:
   m_GameObject: {fileID: 1218689784983824871}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c10a76e0191ed0742997400f46bf113b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4a3515db37ea3474a9cd13afbf5298a0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -173,9 +171,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0016789963, y: -0.09664235}
+  m_Offset: {x: -0.0016789963, y: -0.005672086}
   serializedVersion: 2
-  m_Radius: 0.04417233
+  m_Radius: 0.04799298
 --- !u!114 &6153279457773989572
 MonoBehaviour:
   m_ObjectHideFlags: 0
