@@ -53,4 +53,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SummaryReportDetails.unity
     guid: 2b68ce2739bb7b641a54aac261124a48
+  - enabled: 1
+    path: Assets/Scenes/LoginScreen.unity
+    guid: dc00563f5de30ed45823d42bc18bdf44
+  - enabled: 1
+    path: Assets/Scenes/RegisterScreen.unity
+    guid: 1b0de60c1b2d1384cbf71df7848248f8
+  - enabled: 1
+    path: Assets/Scenes/DuoMode.unity
+    guid: 99a5621eb4ccd2949999f92380d1d617
+  - enabled: 1
+    path: Assets/Scenes/CustomLobbyComplete.unity
+    guid: ea8f4624b45734b43af9fa6417773f9d
+  - enabled: 1
+    path: Assets/Scenes/CustomLobbyScreen.unity
+    guid: 38cef32dc16146b40be3c55a3c613aac
   m_configObjects: {}

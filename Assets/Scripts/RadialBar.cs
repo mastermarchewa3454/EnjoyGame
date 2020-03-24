@@ -34,7 +34,7 @@ public class RadialBar : MonoBehaviour
         float fillAmount = currentOffset / maximumOffset;
         mask.fillAmount = fillAmount;
 
-        experienceText.text = currentOffset.ToString() + "/" + maximumOffset.ToString() + "\n Stages Cleared";
+        experienceText.text = currentOffset.ToString() + "/" + maximumOffset.ToString() + "\n Questions Done";
 
         fill.color = color;
     }

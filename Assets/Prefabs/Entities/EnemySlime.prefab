@@ -343,7 +343,6 @@ MonoBehaviour:
   speed: 1
   movementInterval: 1
   stopInterval: 2
-  rb: {fileID: 377587030481339104}
 --- !u!114 &377587030481339108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,7 +355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 121541ca37660da40b7c47dba60227e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalHealth: 50
+  totalHealth: 100
 --- !u!114 &358649955178084465
 MonoBehaviour:
   m_ObjectHideFlags: 0

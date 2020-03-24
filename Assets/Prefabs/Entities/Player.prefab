@@ -123,8 +123,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  rb: {fileID: 1090159911795266966}
-  animator: {fileID: 832607703784317321}
 --- !u!95 &832607703784317321
 Animator:
   serializedVersion: 3
@@ -157,10 +155,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletForce: 10
-  firePoint: {fileID: 4886387773751895623}
+  distance: 0.7
   projectilePrefab: {fileID: 5043188500832771354, guid: 7eef55585cbf9eb4d94d71f914b6223f,
     type: 3}
-  rb: {fileID: 1090159911795266966}
 --- !u!58 &4861995979562957658
 CircleCollider2D:
   m_ObjectHideFlags: 0

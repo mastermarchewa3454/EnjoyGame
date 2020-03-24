@@ -2,24 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletController : MonoBehaviour
+/// <summary>
+/// Script for bullet objects
+/// </summary>
+public class Bullet : MonoBehaviour
 {
-    public GameObject hitEffect;
-    public int damage = 10;
+    [SerializeField]
+    private GameObject hitEffect;
+    [SerializeField]
+    private int damage = 10;
 
+    /// <summary>
+    /// Handles collisions of bullets
+    /// </summary>
+    /// <param name="col">Collision2D object</param>
     void OnCollisionEnter2D(Collision2D col)
     {
+        // Plays animation if available
         if (hitEffect != null)
         {
             GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
             Destroy(effect, 0.1f);
         }
 
+        // Damages player / enemy
         if (col.gameObject.CompareTag("Enemy") || col.gameObject.CompareTag("Player"))
         {
             col.gameObject.SendMessage("OnDamage", damage);
         }
 
+        // Destroys the bullet
         Destroy(gameObject);
     }
 }

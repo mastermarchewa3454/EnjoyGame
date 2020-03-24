@@ -3,16 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Script to display the game heads-up display (HUD)
+/// </summary>
 public class GameHUD : MonoBehaviour
 {
-    public Text healthText;
-    public Text levelText;
-    public Text timerText;
+    [SerializeField]
+    private Text healthText;
+
+    [SerializeField]
+    private Text levelText;
+
+    [SerializeField]
+    private Text timerText;
 
     int health;
     int level;
     float timer;
 
+    /// <summary>
+    /// Gets the data from player prefs at the start of the level
+    /// </summary>
     void Start()
     {
         health = PlayerPrefs.GetInt("health", 100);
@@ -23,12 +34,17 @@ public class GameHUD : MonoBehaviour
         levelText.text = "Level " + level;
     }
 
+    /// <summary>
+    /// Saves the time at the end of the level
+    /// </summary>
     void OnDestroy()
     {
         PlayerPrefs.SetFloat("timer", timer);
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Updates the timer
+    /// </summary>
     void Update()
     {
         timer += Time.deltaTime;
@@ -37,6 +53,10 @@ public class GameHUD : MonoBehaviour
         timerText.text = minutes + ":" + seconds;
     }
 
+    /// <summary>
+    /// Updates the health on damage
+    /// </summary>
+    /// <param name="health">New health of player</param>
     public void UpdateHealth(int health)
     {
         healthText.text = "Health: " + health + " / 100";
