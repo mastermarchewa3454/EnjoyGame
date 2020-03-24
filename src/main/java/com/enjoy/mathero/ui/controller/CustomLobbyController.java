@@ -17,6 +17,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class CustomLobbyController {
     UserService userService;
 
     @PostMapping
-    public CustomLobbyRest createCustomLobby(@RequestBody CustomLobbyRequestModel customLobbyRequestModel){
+    public CustomLobbyRest createCustomLobby(@Valid @RequestBody CustomLobbyRequestModel customLobbyRequestModel){
 
         CustomLobbyDto customLobbyDto = new CustomLobbyDto();
 

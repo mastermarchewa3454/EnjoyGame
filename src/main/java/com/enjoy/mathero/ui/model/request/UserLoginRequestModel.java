@@ -1,7 +1,16 @@
 package com.enjoy.mathero.ui.model.request;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class UserLoginRequestModel {
+
+    @NotNull(message = "Username cannot be null!")
+    @Size(max = 50, message = "Username too long!")
     private String username;
+
+    @NotNull(message = "Password cannot be null!")
+    @Size(max = 50, message = "Password too long!")
     private String password;
 
     public String getUsername() {
