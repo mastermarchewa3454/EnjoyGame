@@ -8,7 +8,11 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
+<<<<<<< Updated upstream
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+=======
+        SceneManager.LoadScene("CharacterSelection");
+>>>>>>> Stashed changes
     }
 
     public void Leaderboard()
