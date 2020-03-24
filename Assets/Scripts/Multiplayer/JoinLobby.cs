@@ -24,6 +24,12 @@ public class JoinLobby : MonoBehaviourPunCallbacks
         lobbyID.SetText("");
         username.SetText("");
     }
+
+    public override void OnConnectedToMaster()
+    {
+        Debug.Log("User has connected to Photon Server ");
+        PhotonNetwork.JoinLobby();
+    }
     public void OnEnterRoomButtonClick()
     {
         if(lobbyID.GetParsedText().Equals(""))
@@ -42,10 +48,10 @@ public class JoinLobby : MonoBehaviourPunCallbacks
             PhotonNetwork.NickName = user;
             Debug.Log("The roomID is " + roomID);
             Debug.Log("The username is: " + user);
-            PhotonNetwork.JoinRoom(roomID);
-        }
-             
+            PhotonNetwork.JoinRandomRoom();
+        }        
     }
+
     
     public override void OnJoinedRoom()
     {
@@ -54,8 +60,10 @@ public class JoinLobby : MonoBehaviourPunCallbacks
     }
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
-        Debug.Log("The room does not exist");
+        base.OnJoinRoomFailed(returnCode, message);
+        Debug.Log("The room does not exist " + message);
         waitingText.SetText("The room does not exist");
+        Debug.Log("Num of rooms " + PhotonNetwork.CountOfRooms);
     }
     // Update is called once per frame
     void Update()
