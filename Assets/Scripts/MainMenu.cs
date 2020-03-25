@@ -120,9 +120,30 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("QnA");
     }
 
-
+    /// <summary>
+    /// Method call to redirect the user to the Custom Lobby screen.
+    /// </summary>
     public void EnterCustomLobbyScreen()
     {
         SceneManager.LoadScene("CustomLobbyScreen");
+    }
+
+    /// <summary>
+    /// Method call to redirect the user to the main menu page after clicking "Back" in Custom Lobby screen, depending on the user's role.
+    ///</summary>
+    public void LeaveFromCustomLobby()
+    {
+        if(PlayerPrefs.HasKey("Teacher")){
+            int flag = PlayerPrefs.GetInt("Teacher");
+            if(flag==1){
+                EnterTeacherScreen();
+            }
+            else(flag==0){
+                ReturnMainMenu();
+            }
+        }
+        else{
+            Debug.Log("No such key");
+        }
     }
 }
