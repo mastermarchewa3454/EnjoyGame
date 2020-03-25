@@ -20,4 +20,5 @@ public class OperationStatusModel {
     public void setOperationName(String operationName) {
         this.operationName = operationName;
     }
+
 }

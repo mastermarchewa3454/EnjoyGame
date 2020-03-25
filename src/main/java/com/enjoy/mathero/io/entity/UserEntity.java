@@ -29,6 +29,9 @@ public class UserEntity implements Serializable {
     @Column(nullable=false, length = 120)
     private String email;
 
+    @Column(nullable = false)
+    private int maxStageCanPlay;
+
     @ManyToOne
     @JoinColumn(name = "class_id")
     private ClassEntity classDetails;
@@ -147,5 +150,13 @@ public class UserEntity implements Serializable {
 
     public void setCustomLobbies(List<CustomLobbyEntity> customLobbies) {
         this.customLobbies = customLobbies;
+    }
+
+    public int getMaxStageCanPlay() {
+        return maxStageCanPlay;
+    }
+
+    public void setMaxStageCanPlay(int maxStageCanPlay) {
+        this.maxStageCanPlay = maxStageCanPlay;
     }
 }

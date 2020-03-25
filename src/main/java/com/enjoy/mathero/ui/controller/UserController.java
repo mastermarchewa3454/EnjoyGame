@@ -6,6 +6,7 @@ import com.enjoy.mathero.service.UserService;
 import com.enjoy.mathero.shared.CustomList;
 import com.enjoy.mathero.shared.dto.SoloResultDto;
 import com.enjoy.mathero.shared.dto.UserDto;
+import com.enjoy.mathero.ui.model.request.MaxStageRequestModel;
 import com.enjoy.mathero.ui.model.request.UserDetailsRequestModel;
 import com.enjoy.mathero.ui.model.response.*;
 import org.modelmapper.ModelMapper;
@@ -111,6 +112,23 @@ public class UserController {
 
         return returnValue;
 
+    }
+
+    @PostMapping(path = "/{userId}/max-stage")
+    public OperationStatusModel setUserMaxStage(@RequestBody MaxStageRequestModel maxStageRequestModel, @PathVariable String userId){
+        OperationStatusModel returnValue = new OperationStatusModel();
+
+        UserDto userDto = userService.getUserByUserId(userId);
+        if(userDto == null)
+            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+
+        userDto.setMaxStageCanPlay(maxStageRequestModel.getMaxStageCanPlay());
+        userService.updateUser(userId, userDto);
+
+        returnValue.setOperationResult("SUCCESS");
+        returnValue.setOperationName("MAX_STAGE_NUMBER");
+
+        return returnValue;
     }
 
 }

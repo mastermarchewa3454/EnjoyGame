@@ -17,6 +17,7 @@ public class UserDto implements Serializable {
     private String email;
     private String password;
     private String encryptedPassword;
+    private int maxStageCanPlay;
     private List<SoloResultDto> soloResults;
     private List<ClassDto> teachClasses;
     private List<CustomLobbyDto> customLobbies;
@@ -115,5 +116,13 @@ public class UserDto implements Serializable {
 
     public void setCustomLobbies(List<CustomLobbyDto> customLobbies) {
         this.customLobbies = customLobbies;
+    }
+
+    public int getMaxStageCanPlay() {
+        return maxStageCanPlay;
+    }
+
+    public void setMaxStageCanPlay(int maxStageCanPlay) {
+        this.maxStageCanPlay = maxStageCanPlay;
     }
 }

@@ -66,6 +66,7 @@ public class UserServiceImpl implements UserService {
         roles.add(roleRepository.findByRoleName(role));
         userEntity.setRoles(roles);
         userEntity.setClassDetails(studentClass);
+        userEntity.setMaxStageCanPlay(0);
 
         UserEntity storedUserDetails = userRepository.save(userEntity);
         ClassDto classDto = new ClassDto();
@@ -88,6 +89,7 @@ public class UserServiceImpl implements UserService {
 
         userEntity.setFirstName(user.getFirstName());
         userEntity.setLastName(user.getLastName());
+        userEntity.setMaxStageCanPlay(user.getMaxStageCanPlay());
 
         UserEntity updatedUserDetails = userRepository.save(userEntity);
         BeanUtils.copyProperties(updatedUserDetails, userDto);
