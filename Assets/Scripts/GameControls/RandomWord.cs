@@ -25,26 +25,23 @@ public class RandomWord : MonoBehaviour
     /// <returns>Difficulty</returns>
     private string PickRandomDifficulty()
     {
-        //get number of correct answered questions
-        //int easy = 
-        //int medium = 
-        //int hard =
-        //int total = easy + medium+  hard;
-        //if (total<3){
+        // Get number of correct answered questions
+        string str = PlayerPrefs.GetString("pastResults", null);
+        Debug.Log(str);
+        string[] arr = str.Split(',');
+
         string[] difficulty = new string[] { "Easy", "Medium", "Hard" };
+        if (arr != null && int.Parse(arr[0]) > 3){
+            int easyPercent = int.Parse(arr[1]);
+            int mediumPercent = int.Parse(arr[2]);
+            int hardPercent = int.Parse(arr[3]);
+            if(easyPercent>30 || hardPercent>40){
+                difficulty = new string[] { "Medium", "Hard" };
+            }
+        }
         string randomdifficulty = difficulty[Random.Range(0, difficulty.Length)];
+        Debug.Log(randomdifficulty);
         return randomdifficulty;
-        //}
-        //else{
-        //  easypercent = easy/total*100;
-        //  mediumpercent = medium/total*100;
-        //  hardpercent = hard/total*100;
-        //  if(easypercent>30 || hardpercent>40){
-        //      string[] difficulty = new string[] { "Medium", "Hard" };
-        //      string randomdifficulty = difficulty[Random.Range(0, difficulty.Length)];
-        //      return randomdifficulty;
-        //  }
-        //}
     }
 
     /// <summary>

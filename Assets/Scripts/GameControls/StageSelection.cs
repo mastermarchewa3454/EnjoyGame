@@ -12,6 +12,8 @@ public class StageSelection : MonoBehaviour
     [SerializeField]
     private int stagesCleared;
 
+    DBResultsManager db;
+
     /// <summary>
     /// Unlocks the appropriate number of stages
     /// </summary>
@@ -22,6 +24,12 @@ public class StageSelection : MonoBehaviour
         {
             Unlock(i+1);
         }
+        db = GetComponent<DBResultsManager>();
+    }
+
+    void GetPastResults(int stage)
+    {
+        StartCoroutine(db.GetUserResults(stage));
     }
 
     /// <summary>
@@ -44,6 +52,7 @@ public class StageSelection : MonoBehaviour
         if (stage <= stagesCleared + 1)
         {
             PlayerPrefs.SetInt("stage", stage);
+            GetPastResults(stage);
             SceneManager.LoadScene("Level 1");
         }
         else
