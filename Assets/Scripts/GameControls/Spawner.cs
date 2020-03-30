@@ -29,6 +29,7 @@ public class Spawner : MonoBehaviour
             default: player = archer; break;
         }
 
+    
         player = Instantiate(player, transform.position, Quaternion.identity);
         player.name = "Player";
 

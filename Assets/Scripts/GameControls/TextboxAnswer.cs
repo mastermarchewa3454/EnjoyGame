@@ -115,7 +115,7 @@ public class TextboxAnswer : MonoBehaviour
         }
         else
         {
-            PlayerPrefs.SetInt(difficulty + "Wrong", PlayerPrefs.GetInt(difficulty + "easyWrong", 0) + 1);
+            PlayerPrefs.SetInt(difficulty + "Wrong", PlayerPrefs.GetInt(difficulty + "Wrong", 0) + 1);
             SceneManager.LoadScene("AnswerWrong");
         }
     }

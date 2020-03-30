@@ -138,8 +138,7 @@ public class MainMenu : MonoBehaviour
             if(flag==1){
                 EnterTeacherScreen();
             }
-            else if(flag==0)
-            {
+            else if (flag==0){
                 ReturnMainMenu();
             }
         }
