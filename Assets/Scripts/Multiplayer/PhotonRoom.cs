@@ -9,20 +9,24 @@ using UnityEngine.SceneManagement;
 
 public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
 {
+    // the room
     public static PhotonRoom theRoom;
-    public PhotonView pV;
+    private PhotonView pV;
     public bool isGameLoad;
     public int currentScene;
 
+    // info about players
     Player[] photonPlayers;
     public int playersInRoom;
+
+    Spawner spawner;
+    // start the time
 
     private bool readyToCount;
     private bool isItStart;
     private float atMaxPlayers;
     public float startTime;
     public float timeToStart;
-
     private void Awake()
     {
         if(PhotonRoom.theRoom == null)
@@ -65,10 +69,6 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
             {
                 pV.RPC("RPC_LoadedGameScene", RpcTarget.MasterClient);
             }
-            else
-            {
-                RPC_CreatePlayer();
-            }
         }
     }
 
@@ -78,15 +78,11 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         playersInRoom++;
         if(playersInRoom == PhotonNetwork.PlayerList.Length)
         {
-            pV.RPC("RPC_CreatePlayer", RpcTarget.All);
+            spawner = FindObjectOfType<Spawner>();
+            spawner.setDuoMode();
         }
     }
 
-    [PunRPC]
-    private void RPC_CreatePlayer()
-    {
-        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonNetworkPlayer"), transform.position, Quaternion.identity, 0);
-    }
 
     void Start()
     {
@@ -94,7 +90,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         readyToCount = false;
         isItStart = false;
         timeToStart = startTime;
-
+        atMaxPlayers = 5;
     }
 
     // Update is called once per frame
@@ -113,6 +109,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
                     atMaxPlayers -= Time.deltaTime;
                     timeToStart = atMaxPlayers;
                 }
+                Debug.Log("Display time to start to the players: " + timeToStart);
                 if(timeToStart <= 0)
                 {
                     StartGame();
@@ -135,10 +132,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
                 {
                     return;
                 }
-                else
-                {
-                    PhotonNetwork.CurrentRoom.IsOpen = false;
-                }
+                PhotonNetwork.CurrentRoom.IsOpen = false;              
             }
         }
         else
