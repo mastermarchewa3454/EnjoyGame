@@ -23,8 +23,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     }
     void Start()
     {
-        PhotonNetwork.ConnectUsingSettings(); // Connects to server
-        
+        PhotonNetwork.ConnectUsingSettings(); // Connects to server        
         PhotonNetwork.NickName = "Hans";
         waitingText.SetText("");
         playButton.SetActive(false);
@@ -33,7 +32,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("User has connected to Photon Server ");
-        PhotonNetwork.JoinLobby();
+        PhotonNetwork.AutomaticallySyncScene = true;
         searchButton.SetActive(true);
     }
 
@@ -53,10 +52,10 @@ public class Lobby : MonoBehaviourPunCallbacks
         {
             IsVisible = true,
             IsOpen = true,
-            MaxPlayers = 2
+            MaxPlayers = 2,
         };    
         lobbyID.SetText("LOBBY ID: " + roomID.ToString());
-        PhotonNetwork.CreateRoom(roomID.ToString(), roomOptions);
+        PhotonNetwork.CreateRoom("Room" + roomID, roomOptions);
     }
 
     public override void OnJoinedRoom()

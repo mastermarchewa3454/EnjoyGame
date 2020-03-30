@@ -28,7 +28,7 @@ public class JoinLobby : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("User has connected to Photon Server ");
-        PhotonNetwork.JoinLobby();
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
     public void OnEnterRoomButtonClick()
     {
