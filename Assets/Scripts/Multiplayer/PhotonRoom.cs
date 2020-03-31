@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,17 +15,8 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     private PhotonView pV;
     public bool isGameLoad;
     public string currentScene;
-    [SerializeField]
-    GameObject archer;
-
-    [SerializeField]
-    GameObject mole;
-
-    [SerializeField]
-    GameObject treant;
-
-    GameObject player;
-
+    public TextMeshProUGUI timerHost;
+    public TextMeshProUGUI timerPlayer;
     // info about players
     Player[] photonPlayers;
     public int playersInRoom;
@@ -36,7 +28,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     private bool isItStart;
     private float atMaxPlayers;
     public float startTime;
-    public float timeToStart;
+    private float timeToStart;
     private void Awake()
     {
         if(PhotonRoom.theRoom == null)
@@ -107,7 +99,9 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         readyToCount = false;
         isItStart = false;
         timeToStart = startTime;
-        atMaxPlayers = 5;
+        atMaxPlayers = 10;
+        timerHost.SetText("");
+        timerPlayer.SetText("");
     }
 
     // Update is called once per frame
@@ -118,6 +112,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
             if(playersInRoom == 1)
             {
                 RestartTime();
+                
             }
             if(!isGameLoad)
             {
@@ -125,8 +120,11 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
                 {
                     atMaxPlayers -= Time.deltaTime;
                     timeToStart = atMaxPlayers;
-                }
-                Debug.Log("Display time to start to the players: " + timeToStart);
+                    int t = (int)timeToStart;
+                    timerHost.SetText(t.ToString());
+                    timerPlayer.SetText(t.ToString());
+                    Debug.Log("Display time to start to the players: " + timeToStart);
+                }               
                 if(timeToStart <= 0)
                 {
                     StartGame();
@@ -146,9 +144,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
             {
                 isItStart = true;
                 if (!PhotonNetwork.IsMasterClient)
-                {
-                    return;
-                }
+                     return;              
                 PhotonNetwork.CurrentRoom.IsOpen = false;              
             }
         }
@@ -203,8 +199,10 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     void RestartTime()
     {
         timeToStart = startTime;
-        atMaxPlayers = 5;
+        atMaxPlayers = 10;
         readyToCount = false;
         isItStart = false;
+        timerHost.SetText("");
+        timerPlayer.SetText("");
     }
 }
