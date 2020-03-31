@@ -151,8 +151,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delayStarting: 0
-  menuScene: 0
-  multiScene: 1
+  menuScene: 
+  multiScene: StageSelection
 --- !u!4 &2140017
 Transform:
   m_ObjectHideFlags: 0
@@ -969,11 +969,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGameLoad: 0
-  currentScene: 0
-  playersInRoom: 0
+  currentScene: 
   archer: {fileID: 0}
   mole: {fileID: 0}
   treant: {fileID: 0}
+  playersInRoom: 0
   startTime: 0
   timeToStart: 6
 --- !u!4 &311866442

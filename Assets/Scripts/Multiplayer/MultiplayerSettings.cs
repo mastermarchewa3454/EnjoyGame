@@ -8,8 +8,8 @@ public class MultiplayerSettings : MonoBehaviour
 
     public bool delayStarting;
 
-    public int menuScene;
-    public int multiScene;
+    public string menuScene;
+    public string multiScene;
 
     private void Awake()
     {

@@ -13,7 +13,17 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     public static PhotonRoom theRoom;
     private PhotonView pV;
     public bool isGameLoad;
-    public int currentScene;
+    public string currentScene;
+    [SerializeField]
+    GameObject archer;
+
+    [SerializeField]
+    GameObject mole;
+
+    [SerializeField]
+    GameObject treant;
+
+    GameObject player;
 
     // info about players
     Player[] photonPlayers;
@@ -61,13 +71,17 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
     void OnSceneFinishedLoad(Scene scene, LoadSceneMode mode)
     {
-        currentScene = scene.buildIndex;
+        currentScene = scene.name;
         if(currentScene == MultiplayerSettings.multiSettings.multiScene)
         {
             isGameLoad = true;
             if(MultiplayerSettings.multiSettings.delayStarting)
             {
                 pV.RPC("RPC_LoadedGameScene", RpcTarget.MasterClient);
+            }
+            else
+            {
+                RPC_CreatePlayer();
             }
         }
     }
@@ -78,11 +92,14 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         playersInRoom++;
         if(playersInRoom == PhotonNetwork.PlayerList.Length)
         {
-            spawner = FindObjectOfType<Spawner>();
-            spawner.setDuoMode();
+            pV.RPC("RPC_CreatePlayer", RpcTarget.All);
         }
     }
 
+    private void RPC_CreatePlayer()
+    {
+        PhotonNetwork.Instantiate(Path.Combine("ForMulti","Player"), transform.position, Quaternion.identity,0);
+    }
 
     void Start()
     {
