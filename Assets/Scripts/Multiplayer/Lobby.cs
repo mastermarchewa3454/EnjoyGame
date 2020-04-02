@@ -33,7 +33,6 @@ public class Lobby : MonoBehaviourPunCallbacks
     {
         Debug.Log("User has connected to Photon Server ");
         PhotonNetwork.AutomaticallySyncScene = true;
-        searchButton.SetActive(true);
     }
 
     public void OnSearchButtonClick()
