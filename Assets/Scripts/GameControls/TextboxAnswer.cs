@@ -9,13 +9,13 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class TextboxAnswer : MonoBehaviour
 {
-    [SerializeField]
-    private string userAnswer;
+
     [SerializeField]
     private GameObject inputField;
     List<Quest> quests = new List<Quest>();
     static Quest selectedq;
-    public GameObject changingtext;
+    [SerializeField]
+    private GameObject changingtext;
     /// <summary>
     /// Checks if users answer is correct
     /// </summary>
@@ -100,15 +100,20 @@ public class TextboxAnswer : MonoBehaviour
         }
         question = selectedq.Question;
         changingtext.GetComponent<Text>().text = question;
+        Debug.Log(questID);
         Debug.Log("Answer is:" + selectedq.Answer);
     }
 
 
     public void CheckUserAnswer()
     {
-        userAnswer = inputField.GetComponent<Text>().text;
+        
+        string userAnswer = inputField.GetComponent<Text>().text;
+        Debug.Log(userAnswer);
+        Debug.Log(selectedq.Answer);
         string difficulty = PlayerPrefs.GetString("difficulty", "easy").ToLower();
-        if (userAnswer.CompareTo(selectedq.Answer) == 0)
+        //if (userAnswer.CompareTo(selectedq.Answer) == 0)
+        if (string.Equals(userAnswer, selectedq.Answer))
         {
             PlayerPrefs.SetInt(difficulty + "Correct", PlayerPrefs.GetInt(difficulty + "Correct", 0) + 1);
             SceneManager.LoadScene("AnswerCorrect");

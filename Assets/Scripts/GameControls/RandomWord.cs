@@ -40,7 +40,6 @@ public class RandomWord : MonoBehaviour
             }
         }
         string randomdifficulty = difficulty[Random.Range(0, difficulty.Length)];
-        Debug.Log(randomdifficulty);
         return randomdifficulty;
     }
 
