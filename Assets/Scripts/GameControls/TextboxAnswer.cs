@@ -34,7 +34,7 @@ public class TextboxAnswer : MonoBehaviour
 
         for (int i = 0; i < data.Length - 1; i++)
         {
-            string[] row = data[i].Split(new char[] { ';' });
+            string[] row = data[i].Split(';');
             Quest q = new Quest();
             int.TryParse(row[0], out q.QuestionID);
             int.TryParse(row[1], out q.DifficultyLevel);
@@ -79,6 +79,7 @@ public class TextboxAnswer : MonoBehaviour
         for (int k = 0; k < q.Count; k++)
         {
             questions.Add(q[k].QuestionID);
+            Debug.Log(q[k].QuestionID);
         }
         int randomquestion = questions[Random.Range(0, questions.Count)];
         return randomquestion;
@@ -88,6 +89,7 @@ public class TextboxAnswer : MonoBehaviour
     {
         string question;
         List<Quest> filteredquests = FilterQuestion(quests);
+        Debug.Log("lol");
         int questID = PickRandomQuestion(filteredquests);
         Debug.Log(questID);
         for (int j = 0; j < filteredquests.Count; j++)
@@ -95,13 +97,15 @@ public class TextboxAnswer : MonoBehaviour
             if (questID == filteredquests[j].QuestionID)
             {
                 selectedq = filteredquests[j];
+                Debug.Log(filteredquests[j].QuestionID);
+                Debug.Log(selectedq.Answer);
                 break;
             }
         }
+        
         question = selectedq.Question;
         changingtext.GetComponent<Text>().text = question;
-        Debug.Log(questID);
-        Debug.Log("Answer is:" + selectedq.Answer);
+        
     }
 
 
