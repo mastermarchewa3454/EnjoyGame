@@ -28,6 +28,7 @@ public class ItemChoice : MonoBehaviour
     {
         difficulty = GameObject.Find("Health/Text").GetComponent<Text>();
         PlayerPrefs.SetString("difficulty", difficulty.text);
+        PlayerPrefs.SetInt("health", 100);
         SceneManager.LoadScene("QuestionDisplay");
     }
 
