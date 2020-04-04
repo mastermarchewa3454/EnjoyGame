@@ -20,8 +20,6 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     // info about players
     Player[] photonPlayers;
     public int playersInRoom;
-
-    Spawner spawner;
     // start the time
 
     private bool readyToCount;
@@ -29,6 +27,8 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     private float atMaxPlayers;
     public float startTime;
     private float timeToStart;
+    private int playersInGame;
+
     private void Awake()
     {
         if(PhotonRoom.theRoom == null)
@@ -77,20 +77,15 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
             }
         }
     }
-
     [PunRPC]
     private void RPC_LoadedGameScene()
-    {
-        playersInRoom++;
-        if(playersInRoom == PhotonNetwork.PlayerList.Length)
-        {
-            pV.RPC("RPC_CreatePlayer", RpcTarget.All);
-        }
+    {       
+        pV.RPC("RPC_CreatePlayer", RpcTarget.All);                     
     }
-
+    [PunRPC]
     private void RPC_CreatePlayer()
     {
-        PhotonNetwork.Instantiate(Path.Combine("ForMulti","Player"), transform.position, Quaternion.identity,0);
+        PhotonNetwork.Instantiate(Path.Combine("ForMulti","PhotonNetworkPlayer"), transform.position, Quaternion.identity,0);
     }
 
     void Start()
@@ -116,7 +111,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
             }
             if(!isGameLoad)
             {
-                if(isItStart)
+                if(isItStart && playersInRoom == 2)
                 {
                     atMaxPlayers -= Time.deltaTime;
                     timeToStart = atMaxPlayers;
@@ -128,6 +123,10 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
                 if(timeToStart <= 0)
                 {
                     StartGame();
+                }
+                if(playersInRoom != 2)
+                {
+                    RestartTime();
                 }
             }
         }
@@ -183,6 +182,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
     void StartGame()
     {
+        Spawner.isDuoMode = true;
         isGameLoad = true;
         if (!PhotonNetwork.IsMasterClient)
         {
@@ -192,8 +192,9 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         {
             PhotonNetwork.CurrentRoom.IsOpen = false;
 
-        }
+        }       
         PhotonNetwork.LoadLevel(MultiplayerSettings.multiSettings.multiScene);
+        
     }
 
     void RestartTime()

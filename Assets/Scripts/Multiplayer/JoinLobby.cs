@@ -51,6 +51,13 @@ public class JoinLobby : MonoBehaviourPunCallbacks
             PhotonNetwork.JoinRandomRoom();
         }        
     }
+    public void OnBackButtonClick()
+    {
+        if(PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.LeaveRoom();
+        }        
+    }
 
     
     public override void OnJoinedRoom()
