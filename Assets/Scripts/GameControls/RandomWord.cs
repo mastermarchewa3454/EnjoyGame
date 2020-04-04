@@ -26,7 +26,7 @@ public class RandomWord : MonoBehaviour
     private string PickRandomDifficulty()
     {
         // Get number of correct answered questions
-        string str = PlayerPrefs.GetString("pastResults", null);
+        string str = PlayerPrefs.GetString("pastResults", "0,0,0,0");
         Debug.Log(str);
         string[] arr = str.Split(',');
 

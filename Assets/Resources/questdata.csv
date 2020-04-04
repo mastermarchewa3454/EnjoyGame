@@ -18,16 +18,16 @@
 52008;2;(m^3)*(5*m^8);5*m^11
 52009;2;y*(9*y^{12});9*y^{13}
 52010;2;(3*x^4)*(5*x^3);15x^7
-53001;3;If 15>10 and 10 >p, then 15 ??/p.;>.
-53002;3;If -3>x and x>y, then -3 ??/y.;>.
-53011;3;If a<60 and 60 <b, then a ??/b;<.
-53004;3;If x+1=y, then x ??/ y.;<.
-53005;3;If m-2=n, then m ??/ n.;>.
-53006;3;If x>y, then 4*x ??/ 4*y.;>.
-53007;3;If x>y, then x/100 ??/ y/100.;>.
-53008;3;If x>y, then (-2)*x ??/ (-2)*y.;<.
-53009;3;If x>y, then x/(-2) ??/ y/(-2).;<.
-53010;3;If p<q and q<0, then p ??/ 0.;<.
+53001;3;If 15>10 and 10 >p, then 15 ??/p.;>
+53002;3;If -3>x and x>y, then -3 ??/y.;>
+53011;3;If a<60 and 60 <b, then a ??/b;<
+53004;3;If x+1=y, then x ??/ y.;<
+53005;3;If m-2=n, then m ??/ n.;>
+53006;3;If x>y, then 4*x ??/ 4*y.;>
+53007;3;If x>y, then x/100 ??/ y/100.;>
+53008;3;If x>y, then (-2)*x ??/ (-2)*y.;<
+53009;3;If x>y, then x/(-2) ??/ y/(-2).;<
+53010;3;If p<q and q<0, then p ??/ 0.;<
 54001;4;If the gradient of the line joining the points (-3,-7) and (4,b) is equal to 3/5, find b.;a
 54002;4;Find the value of k if the line joining the points(3k,8) and (k,-3) has a gradient of 3.;a
 54003;4;The points (2,-3), (3,-2) and (8, k) lie on a straight line. Find k.;a
