@@ -48,7 +48,15 @@ public class JoinLobby : MonoBehaviourPunCallbacks
             PhotonNetwork.NickName = user;
             Debug.Log("The roomID is " + roomID);
             Debug.Log("The username is: " + user);
+            Debug.Log("num of rooms: " + PhotonNetwork.CountOfRooms);
             PhotonNetwork.JoinRandomRoom();
+        }        
+    }
+    public void OnBackButtonClick()
+    {
+        if(PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.LeaveRoom();
         }        
     }
 

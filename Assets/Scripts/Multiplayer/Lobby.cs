@@ -11,12 +11,12 @@ using UnityEngine.SceneManagement;
 public class Lobby : MonoBehaviourPunCallbacks
 {
     public static Lobby lobby;
-    public SceneChanger sceneChanger;
     public GameObject searchButton;
     public GameObject cancelButton;
     public GameObject playButton;
     public TextMeshProUGUI waitingText;
     public TextMeshProUGUI lobbyID;
+    public static Spawner spawner;
     private void Awake()
     {
         lobby = this; // Creates singleton
@@ -83,12 +83,21 @@ public class Lobby : MonoBehaviourPunCallbacks
         cancelButton.SetActive(false);
         searchButton.SetActive(true);
         waitingText.SetText("");
-        lobbyID.SetText("LOBBY ID: <>");
+        lobbyID.SetText("LOBBY ID: <>");        
         PhotonNetwork.LeaveRoom();
+        Destroy(PhotonRoom.theRoom.gameObject);
     }
-    public void OnPlayButtonClick()
+
+    public void OnBackButtonClick()
     {
-        PhotonNetwork.LoadLevel("StageSelection");
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.LeaveRoom();
+        }
+        if (PhotonRoom.theRoom != null)
+        {
+            Destroy(PhotonRoom.theRoom.gameObject);
+        }                         
     }
 
     // Update is called once per frame
