@@ -12,10 +12,10 @@ public class PhotonPlayer : MonoBehaviour
     void Start()
     {
         pV = GetComponent<PhotonView>();
-        float yValue = Random.Range(-1, 1);
+        float yValue = Random.Range(-0.5f, 0.5f);
         if (pV.IsMine)
         {
-            myCharacter = PhotonNetwork.Instantiate(Path.Combine("ForMulti", "Mole Player"), new Vector3(-6, yValue ,0), Quaternion.identity, 0);
+            myCharacter = PhotonNetwork.Instantiate(Path.Combine("ForMulti", "Player"), new Vector3(-5f, yValue ,0f), Quaternion.identity, 0);
             myCharacter.name = "Player";
             Debug.Log("New player was created");
         }

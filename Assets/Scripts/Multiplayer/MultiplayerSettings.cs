@@ -7,7 +7,7 @@ public class MultiplayerSettings : MonoBehaviour
     public static MultiplayerSettings multiSettings;
 
     public bool delayStarting;
-
+    public int maxPlayers;
     public string menuScene;
     public string multiScene;
 

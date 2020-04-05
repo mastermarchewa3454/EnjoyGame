@@ -83,8 +83,21 @@ public class Lobby : MonoBehaviourPunCallbacks
         cancelButton.SetActive(false);
         searchButton.SetActive(true);
         waitingText.SetText("");
-        lobbyID.SetText("LOBBY ID: <>");
+        lobbyID.SetText("LOBBY ID: <>");        
         PhotonNetwork.LeaveRoom();
+        Destroy(PhotonRoom.theRoom.gameObject);
+    }
+
+    public void OnBackButtonClick()
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.LeaveRoom();
+        }
+        if (PhotonRoom.theRoom != null)
+        {
+            Destroy(PhotonRoom.theRoom.gameObject);
+        }                         
     }
 
     // Update is called once per frame

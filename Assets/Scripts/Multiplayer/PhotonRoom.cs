@@ -79,8 +79,13 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     }
     [PunRPC]
     private void RPC_LoadedGameScene()
-    {       
-        pV.RPC("RPC_CreatePlayer", RpcTarget.All);                     
+    {
+        playersInGame++;
+        if(playersInGame == PhotonNetwork.PlayerList.Length)
+        {
+            pV.RPC("RPC_CreatePlayer", RpcTarget.All);
+        }
+                           
     }
     [PunRPC]
     private void RPC_CreatePlayer()
@@ -111,7 +116,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
             }
             if(!isGameLoad)
             {
-                if(isItStart && playersInRoom == 2)
+                if(isItStart && playersInRoom == MultiplayerSettings.multiSettings.maxPlayers)
                 {
                     atMaxPlayers -= Time.deltaTime;
                     timeToStart = atMaxPlayers;
@@ -139,7 +144,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         playersInRoom = photonPlayers.Length;
         if(MultiplayerSettings.multiSettings.delayStarting)
         {
-            if (playersInRoom == 2)
+            if (playersInRoom == MultiplayerSettings.multiSettings.maxPlayers)
             {
                 isItStart = true;
                 if (!PhotonNetwork.IsMasterClient)
@@ -165,7 +170,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
             {
                 readyToCount = true;
             }
-            if (playersInRoom == 2)
+            if (playersInRoom == MultiplayerSettings.multiSettings.maxPlayers)
             {
                 isItStart = true;
                 if (!PhotonNetwork.IsMasterClient)
@@ -193,8 +198,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
             PhotonNetwork.CurrentRoom.IsOpen = false;
 
         }       
-        PhotonNetwork.LoadLevel(MultiplayerSettings.multiSettings.multiScene);
-        
+        PhotonNetwork.LoadLevel(MultiplayerSettings.multiSettings.multiScene);        
     }
 
     void RestartTime()
