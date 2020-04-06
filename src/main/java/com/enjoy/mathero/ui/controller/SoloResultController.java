@@ -1,6 +1,7 @@
 package com.enjoy.mathero.ui.controller;
 
 import com.enjoy.mathero.exceptions.UserServiceException;
+import com.enjoy.mathero.io.entity.SoloResultEntity;
 import com.enjoy.mathero.io.entity.UserEntity;
 import com.enjoy.mathero.service.ClassService;
 import com.enjoy.mathero.service.SoloResultService;
@@ -36,10 +37,20 @@ public class SoloResultController {
         return null;
     }
 
-    /*@GetMapping(path = "/users/{userId}/results")
-    public List<SoloResultRest> getResultsByUserId(@PathVariable String userId){
-        return null;
-    }*/
+    @GetMapping(path = "/users/{userId}/results")
+    public CustomList<SoloResultRest> getResultsByUserId(@PathVariable String userId){
+        CustomList<SoloResultRest> returnValue = new CustomList<>();
+
+        List<SoloResultDto> soloResultDtos = resultService.getSoloResultsByUserId(userId);
+        for(SoloResultDto soloResultDto: soloResultDtos){
+            SoloResultRest soloResultRest = new SoloResultRest();
+            BeanUtils.copyProperties(soloResultDto, soloResultRest);
+            soloResultRest.setUserId(soloResultDto.getUserDetails().getUserId());
+            returnValue.add(soloResultRest);
+        }
+
+        return returnValue;
+    }
 
     @GetMapping(path = "/results/top10")
     public CustomList<SoloResultRest> getTop10(){
