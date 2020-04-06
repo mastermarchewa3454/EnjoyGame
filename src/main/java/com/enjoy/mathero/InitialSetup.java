@@ -2,11 +2,14 @@ package com.enjoy.mathero;
 
 import com.enjoy.mathero.io.entity.ClassEntity;
 import com.enjoy.mathero.io.entity.RoleEntity;
+import com.enjoy.mathero.io.entity.SoloResultEntity;
 import com.enjoy.mathero.io.entity.UserEntity;
 import com.enjoy.mathero.io.repository.ClassRepository;
 import com.enjoy.mathero.io.repository.RoleRepository;
+import com.enjoy.mathero.io.repository.SoloResultRepository;
 import com.enjoy.mathero.io.repository.UserRepository;
 import com.enjoy.mathero.shared.Utils;
+import com.enjoy.mathero.ui.model.response.SoloResultRest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationEvent;
@@ -15,7 +18,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.management.relation.Role;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 @Component
 public class InitialSetup {
@@ -28,6 +34,9 @@ public class InitialSetup {
 
     @Autowired
     ClassRepository classRepository;
+
+    @Autowired
+    SoloResultRepository soloResultRepository;
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -49,6 +58,8 @@ public class InitialSetup {
         ClassEntity class2 = createClass("Class B", teacher2);
         ClassEntity class3 = createClass("Class C", teacher3);
 
+        List<UserEntity> students = new ArrayList<>();
+
         UserEntity student1 = createStudent("student1", "Tazar", "Crag", "student", "student1@email.com", 0, class1, student);
         UserEntity student2 = createStudent("student2", "Benny", "Hill", "student", "student2@email.com", 1, class2, student);
         UserEntity student3 = createStudent("student3", "Harry", "Potter", "student", "student3@email.com", 2, class3, student);
@@ -63,6 +74,25 @@ public class InitialSetup {
         UserEntity student12 = createStudent("student12", "Adam", "Mickiewicz", "student", "student12@email.com", 0, class3, student);
         UserEntity student13 = createStudent("student13", "Andrzej", "Duda", "student", "student13@email.com", 0, class1, student);
         UserEntity student14 = createStudent("student14", "Jarek", "Kaczka", "student", "student14@email.com", 0, class2, student);
+
+        students.add(student1);
+        students.add(student2);
+        students.add(student3);
+        students.add(student4);
+        students.add(student5);
+        students.add(student6);
+        students.add(student7);
+        students.add(student8);
+        students.add(student9);
+        students.add(student10);
+        students.add(student11);
+        students.add(student12);
+        students.add(student13);
+        students.add(student14);
+
+        for(int i =0;i<30;i++){
+            SoloResultEntity soloResultEntity = createSoloResult(students.get(utils.getRandomNumberInRange(0,13)));
+        }
 
 
     }
@@ -138,6 +168,24 @@ public class InitialSetup {
         else {
             returnValue = userEntity;
         }
+
+        return returnValue;
+    }
+
+    private SoloResultEntity createSoloResult(UserEntity userDetails){
+        SoloResultEntity returnValue = new SoloResultEntity();
+
+        returnValue.setResultId(utils.generateSoloResultID(30));
+        returnValue.setStageNumber(utils.getRandomNumberInRange(1,5));
+        returnValue.setScore(utils.getRandomNumberInRange(300,20000));
+        returnValue.setEasyTotal(utils.getRandomNumberInRange(10,20));
+        returnValue.setEasyCorrect(utils.getRandomNumberInRange(0,returnValue.getEasyTotal()));
+        returnValue.setMediumTotal(utils.getRandomNumberInRange(10,20));
+        returnValue.setMediumCorrect(utils.getRandomNumberInRange(0,returnValue.getEasyTotal()));
+        returnValue.setHardTotal(utils.getRandomNumberInRange(10,20));
+        returnValue.setHardCorrect(utils.getRandomNumberInRange(0,returnValue.getEasyTotal()));
+        returnValue.setUserDetails(userDetails);
+        soloResultRepository.save(returnValue);
 
         return returnValue;
     }
