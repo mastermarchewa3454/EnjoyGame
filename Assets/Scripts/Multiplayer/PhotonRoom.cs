@@ -188,6 +188,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     void StartGame()
     {
         Spawner.isDuoMode = true;
+        PlayerMovement.isDuoMode = true;
         isGameLoad = true;
         if (!PhotonNetwork.IsMasterClient)
         {
