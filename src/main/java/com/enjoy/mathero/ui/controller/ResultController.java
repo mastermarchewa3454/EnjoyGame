@@ -1,33 +1,28 @@
 package com.enjoy.mathero.ui.controller;
 
 import com.enjoy.mathero.exceptions.UserServiceException;
-import com.enjoy.mathero.io.entity.SoloResultEntity;
-import com.enjoy.mathero.io.entity.UserEntity;
 import com.enjoy.mathero.service.ClassService;
-import com.enjoy.mathero.service.SoloResultService;
+import com.enjoy.mathero.service.ResultService;
 import com.enjoy.mathero.service.UserService;
 import com.enjoy.mathero.shared.CustomList;
 import com.enjoy.mathero.shared.dto.*;
+import com.enjoy.mathero.ui.model.request.DuoResultRequestModel;
 import com.enjoy.mathero.ui.model.request.SoloResultRequestModel;
-import com.enjoy.mathero.ui.model.response.ClassStageSummaryRest;
-import com.enjoy.mathero.ui.model.response.ErrorMessages;
-import com.enjoy.mathero.ui.model.response.SoloResultRest;
-import com.enjoy.mathero.ui.model.response.StageSummaryReportRest;
+import com.enjoy.mathero.ui.model.response.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class SoloResultController {
+public class ResultController {
 
     @Autowired
     UserService userService;
 
     @Autowired
-    SoloResultService resultService;
+    ResultService resultService;
 
     @Autowired
     ClassService classService;
@@ -35,21 +30,6 @@ public class SoloResultController {
     @GetMapping(path = "/results/{resultId}")
     public SoloResultRest getResult(@PathVariable String resultId){
         return null;
-    }
-
-    @GetMapping(path = "/users/{userId}/results")
-    public CustomList<SoloResultRest> getResultsByUserId(@PathVariable String userId){
-        CustomList<SoloResultRest> returnValue = new CustomList<>();
-
-        List<SoloResultDto> soloResultDtos = resultService.getSoloResultsByUserId(userId);
-        for(SoloResultDto soloResultDto: soloResultDtos){
-            SoloResultRest soloResultRest = new SoloResultRest();
-            BeanUtils.copyProperties(soloResultDto, soloResultRest);
-            soloResultRest.setUserId(soloResultDto.getUserDetails().getUserId());
-            returnValue.add(soloResultRest);
-        }
-
-        return returnValue;
     }
 
     @GetMapping(path = "/results/top10")
@@ -86,6 +66,29 @@ public class SoloResultController {
         SoloResultDto createdResult = resultService.createSoloResult(soloResultDto);
         BeanUtils.copyProperties(createdResult, returnValue);
         returnValue.setUserId(userDto.getUserId());
+
+        return returnValue;
+    }
+
+    @PostMapping(path = "/results/duo")
+    public DuoResultRest createDuoResult(@RequestParam(name = "userId1") String userId1, @RequestParam(name = "userId2") String userId2, @RequestBody DuoResultRequestModel resultDetails){
+        DuoResultRest returnValue = new DuoResultRest();
+
+        UserDto userDto1 = userService.getUserByUserId(userId1);
+        UserDto userDto2 = userService.getUserByUserId(userId2);
+
+        if(userDto1 == null || userDto2==null)
+            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+
+        DuoResultDto duoResultDto = new DuoResultDto();
+        duoResultDto.setUserDetails1(userDto1);
+        duoResultDto.setUserDetails2(userDto2);
+        BeanUtils.copyProperties(resultDetails, duoResultDto);
+
+        DuoResultDto createdResult = resultService.createDuoResult(duoResultDto);
+        BeanUtils.copyProperties(createdResult, returnValue);
+        returnValue.setUserId1(userDto1.getUserId());
+        returnValue.setUserId2(userDto2.getUserId());
 
         return returnValue;
     }

@@ -1,7 +1,7 @@
 package com.enjoy.mathero.ui.controller;
 
 import com.enjoy.mathero.exceptions.UserServiceException;
-import com.enjoy.mathero.service.SoloResultService;
+import com.enjoy.mathero.service.ResultService;
 import com.enjoy.mathero.service.UserService;
 import com.enjoy.mathero.shared.CustomList;
 import com.enjoy.mathero.shared.dto.SoloResultDto;
@@ -25,7 +25,7 @@ public class UserController {
     UserService userService;
 
     @Autowired
-    SoloResultService soloResultService;
+    ResultService resultService;
 
     
     @GetMapping(path="/{userId}")
@@ -98,7 +98,7 @@ public class UserController {
     public CustomList<SoloResultRest> getUserSoloResults(@PathVariable String userId){
         CustomList<SoloResultRest> returnValue = new CustomList<>();
 
-        List<SoloResultDto> soloResultDtos = soloResultService.getSoloResultsByUserId(userId);
+        List<SoloResultDto> soloResultDtos = resultService.getSoloResultsByUserId(userId);
 
         ModelMapper modelMapper = new ModelMapper();
 

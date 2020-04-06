@@ -20,7 +20,7 @@ public class ClassEntity implements Serializable {
     @JoinColumn(name = "teacher_id")
     private UserEntity teacherDetails;
 
-    @OneToMany(mappedBy = "classDetails")
+    @OneToMany(mappedBy = "classDetails", cascade = CascadeType.ALL)
     private List<UserEntity> students;
 
     public long getClassId() {

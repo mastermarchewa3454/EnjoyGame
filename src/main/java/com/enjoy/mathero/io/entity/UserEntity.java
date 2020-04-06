@@ -32,7 +32,7 @@ public class UserEntity implements Serializable {
     @Column(nullable = false)
     private int maxStageCanPlay;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "class_id")
     private ClassEntity classDetails;
 

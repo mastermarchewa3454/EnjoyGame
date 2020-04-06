@@ -1,15 +1,14 @@
 package com.enjoy.mathero.service.impl;
 
 import com.enjoy.mathero.exceptions.UserServiceException;
-import com.enjoy.mathero.io.entity.ClassStageSummaryEntity;
-import com.enjoy.mathero.io.entity.SoloResultEntity;
-import com.enjoy.mathero.io.entity.StageSummaryReportEntity;
-import com.enjoy.mathero.io.entity.UserEntity;
+import com.enjoy.mathero.io.entity.*;
+import com.enjoy.mathero.io.repository.DuoResultRepository;
 import com.enjoy.mathero.io.repository.SoloResultRepository;
 import com.enjoy.mathero.io.repository.UserRepository;
-import com.enjoy.mathero.service.SoloResultService;
+import com.enjoy.mathero.service.ResultService;
 import com.enjoy.mathero.shared.Utils;
 import com.enjoy.mathero.shared.dto.ClassStageSummaryDto;
+import com.enjoy.mathero.shared.dto.DuoResultDto;
 import com.enjoy.mathero.shared.dto.SoloResultDto;
 import com.enjoy.mathero.shared.dto.StageSummaryReportDto;
 import com.enjoy.mathero.ui.model.response.ErrorMessages;
@@ -22,10 +21,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class SoloResultServiceImpl implements SoloResultService {
+public class ResultServiceImpl implements ResultService {
 
     @Autowired
     SoloResultRepository soloResultRepository;
+
+    @Autowired
+    DuoResultRepository duoResultRepository;
 
     @Autowired
     UserRepository userRepository;
@@ -45,6 +47,22 @@ public class SoloResultServiceImpl implements SoloResultService {
         SoloResultEntity saveResult = soloResultRepository.save(soloResultEntity);
 
         SoloResultDto returnValue = modelMapper.map(saveResult, SoloResultDto.class);
+
+        return returnValue;
+    }
+
+    @Override
+    public DuoResultDto createDuoResult(DuoResultDto duoResultDto) {
+        ModelMapper modelMapper = new ModelMapper();
+
+        DuoResultEntity duoResultEntity = modelMapper.map(duoResultDto, DuoResultEntity.class);
+
+        String publicResultId = utils.generateSoloResultID(30);
+        duoResultEntity.setResultId(publicResultId);
+
+        DuoResultEntity savedResult = duoResultRepository.save(duoResultEntity);
+
+        DuoResultDto returnValue = modelMapper.map(savedResult, DuoResultDto.class);
 
         return returnValue;
     }
