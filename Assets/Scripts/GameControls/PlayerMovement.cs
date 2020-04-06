@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     Vector2 movement;
     Vector2 mousePos;
 
+    public static bool isDuoMode = false;
+    private PhotonView pV;
     /// <summary>
     /// Gets the relevant components
     /// </summary>
@@ -23,6 +26,10 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
+        if(isDuoMode)
+        {
+            pV = GetComponent<PhotonView>();
+        }
     }
 
     /// <summary>
@@ -30,13 +37,24 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if(isDuoMode && pV.IsMine)
+        {
+            movement.x = Input.GetAxisRaw("Horizontal");
+            movement.y = Input.GetAxisRaw("Vertical");
 
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+            animator.SetFloat("Horizontal", movement.x);
+            animator.SetFloat("Vertical", movement.y);
+            animator.SetFloat("Speed", movement.sqrMagnitude);
+        }
+        else if(!isDuoMode)
+        {
+            movement.x = Input.GetAxisRaw("Horizontal");
+            movement.y = Input.GetAxisRaw("Vertical");
 
-        animator.SetFloat("Horizontal", movement.x);
-        animator.SetFloat("Vertical", movement.y);
-        animator.SetFloat("Speed", movement.sqrMagnitude);
+            animator.SetFloat("Horizontal", movement.x);
+            animator.SetFloat("Vertical", movement.y);
+            animator.SetFloat("Speed", movement.sqrMagnitude);
+        }       
     }
 
     /// <summary>
@@ -44,7 +62,15 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        if(isDuoMode && pV.IsMine)
+        {
+            rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        }
+        else if(!isDuoMode)
+        {
+            rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        }
+        
     }
 
 
