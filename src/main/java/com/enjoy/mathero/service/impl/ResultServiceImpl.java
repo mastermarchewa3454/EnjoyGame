@@ -100,6 +100,20 @@ public class ResultServiceImpl implements ResultService {
     }
 
     @Override
+    public List<SoloResultDto> getTop10(int stageNumber) {
+        List<SoloResultDto> returnValue = new ArrayList<>();
+
+        List<SoloResultEntity> top10 = soloResultRepository.findTop10ByStageNumberOrderByScoreDesc(stageNumber);
+        ModelMapper modelMapper = new ModelMapper();
+
+        for(SoloResultEntity soloResultEntity: top10){
+            returnValue.add(modelMapper.map(soloResultEntity, SoloResultDto.class));
+        }
+
+        return returnValue;
+    }
+
+    @Override
     public StageSummaryReportDto getStageSummaryReportByUserId(String userId, int stageNumber) {
         StageSummaryReportDto returnValue = new StageSummaryReportDto();
 
@@ -131,10 +145,11 @@ public class ResultServiceImpl implements ResultService {
     }
 
     @Override
-    public ClassStageSummaryDto getClassStageSummaryByClassName(String className, int stageNumber) {
+    public ClassStageSummaryDto getClassStageSummaryByClassId(String classId, int stageNumber) {
         ClassStageSummaryDto returnValue = new ClassStageSummaryDto();
 
-        ClassStageSummaryEntity results = soloResultRepository.getClassStageSummary(className, stageNumber);
+        ClassStageSummaryEntity results = soloResultRepository.getClassStageSummary(classId, stageNumber);
+        returnValue.setClassId(results.getClassId());
         returnValue.setClassName(results.getClassName());
         returnValue.setStageNumber(results.getStageNumber());
         returnValue.setEasyCorrect(results.getEasyCorrect());
@@ -148,10 +163,10 @@ public class ResultServiceImpl implements ResultService {
     }
 
     @Override
-    public List<ClassStageSummaryDto> getAllClassStageSummaryByClassName(String className) {
+    public List<ClassStageSummaryDto> getAllClassStageSummaryByClassId(String classId) {
         List<ClassStageSummaryDto> returnValue = new ArrayList<>();
 
-        List<ClassStageSummaryEntity> results = soloResultRepository.getAllClassStageSummary(className);
+        List<ClassStageSummaryEntity> results = soloResultRepository.getAllClassStageSummary(classId);
         for(ClassStageSummaryEntity entity: results){
             ClassStageSummaryDto stageSummaryReportDto = new ClassStageSummaryDto();
             BeanUtils.copyProperties(entity, stageSummaryReportDto);

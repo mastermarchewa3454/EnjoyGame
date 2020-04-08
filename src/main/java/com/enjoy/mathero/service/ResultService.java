@@ -13,8 +13,9 @@ public interface ResultService {
     DuoResultDto createDuoResult(DuoResultDto duoResultDto);
     List<SoloResultDto> getSoloResultsByUserId(String userId);
     List<SoloResultDto> getTop10();
+    List<SoloResultDto> getTop10(int stageNumber);
     StageSummaryReportDto getStageSummaryReportByUserId(String userId, int stageNumber);
     List<StageSummaryReportDto> getAllStagesReportsByUserId(String userId);
-    ClassStageSummaryDto getClassStageSummaryByClassName(String className, int stageNumber);
-    List<ClassStageSummaryDto> getAllClassStageSummaryByClassName(String className);
+    ClassStageSummaryDto getClassStageSummaryByClassId(String classId, int stageNumber);
+    List<ClassStageSummaryDto> getAllClassStageSummaryByClassId(String classId);
 }

@@ -122,6 +122,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDto getTeacherByUserId(String userId) {
+        UserEntity userEntity = userRepository.findByUserId(userId);
+
+        if(userEntity == null || !userEntity.getRoles().get(0).getRoleName().equals("ROLE_TEACHER"))
+            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+
+        ModelMapper modelMapper = new ModelMapper();
+        UserDto userDto = modelMapper.map(userEntity, UserDto.class);
+
+        return userDto;
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity userEntity = userRepository.findByUsername(username);
 

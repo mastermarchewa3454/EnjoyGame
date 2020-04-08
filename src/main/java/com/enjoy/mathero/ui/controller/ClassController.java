@@ -57,13 +57,14 @@ public class ClassController {
         return returnValue;
     }
 
-    @GetMapping(path = "/{className}")
-    public ClassRest getClassByName(@PathVariable String className){
+    @GetMapping(path = "/{classId}")
+    public ClassRest getClassById(@PathVariable String classId){
         ClassRest returnValue;
 
-        ClassDto classDto = classService.getClassByClassName(className);
+        ClassDto classDto = classService.getClassByClassId(classId);
 
         returnValue = MapUtils.classDtoToClassRest(classDto);
+        returnValue.setClassId(classDto.getClassId());
 
         return returnValue;
     }

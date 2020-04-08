@@ -11,7 +11,10 @@ public class ClassEntity implements Serializable {
 
     @Id
     @GeneratedValue
-    private long classId;
+    private long id;
+
+    @Column(nullable = false)
+    private String classId;
 
     @Column(unique = true)
     private String className;
@@ -23,11 +26,19 @@ public class ClassEntity implements Serializable {
     @OneToMany(mappedBy = "classDetails", cascade = CascadeType.ALL)
     private List<UserEntity> students;
 
-    public long getClassId() {
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getClassId() {
         return classId;
     }
 
-    public void setClassId(long classId) {
+    public void setClassId(String classId) {
         this.classId = classId;
     }
 

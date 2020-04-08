@@ -7,6 +7,7 @@ import com.enjoy.mathero.io.repository.ClassRepository;
 import com.enjoy.mathero.io.repository.UserRepository;
 import com.enjoy.mathero.service.ClassService;
 import com.enjoy.mathero.shared.MapUtils;
+import com.enjoy.mathero.shared.Utils;
 import com.enjoy.mathero.shared.dto.ClassDto;
 import com.enjoy.mathero.shared.dto.UserDto;
 import com.enjoy.mathero.ui.model.response.ErrorMessages;
@@ -30,6 +31,9 @@ public class ClassServiceImpl implements ClassService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    Utils utils;
+
     @Override
     public ClassDto create(ClassDto classDto, String teacherId) {
         ClassDto returnValue = new ClassDto();
@@ -37,7 +41,7 @@ public class ClassServiceImpl implements ClassService {
         ModelMapper modelMapper = new ModelMapper();
         ClassEntity toSave = new ClassEntity();
         BeanUtils.copyProperties(classDto, toSave);
-
+        toSave.setClassId(utils.generateClassId(30));
         UserEntity teacher = userRepository.findByUserId(teacherId);
         if(teacher == null)
             throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -57,6 +61,17 @@ public class ClassServiceImpl implements ClassService {
         ClassDto returnValue;
 
         ClassEntity classEntity = classRepository.findByClassName(className);
+
+        returnValue = MapUtils.classEntityToClassDto(classEntity);
+
+        return returnValue;
+    }
+
+    @Override
+    public ClassDto getClassByClassId(String classId) {
+        ClassDto returnValue;
+
+        ClassEntity classEntity = classRepository.findByClassId(classId);
 
         returnValue = MapUtils.classEntityToClassDto(classEntity);
 

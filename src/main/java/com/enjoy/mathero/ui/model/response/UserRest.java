@@ -8,6 +8,7 @@ public class UserRest {
     private String lastName;
     private String email;
     private String className;
+    private String classId;
     private int maxStageCanPlay;
 
     public String getUserId() {
@@ -56,6 +57,14 @@ public class UserRest {
 
     public void setClassName(String className) {
         this.className = className;
+    }
+
+    public String getClassId() {
+        return classId;
+    }
+
+    public void setClassId(String classId) {
+        this.classId = classId;
     }
 
     public int getMaxStageCanPlay() {

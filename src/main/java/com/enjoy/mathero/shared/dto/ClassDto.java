@@ -9,6 +9,7 @@ public class ClassDto implements Serializable {
     private static final long serialVersionUID = 5049953704840759694L;
 
     private long id;
+    private String classId;
     private String className;
     private List<UserDto> students;
     private UserDto teacherDetails;
@@ -19,6 +20,14 @@ public class ClassDto implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getClassId() {
+        return classId;
+    }
+
+    public void setClassId(String classId) {
+        this.classId = classId;
     }
 
     public String getClassName() {

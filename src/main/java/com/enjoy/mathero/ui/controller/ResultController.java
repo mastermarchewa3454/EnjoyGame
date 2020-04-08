@@ -33,10 +33,17 @@ public class ResultController {
     }
 
     @GetMapping(path = "/results/top10")
-    public CustomList<SoloResultRest> getTop10(){
+    public CustomList<SoloResultRest> getTop10(@RequestParam(required = false, name = "stageNumber") Integer stageNumber){
         CustomList<SoloResultRest> returnValue = new CustomList<>();
 
-        List<SoloResultDto> soloResultDtos = resultService.getTop10();
+        List<SoloResultDto> soloResultDtos;
+
+        if(stageNumber == null){
+            soloResultDtos = resultService.getTop10();
+        }
+        else{
+            soloResultDtos = resultService.getTop10(stageNumber);
+        }
         for(SoloResultDto soloResultDto: soloResultDtos){
             SoloResultRest soloResultRest = new SoloResultRest();
             BeanUtils.copyProperties(soloResultDto, soloResultRest);
@@ -128,29 +135,29 @@ public class ResultController {
 
     }
 
-    @GetMapping(path = "/classes/{className}/summary-report")
-    public ClassStageSummaryRest getClassStageSummary(@RequestParam(name = "stageNumber") int stageNumber, @PathVariable String className){
+    @GetMapping(path = "/classes/{classId}/summary-report")
+    public ClassStageSummaryRest getClassStageSummary(@RequestParam(name = "stageNumber") int stageNumber, @PathVariable String classId){
         ClassStageSummaryRest returnValue = new ClassStageSummaryRest();
 
-        ClassDto classDto = classService.getClassByClassName(className);
+        ClassDto classDto = classService.getClassByClassId(classId);
         if(classDto == null)
             throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
-        ClassStageSummaryDto stageSummaryReportDto = resultService.getClassStageSummaryByClassName(className, stageNumber);
+        ClassStageSummaryDto stageSummaryReportDto = resultService.getClassStageSummaryByClassId(classId, stageNumber);
         BeanUtils.copyProperties(stageSummaryReportDto, returnValue);
 
         return returnValue;
     }
 
-    @GetMapping(path = "/classes/{className}/summary-report-all")
-    public CustomList<ClassStageSummaryRest> getAllClassStageSummary(@PathVariable String className){
+    @GetMapping(path = "/classes/{classId}/summary-report-all")
+    public CustomList<ClassStageSummaryRest> getAllClassStageSummary(@PathVariable String classId){
         CustomList<ClassStageSummaryRest> returnValue = new CustomList<>();
 
-        ClassDto classDto = classService.getClassByClassName(className);
+        ClassDto classDto = classService.getClassByClassId(classId);
         if(classDto == null)
             throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
-        List<ClassStageSummaryDto> results = resultService.getAllClassStageSummaryByClassName(className);
+        List<ClassStageSummaryDto> results = resultService.getAllClassStageSummaryByClassId(classId);
 
         for(ClassStageSummaryDto dto: results){
             ClassStageSummaryRest rest = new ClassStageSummaryRest();

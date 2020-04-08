@@ -1,6 +1,7 @@
 package com.enjoy.mathero.ui.model.response;
 
 public class ClassStageSummaryRest {
+    private String classId;
     private String className;
     private int stageNumber;
     private int easyCorrect;
@@ -9,6 +10,14 @@ public class ClassStageSummaryRest {
     private int mediumTotal;
     private int hardCorrect;
     private int hardTotal;
+
+    public String getClassId() {
+        return classId;
+    }
+
+    public void setClassId(String classId) {
+        this.classId = classId;
+    }
 
     public String getClassName() {
         return className;

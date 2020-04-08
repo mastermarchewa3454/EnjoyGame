@@ -1,6 +1,7 @@
 package com.enjoy.mathero.shared.dto;
 
 public class ClassStageSummaryDto {
+    private String classId;
     private String className;
     private int stageNumber;
     private int easyCorrect;
@@ -9,6 +10,14 @@ public class ClassStageSummaryDto {
     private int easyTotal;
     private int mediumTotal;
     private int hardTotal;
+
+    public String getClassId() {
+        return classId;
+    }
+
+    public void setClassId(String classId) {
+        this.classId = classId;
+    }
 
     public String getClassName() {
         return className;

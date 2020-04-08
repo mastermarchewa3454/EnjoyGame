@@ -1,13 +1,7 @@
 package com.enjoy.mathero;
 
-import com.enjoy.mathero.io.entity.ClassEntity;
-import com.enjoy.mathero.io.entity.RoleEntity;
-import com.enjoy.mathero.io.entity.SoloResultEntity;
-import com.enjoy.mathero.io.entity.UserEntity;
-import com.enjoy.mathero.io.repository.ClassRepository;
-import com.enjoy.mathero.io.repository.RoleRepository;
-import com.enjoy.mathero.io.repository.SoloResultRepository;
-import com.enjoy.mathero.io.repository.UserRepository;
+import com.enjoy.mathero.io.entity.*;
+import com.enjoy.mathero.io.repository.*;
 import com.enjoy.mathero.shared.Utils;
 import com.enjoy.mathero.ui.model.response.SoloResultRest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +33,11 @@ public class InitialSetup {
     SoloResultRepository soloResultRepository;
 
     @Autowired
+    DuoResultRepository duoResultRepository;
+
+    @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     @Autowired
     Utils utils;
@@ -90,9 +88,16 @@ public class InitialSetup {
         students.add(student13);
         students.add(student14);
 
-        for(int i =0;i<30;i++){
-            SoloResultEntity soloResultEntity = createSoloResult(students.get(utils.getRandomNumberInRange(0,13)));
-        }
+        /*for(int i =0;i<100;i++){
+            UserEntity firstStudent = students.get(utils.getRandomNumberInRange(0,13));
+            UserEntity secondStudent = students.get(utils.getRandomNumberInRange(0,13));
+
+            SoloResultEntity soloResultEntity = createSoloResult(firstStudent);
+            if(!firstStudent.getUserId().equals(secondStudent.getUserId())){
+                DuoResultEntity duoResultEntity = createDuoResult(firstStudent, secondStudent);
+            }
+
+        }*/
 
 
     }
@@ -138,6 +143,7 @@ public class InitialSetup {
         ClassEntity classEntity = classRepository.findByClassName(className);
 
         if(classEntity == null){
+            returnValue.setClassId(utils.generateClassId(30));
             returnValue.setTeacherDetails(teacherDetails);
             returnValue.setClassName(className);
             classRepository.save(returnValue);
@@ -177,15 +183,28 @@ public class InitialSetup {
 
         returnValue.setResultId(utils.generateSoloResultID(30));
         returnValue.setStageNumber(utils.getRandomNumberInRange(1,5));
-        returnValue.setScore(utils.getRandomNumberInRange(300,20000));
+        returnValue.setScore(utils.getRandomNumberInRange(20,1000));
         returnValue.setEasyTotal(utils.getRandomNumberInRange(10,20));
         returnValue.setEasyCorrect(utils.getRandomNumberInRange(0,returnValue.getEasyTotal()));
         returnValue.setMediumTotal(utils.getRandomNumberInRange(10,20));
-        returnValue.setMediumCorrect(utils.getRandomNumberInRange(0,returnValue.getEasyTotal()));
+        returnValue.setMediumCorrect(utils.getRandomNumberInRange(0,returnValue.getMediumTotal()));
         returnValue.setHardTotal(utils.getRandomNumberInRange(10,20));
-        returnValue.setHardCorrect(utils.getRandomNumberInRange(0,returnValue.getEasyTotal()));
+        returnValue.setHardCorrect(utils.getRandomNumberInRange(0,returnValue.getHardTotal()));
         returnValue.setUserDetails(userDetails);
         soloResultRepository.save(returnValue);
+
+        return returnValue;
+    }
+
+    private DuoResultEntity createDuoResult(UserEntity userDetails1, UserEntity userDetails2){
+        DuoResultEntity returnValue = new DuoResultEntity();
+
+        returnValue.setResultId(utils.generateSoloResultID(30));
+        returnValue.setStageNumber(utils.getRandomNumberInRange(1,5));
+        returnValue.setScore(utils.getRandomNumberInRange(20,1000));
+        returnValue.setUserDetails1(userDetails1);
+        returnValue.setUserDetails2(userDetails2);
+        duoResultRepository.save(returnValue);
 
         return returnValue;
     }

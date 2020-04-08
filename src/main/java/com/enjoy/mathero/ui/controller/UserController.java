@@ -35,6 +35,9 @@ public class UserController {
         UserDto userDto = userService.getUserByUserId(userId);
         BeanUtils.copyProperties(userDto, returnValue);
 
+        returnValue.setClassId(userDto.getClassDetails().getClassId());
+        returnValue.setClassName(userDto.getClassDetails().getClassName());
+
         return returnValue;
     }
 
