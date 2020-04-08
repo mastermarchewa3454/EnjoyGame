@@ -41,6 +41,8 @@ public class SceneChanger : MonoBehaviour
 
         if (level % 3 == 2)
             PlayerPrefs.SetInt("treasure", 1);
+        if (level == 60)
+            ChangeToEndScene();
 
         theCurrentScene = SceneManager.GetActiveScene().buildIndex;
         if (level % 3 == 0)

@@ -12,11 +12,14 @@ public class MainMenu : MonoBehaviour
 
     public void Start()
     {
+        PlayerPrefs.DeleteKey("damage");
         PlayerPrefs.DeleteKey("health");
+        PlayerPrefs.DeleteKey("speed");
         PlayerPrefs.DeleteKey("timer");
         PlayerPrefs.DeleteKey("level");
         PlayerPrefs.DeleteKey("treasure");
         PlayerPrefs.DeleteKey("difficulty");
+        PlayerPrefs.DeleteKey("stat");
         PlayerPrefs.DeleteKey("stagesCleared");
         PlayerPrefs.DeleteKey("easyCorrect");
         PlayerPrefs.DeleteKey("easyWrong");
