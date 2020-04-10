@@ -8,4 +8,8 @@ public class CustomLobbyServiceException extends RuntimeException {
     public CustomLobbyServiceException(String message){
         this.message = message;
     }
+
+    public String getMessage(){
+        return message;
+    }
 }

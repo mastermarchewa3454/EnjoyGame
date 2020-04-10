@@ -1,5 +1,6 @@
 package com.enjoy.mathero.ui.controller;
 
+import com.enjoy.mathero.exceptions.InvalidRequestBodyException;
 import com.enjoy.mathero.exceptions.UserServiceException;
 import com.enjoy.mathero.service.ClassService;
 import com.enjoy.mathero.service.ResultService;
@@ -9,8 +10,11 @@ import com.enjoy.mathero.shared.dto.*;
 import com.enjoy.mathero.ui.model.request.DuoResultRequestModel;
 import com.enjoy.mathero.ui.model.request.SoloResultRequestModel;
 import com.enjoy.mathero.ui.model.response.*;
+import com.enjoy.mathero.ui.validator.DuoResultValidator;
+import com.enjoy.mathero.ui.validator.SoloResultValidator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +30,12 @@ public class ResultController {
 
     @Autowired
     ClassService classService;
+
+    @Autowired
+    SoloResultValidator soloResultValidator;
+
+    @Autowired
+    DuoResultValidator duoResultValidator;
 
     @GetMapping(path = "/results/{resultId}")
     public SoloResultRest getResult(@PathVariable String resultId){
@@ -59,7 +69,13 @@ public class ResultController {
     }
 
     @PostMapping(path = "/users/{userId}/results")
-    public SoloResultRest createResult(@PathVariable String userId, @RequestBody SoloResultRequestModel resultDetails){
+    public SoloResultRest createResult(@PathVariable String userId, @RequestBody SoloResultRequestModel resultDetails,
+                                       BindingResult result){
+        soloResultValidator.validate(resultDetails, result);
+
+        if(result.hasErrors())
+            throw new InvalidRequestBodyException(result);
+
         SoloResultRest returnValue = new SoloResultRest();
 
         UserDto userDto = userService.getUserByUserId(userId);
@@ -78,7 +94,13 @@ public class ResultController {
     }
 
     @PostMapping(path = "/results/duo")
-    public DuoResultRest createDuoResult(@RequestParam(name = "userId1") String userId1, @RequestParam(name = "userId2") String userId2, @RequestBody DuoResultRequestModel resultDetails){
+    public DuoResultRest createDuoResult(@RequestParam(name = "userId1") String userId1, @RequestParam(name = "userId2") String userId2, @RequestBody DuoResultRequestModel resultDetails,
+                                         BindingResult result){
+        duoResultValidator.validate(resultDetails, result);
+
+        if(result.hasErrors())
+            throw new InvalidRequestBodyException(result);
+
         DuoResultRest returnValue = new DuoResultRest();
 
         UserDto userDto1 = userService.getUserByUserId(userId1);

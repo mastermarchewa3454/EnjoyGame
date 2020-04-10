@@ -62,34 +62,14 @@ public class AppExceptionsHandler {
 
     @ExceptionHandler(value = {Exception.class})
     public ResponseEntity<Object> handleOtherException(Exception e, WebRequest request){
-        StringWriter sw = new StringWriter();
-        e.printStackTrace(new PrintWriter(sw));
-        String exceptionAsString = sw.toString();
-        System.out.println(exceptionAsString);
-
-
-        ErrorMessage errorMessage = new ErrorMessage(new Date(), exceptionAsString);
-
-        return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    @ExceptionHandler(value = {MethodArgumentNotValidException.class})
-    public ResponseEntity<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex, WebRequest request){
-
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", new Date());
+        body.put("errors", e.getMessage());
 
-        List<String> errors = ex.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .map(x -> x.getDefaultMessage())
-                .collect(Collectors.toList());
 
-        body.put("errors", errors);
-
-        return new ResponseEntity<>(body, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(body, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
+    
     @ExceptionHandler(value = {InvalidRequestBodyException.class})
     public ResponseEntity<Object> handleInvalidRequestBodyException(InvalidRequestBodyException e, WebRequest request){
         Map<String, Object> body = new LinkedHashMap<>();

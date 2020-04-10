@@ -8,4 +8,8 @@ public class UserServiceException extends RuntimeException {
     public UserServiceException(String message){
         this.message = message;
     }
+
+    public String getMessage(){
+        return message;
+    }
 }
