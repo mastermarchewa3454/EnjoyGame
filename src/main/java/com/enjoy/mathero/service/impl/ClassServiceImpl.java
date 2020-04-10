@@ -1,5 +1,6 @@
 package com.enjoy.mathero.service.impl;
 
+import com.enjoy.mathero.exceptions.ClassServiceException;
 import com.enjoy.mathero.exceptions.UserServiceException;
 import com.enjoy.mathero.io.entity.ClassEntity;
 import com.enjoy.mathero.io.entity.UserEntity;
@@ -61,6 +62,8 @@ public class ClassServiceImpl implements ClassService {
         ClassDto returnValue;
 
         ClassEntity classEntity = classRepository.findByClassName(className);
+        if(classEntity == null)
+            throw new ClassServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
         returnValue = MapUtils.classEntityToClassDto(classEntity);
 
@@ -72,6 +75,8 @@ public class ClassServiceImpl implements ClassService {
         ClassDto returnValue;
 
         ClassEntity classEntity = classRepository.findByClassId(classId);
+        if(classEntity == null)
+            throw new ClassServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
         returnValue = MapUtils.classEntityToClassDto(classEntity);
 

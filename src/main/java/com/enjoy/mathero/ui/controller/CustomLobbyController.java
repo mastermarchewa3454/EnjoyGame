@@ -38,8 +38,6 @@ public class CustomLobbyController {
         CustomLobbyDto customLobbyDto = new CustomLobbyDto();
 
         UserDto authorDto = userService.getUserByUserId(customLobbyRequestModel.getAuthorId());
-        if(authorDto == null)
-            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
         customLobbyDto.setAuthorDetails(authorDto);
 
@@ -64,9 +62,6 @@ public class CustomLobbyController {
     @GetMapping(path = "/{lobbyId}")
     public CustomLobbyRest getCustomLobbyByLobbyId(@PathVariable String lobbyId){
         CustomLobbyDto customLobbyDto = customLobbyService.getCustomLobbyByLobbyId(lobbyId);
-
-        if(customLobbyDto == null)
-            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
         CustomLobbyRest returnValue = MapUtils.customLobbyDtoToCustomLobbyRest(customLobbyDto);
 

@@ -1,5 +1,6 @@
 package com.enjoy.mathero.service.impl;
 
+import com.enjoy.mathero.exceptions.CustomLobbyServiceException;
 import com.enjoy.mathero.exceptions.UserServiceException;
 import com.enjoy.mathero.io.entity.CustomLobbyEntity;
 import com.enjoy.mathero.io.entity.QuestionEntity;
@@ -69,7 +70,7 @@ public class CustomLobbyServiceImpl implements CustomLobbyService {
         CustomLobbyEntity customLobbyEntity = customLobbyRepository.findByLobbyId(lobbyId);
 
         if(customLobbyEntity == null)
-            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+            throw new CustomLobbyServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
         CustomLobbyDto returnValue = MapUtils.customLobbyEntityToCustomLobbyDto(customLobbyEntity);
 

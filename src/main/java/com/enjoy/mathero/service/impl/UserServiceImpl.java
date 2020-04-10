@@ -1,5 +1,6 @@
 package com.enjoy.mathero.service.impl;
 
+import com.enjoy.mathero.exceptions.ClassServiceException;
 import com.enjoy.mathero.exceptions.UserServiceException;
 import com.enjoy.mathero.io.entity.ClassEntity;
 import com.enjoy.mathero.io.entity.RoleEntity;
@@ -55,7 +56,8 @@ public class UserServiceImpl implements UserService {
 
         ClassEntity studentClass = classRepository.findByClassName(className);
         if(studentClass == null && role.equals("ROLE_STUDENT"))
-            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+            throw new ClassServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+
         UserEntity userEntity = new UserEntity();
         BeanUtils.copyProperties(user, userEntity);
 
@@ -103,6 +105,7 @@ public class UserServiceImpl implements UserService {
 
         if(userEntity == null)
             throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+
         UserDto returnValue = new UserDto();
         BeanUtils.copyProperties(userEntity, returnValue);
         return returnValue;
