@@ -2,13 +2,13 @@ package com.enjoy.mathero.ui.model.request;
 
 public class MaxStageRequestModel {
 
-    private int maxStageCanPlay;
+    private Integer maxStageCanPlay;
 
-    public int getMaxStageCanPlay() {
+    public Integer getMaxStageCanPlay() {
         return maxStageCanPlay;
     }
 
-    public void setMaxStageCanPlay(int maxStageCanPlay) {
+    public void setMaxStageCanPlay(Integer maxStageCanPlay) {
         this.maxStageCanPlay = maxStageCanPlay;
     }
 }

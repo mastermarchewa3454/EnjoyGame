@@ -10,6 +10,7 @@ import com.enjoy.mathero.shared.dto.UserDto;
 import com.enjoy.mathero.ui.model.request.MaxStageRequestModel;
 import com.enjoy.mathero.ui.model.request.UserDetailsRequestModel;
 import com.enjoy.mathero.ui.model.response.*;
+import com.enjoy.mathero.ui.validator.MaxStageValidator;
 import com.enjoy.mathero.ui.validator.UserValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
@@ -33,6 +34,9 @@ public class UserController {
 
     @Autowired
     UserValidator userValidator;
+
+    @Autowired
+    MaxStageValidator maxStageValidator;
 
     
     @GetMapping(path="/{userId}")
@@ -129,7 +133,13 @@ public class UserController {
     }
 
     @PostMapping(path = "/{userId}/max-stage")
-    public OperationStatusModel setUserMaxStage(@RequestBody MaxStageRequestModel maxStageRequestModel, @PathVariable String userId){
+    public OperationStatusModel setUserMaxStage(@RequestBody MaxStageRequestModel maxStageRequestModel, @PathVariable String userId,
+                                                BindingResult result){
+        maxStageValidator.validate(maxStageRequestModel, result);
+
+        if(result.hasErrors())
+            throw new InvalidRequestBodyException(result);
+        
         OperationStatusModel returnValue = new OperationStatusModel();
 
         UserDto userDto = userService.getUserByUserId(userId);
