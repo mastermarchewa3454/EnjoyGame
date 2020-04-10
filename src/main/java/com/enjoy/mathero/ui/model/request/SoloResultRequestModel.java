@@ -2,76 +2,76 @@ package com.enjoy.mathero.ui.model.request;
 
 public class SoloResultRequestModel {
 
-    private int score;
-    private int stageNumber;
-    private int easyCorrect;
-    private int mediumCorrect;
-    private int hardCorrect;
-    private int easyTotal;
-    private int mediumTotal;
-    private int hardTotal;
+    private Integer score;
+    private Integer stageNumber;
+    private Integer easyCorrect;
+    private Integer mediumCorrect;
+    private Integer hardCorrect;
+    private Integer easyTotal;
+    private Integer mediumTotal;
+    private Integer hardTotal;
 
-    public int getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(Integer score) {
         this.score = score;
     }
 
-    public int getStageNumber() {
+    public Integer getStageNumber() {
         return stageNumber;
     }
 
-    public void setStageNumber(int stageNumber) {
+    public void setStageNumber(Integer stageNumber) {
         this.stageNumber = stageNumber;
     }
 
-    public int getEasyCorrect() {
+    public Integer getEasyCorrect() {
         return easyCorrect;
     }
 
-    public void setEasyCorrect(int easyCorrect) {
+    public void setEasyCorrect(Integer easyCorrect) {
         this.easyCorrect = easyCorrect;
     }
 
-    public int getMediumCorrect() {
+    public Integer getMediumCorrect() {
         return mediumCorrect;
     }
 
-    public void setMediumCorrect(int mediumCorrect) {
+    public void setMediumCorrect(Integer mediumCorrect) {
         this.mediumCorrect = mediumCorrect;
     }
 
-    public int getHardCorrect() {
+    public Integer getHardCorrect() {
         return hardCorrect;
     }
 
-    public void setHardCorrect(int hardCorrect) {
+    public void setHardCorrect(Integer hardCorrect) {
         this.hardCorrect = hardCorrect;
     }
 
-    public int getEasyTotal() {
+    public Integer getEasyTotal() {
         return easyTotal;
     }
 
-    public void setEasyTotal(int easyTotal) {
+    public void setEasyTotal(Integer easyTotal) {
         this.easyTotal = easyTotal;
     }
 
-    public int getMediumTotal() {
+    public Integer getMediumTotal() {
         return mediumTotal;
     }
 
-    public void setMediumTotal(int mediumTotal) {
+    public void setMediumTotal(Integer mediumTotal) {
         this.mediumTotal = mediumTotal;
     }
 
-    public int getHardTotal() {
+    public Integer getHardTotal() {
         return hardTotal;
     }
 
-    public void setHardTotal(int hardTotal) {
+    public void setHardTotal(Integer hardTotal) {
         this.hardTotal = hardTotal;
     }
 }
