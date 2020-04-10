@@ -14,6 +14,8 @@ public interface ResultService {
     List<SoloResultDto> getSoloResultsByUserId(String userId);
     List<SoloResultDto> getTop10();
     List<SoloResultDto> getTop10(int stageNumber);
+    List<DuoResultDto> getTop10Duo();
+    List<DuoResultDto> getTop10Duo(int stageNumber);
     StageSummaryReportDto getStageSummaryReportByUserId(String userId, int stageNumber);
     List<StageSummaryReportDto> getAllStagesReportsByUserId(String userId);
     ClassStageSummaryDto getClassStageSummaryByClassId(String classId, int stageNumber);

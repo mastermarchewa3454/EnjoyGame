@@ -114,6 +114,34 @@ public class ResultServiceImpl implements ResultService {
     }
 
     @Override
+    public List<DuoResultDto> getTop10Duo() {
+        List<DuoResultDto> returnValue = new ArrayList<>();
+
+        List<DuoResultEntity> top10 = duoResultRepository.findTop10ByOrderByScoreDesc();
+        ModelMapper modelMapper = new ModelMapper();
+
+        for(DuoResultEntity duoResultEntity: top10){
+            returnValue.add(modelMapper.map(duoResultEntity, DuoResultDto.class));
+        }
+
+        return returnValue;
+    }
+
+    @Override
+    public List<DuoResultDto> getTop10Duo(int stageNumber) {
+        List<DuoResultDto> returnValue = new ArrayList<>();
+
+        List<DuoResultEntity> top10 = duoResultRepository.findTop10ByStageNumberOrderByScoreDesc(stageNumber);
+        ModelMapper modelMapper = new ModelMapper();
+
+        for(DuoResultEntity duoResultEntity: top10){
+            returnValue.add(modelMapper.map(duoResultEntity, DuoResultDto.class));
+        }
+
+        return returnValue;
+    }
+
+    @Override
     public StageSummaryReportDto getStageSummaryReportByUserId(String userId, int stageNumber) {
         StageSummaryReportDto returnValue = new StageSummaryReportDto();
 

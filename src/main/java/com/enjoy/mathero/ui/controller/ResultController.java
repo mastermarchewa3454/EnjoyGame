@@ -100,6 +100,29 @@ public class ResultController {
         return returnValue;
     }
 
+    @GetMapping(path = "/results/duo/top10")
+    public CustomList<DuoResultRest> getTop10Duo(@RequestParam(required = false, name = "stageNumber") Integer stageNumber){
+        CustomList<DuoResultRest> returnValue = new CustomList<>();
+
+        List<DuoResultDto> duoResultDtos;
+
+        if(stageNumber == null){
+            duoResultDtos = resultService.getTop10Duo();
+        }
+        else{
+            duoResultDtos = resultService.getTop10Duo(stageNumber);
+        }
+        for(DuoResultDto duoResultDto: duoResultDtos){
+            DuoResultRest duoResultRest = new DuoResultRest();
+            BeanUtils.copyProperties(duoResultDto, duoResultRest);
+            duoResultRest.setUserId1(duoResultDto.getUserDetails1().getUserId());
+            duoResultRest.setUserId2(duoResultDto.getUserDetails2().getUserId());
+            returnValue.add(duoResultRest);
+        }
+        return returnValue;
+
+    }
+
     @GetMapping(path = "/users/{userId}/summary-report")
     public StageSummaryReportRest getStageSummaryReport(@RequestParam(name = "stageNumber") int stageNumber, @PathVariable String userId){
         StageSummaryReportRest returnValue = new StageSummaryReportRest();
