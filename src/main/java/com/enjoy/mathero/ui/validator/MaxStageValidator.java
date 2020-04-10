@@ -1,11 +1,12 @@
 package com.enjoy.mathero.ui.validator;
 
 import com.enjoy.mathero.ui.model.request.MaxStageRequestModel;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-
+@Component
 public class MaxStageValidator implements Validator {
 
     private static final int MAX_STAGE_AVAILABLE = 5;

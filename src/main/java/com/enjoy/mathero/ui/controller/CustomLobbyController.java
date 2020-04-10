@@ -1,6 +1,7 @@
 package com.enjoy.mathero.ui.controller;
 
 
+import com.enjoy.mathero.exceptions.InvalidRequestBodyException;
 import com.enjoy.mathero.exceptions.UserServiceException;
 import com.enjoy.mathero.service.CustomLobbyService;
 import com.enjoy.mathero.service.UserService;
@@ -13,8 +14,10 @@ import com.enjoy.mathero.ui.model.request.QuestionRequestModel;
 import com.enjoy.mathero.ui.model.response.CustomLobbyRest;
 import com.enjoy.mathero.ui.model.response.ErrorMessages;
 import com.enjoy.mathero.ui.model.response.QuestionRest;
+import com.enjoy.mathero.ui.validator.CustomLobbyValidator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -32,8 +35,15 @@ public class CustomLobbyController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    CustomLobbyValidator customLobbyValidator;
+
     @PostMapping
-    public CustomLobbyRest createCustomLobby(@Valid @RequestBody CustomLobbyRequestModel customLobbyRequestModel){
+    public CustomLobbyRest createCustomLobby(@RequestBody CustomLobbyRequestModel customLobbyRequestModel, BindingResult result){
+        customLobbyValidator.validate(customLobbyRequestModel, result);
+
+        if(result.hasErrors())
+            throw new InvalidRequestBodyException(result);
 
         CustomLobbyDto customLobbyDto = new CustomLobbyDto();
 

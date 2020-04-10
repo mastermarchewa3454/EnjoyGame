@@ -139,7 +139,7 @@ public class UserController {
 
         if(result.hasErrors())
             throw new InvalidRequestBodyException(result);
-        
+
         OperationStatusModel returnValue = new OperationStatusModel();
 
         UserDto userDto = userService.getUserByUserId(userId);
