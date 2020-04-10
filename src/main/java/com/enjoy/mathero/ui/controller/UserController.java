@@ -1,5 +1,6 @@
 package com.enjoy.mathero.ui.controller;
 
+import com.enjoy.mathero.exceptions.InvalidRequestBodyException;
 import com.enjoy.mathero.exceptions.UserServiceException;
 import com.enjoy.mathero.service.ResultService;
 import com.enjoy.mathero.service.UserService;
@@ -9,9 +10,12 @@ import com.enjoy.mathero.shared.dto.UserDto;
 import com.enjoy.mathero.ui.model.request.MaxStageRequestModel;
 import com.enjoy.mathero.ui.model.request.UserDetailsRequestModel;
 import com.enjoy.mathero.ui.model.response.*;
+import com.enjoy.mathero.ui.validator.UserValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,6 +30,9 @@ public class UserController {
 
     @Autowired
     ResultService resultService;
+
+    @Autowired
+    UserValidator userValidator;
 
     
     @GetMapping(path="/{userId}")
@@ -42,7 +49,12 @@ public class UserController {
     }
 
     @PostMapping
-    public UserRest createUser(@Valid @RequestBody UserDetailsRequestModel userDetails){
+    public UserRest createUser(@RequestBody UserDetailsRequestModel userDetails, BindingResult result){
+        userValidator.validate(userDetails, result);
+
+        if(result.hasErrors())
+            throw new InvalidRequestBodyException(result);
+
         UserRest returnValue = new UserRest();
 
         UserDto userDto = new UserDto();
