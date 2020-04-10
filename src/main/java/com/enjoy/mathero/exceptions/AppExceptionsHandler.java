@@ -21,13 +21,33 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class AppExceptionsHandler {
 
-    @ExceptionHandler(value = {UserServiceException.class, ResultServiceException.class, CustomLobbyServiceException.class, ClassServiceException.class})
+    @ExceptionHandler(value = {UserServiceException.class})
     public ResponseEntity<Object> handleUserServiceException(UserServiceException e, WebRequest request){
         ErrorMessage errorMessage = new ErrorMessage(new Date(), e.getMessage());
 
         return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(value = {ClassServiceException.class})
+    public ResponseEntity<Object> handleClassServiceException(ClassServiceException e, WebRequest request){
+        ErrorMessage errorMessage = new ErrorMessage(new Date(), e.getMessage());
+
+        return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(value = {ResultServiceException.class})
+    public ResponseEntity<Object> handleResultServiceException(ResultServiceException e, WebRequest request){
+        ErrorMessage errorMessage = new ErrorMessage(new Date(), e.getMessage());
+
+        return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(value = {CustomLobbyServiceException.class})
+    public ResponseEntity<Object> handleCustomLobbyServiceException(CustomLobbyServiceException e, WebRequest request){
+        ErrorMessage errorMessage = new ErrorMessage(new Date(), e.getMessage());
+
+        return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
     @ExceptionHandler(value = {Exception.class})
     public ResponseEntity<Object> handleOtherException(Exception e, WebRequest request){
