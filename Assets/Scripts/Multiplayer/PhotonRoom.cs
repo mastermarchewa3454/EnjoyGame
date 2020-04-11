@@ -123,7 +123,6 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
                     int t = (int)timeToStart;
                     timerHost.SetText(t.ToString());
                     timerPlayer.SetText(t.ToString());
-                    Debug.Log("Display time to start to the players: " + timeToStart);
                 }               
                 if(timeToStart <= 0)
                 {
@@ -133,6 +132,13 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
                 {
                     RestartTime();
                 }
+            }
+        }
+        else
+        {
+            if(isItStart && playersInRoom == MultiplayerSettings.multiSettings.maxPlayers)
+            {
+                StartGame();
             }
         }
     }
@@ -187,8 +193,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
     void StartGame()
     {
-        Spawner.isDuoMode = true;
-        PlayerMovement.isDuoMode = true;
+        setToDuoMode();
         isGameLoad = true;
         if (!PhotonNetwork.IsMasterClient)
         {
@@ -201,7 +206,13 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         }       
         PhotonNetwork.LoadLevel(MultiplayerSettings.multiSettings.multiScene);        
     }
-
+    void setToDuoMode()
+    {
+        Spawner.isDuoMode = true;
+        PlayerMovement.isDuoMode = true;
+        FireController.isDuoMode = true;
+        Health.isDuoMode = true;
+    }
     void RestartTime()
     {
         timeToStart = startTime;

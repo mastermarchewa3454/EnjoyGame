@@ -27,12 +27,15 @@ public class Lobby : MonoBehaviourPunCallbacks
         PhotonNetwork.NickName = "Hans";
         waitingText.SetText("");
         playButton.SetActive(false);
+        searchButton.SetActive(false);
+        cancelButton.SetActive(false);
     }
 
     public override void OnConnectedToMaster()
     {
         Debug.Log("User has connected to Photon Server ");
         PhotonNetwork.AutomaticallySyncScene = true;
+        searchButton.SetActive(true);
     }
 
     public void OnSearchButtonClick()
@@ -66,7 +69,6 @@ public class Lobby : MonoBehaviourPunCallbacks
     {
         waitingText.SetText("Connected to " + newPlayer.NickName);
         cancelButton.SetActive(false);
-        playButton.SetActive(true);
     }
     public override void OnCreatedRoom()
     {
@@ -85,7 +87,6 @@ public class Lobby : MonoBehaviourPunCallbacks
         waitingText.SetText("");
         lobbyID.SetText("LOBBY ID: <>");        
         PhotonNetwork.LeaveRoom();
-        Destroy(PhotonRoom.theRoom.gameObject);
     }
 
     public void OnBackButtonClick()
@@ -98,8 +99,14 @@ public class Lobby : MonoBehaviourPunCallbacks
         {
             Destroy(PhotonRoom.theRoom.gameObject);
         }
+        setToSingleMode();   
+    }
+    void setToSingleMode()
+    {
         Spawner.isDuoMode = false;
         PlayerMovement.isDuoMode = false;
+        FireController.isDuoMode = false;
+        Health.isDuoMode = false;
     }
 
     // Update is called once per frame

@@ -1,18 +1,25 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 /// <summary>
 /// Health of entities
 /// </summary>
-public class Health : MonoBehaviour
+public class Health : MonoBehaviourPunCallbacks, IPunObservable
 {
     [SerializeField]
     private int totalHealth = 100;
+    [SerializeField]
     int currHealth;
     Transform bar;
     SceneChanger sceneChanger;
     GameHUD gameHUD;
+
+    public static bool isDuoMode = false;
+    private PhotonView pV;
+    private bool isKilled = false;
 
     /// <summary>
     /// Gets the health bars of entities
@@ -28,6 +35,24 @@ public class Health : MonoBehaviour
 
         sceneChanger = FindObjectOfType<SceneChanger>();
         gameHUD = FindObjectOfType<GameHUD>();
+        if (isDuoMode)
+        {
+            pV = GetComponent<PhotonView>();
+        }
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(currHealth);
+            Debug.Log("Send current health value");
+        }
+        else if (stream.IsReading)
+        {
+            currHealth = (int)stream.ReceiveNext();
+            Debug.Log("Receive current health value");
+        }
     }
 
     /// <summary>
@@ -35,10 +60,21 @@ public class Health : MonoBehaviour
     /// </summary>
     void UpdateBar()
     {
-        float sizeNormalized = (float) currHealth / totalHealth;
+        float sizeNormalized = (float)currHealth / totalHealth;
         bar.localScale = new Vector2(sizeNormalized, 1f);
     }
-
+    private void Update()
+    {
+        if (isDuoMode)
+        {
+            UpdateBar();
+        }                     
+    }
+    [PunRPC]
+    private void isDead()
+    {   
+       Destroy(gameObject);                            
+    }
     /// <summary>
     /// Deals a certain amount of damage to the entity
     /// </summary>
@@ -55,7 +91,15 @@ public class Health : MonoBehaviour
             }
             else
             {
-                Destroy(gameObject);
+                if(isDuoMode)
+                {
+                    isKilled = true;
+                    pV.RPC("isDead", RpcTarget.All);
+                }
+                else
+                {
+                    Destroy(gameObject);
+                }                                            
             }
         }
     }

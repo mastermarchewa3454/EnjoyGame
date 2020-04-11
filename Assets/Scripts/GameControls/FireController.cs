@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,6 +21,8 @@ public class FireController : MonoBehaviour
     private Camera cam;
     private Vector2 aimPos;
 
+    public static bool isDuoMode = false;
+    private PhotonView pV;
     /// <summary>
     /// Finds the relevant components
     /// </summary>
@@ -28,6 +31,10 @@ public class FireController : MonoBehaviour
         firePoint = gameObject.transform.Find("FirePoint");
         rb = gameObject.GetComponent<Rigidbody2D>();
         cam = Camera.main;
+        if(isDuoMode)
+        {
+            pV = GetComponent<PhotonView>();
+        }
     }
 
     /// <summary>
@@ -35,15 +42,30 @@ public class FireController : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (gameObject.CompareTag("Player"))
+        if(isDuoMode && pV.IsMine)
         {
-            aimPos = cam.ScreenToWorldPoint(Input.mousePosition);
-
-            if (Input.GetButtonDown("Fire1"))
+            if (gameObject.CompareTag("Player"))
             {
-                Shoot();
+                aimPos = cam.ScreenToWorldPoint(Input.mousePosition);
+
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    Shoot();
+                }
             }
         }
+        else if(!isDuoMode)
+        {
+            if (gameObject.CompareTag("Player"))
+            {
+                aimPos = cam.ScreenToWorldPoint(Input.mousePosition);
+
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    Shoot();
+                }
+            }
+        }        
     }
 
     /// <summary>
