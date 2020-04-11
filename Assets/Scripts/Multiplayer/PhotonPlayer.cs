@@ -17,8 +17,7 @@ public class PhotonPlayer : MonoBehaviour
         if (pV.IsMine)
         {
             myCharacter = PhotonNetwork.Instantiate(Path.Combine("ForMulti", "Player"), new Vector3(-5f, yValue ,0f), Quaternion.identity, 0);
-            myCharacter.name = "Player" + index;
-            index++;
+            myCharacter.name = "Player";
             Debug.Log("New player was created");
         }
     }
