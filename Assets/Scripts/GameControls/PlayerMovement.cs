@@ -21,7 +21,6 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Start()
     {
-        moveSpeed = PlayerPrefs.GetFloat("speed", moveSpeed);
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
     }

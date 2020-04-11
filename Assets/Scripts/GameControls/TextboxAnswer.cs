@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -114,13 +113,11 @@ public class TextboxAnswer : MonoBehaviour
     {
         
         string userAnswer = inputField.GetComponent<Text>().text;
-        userAnswer = Regex.Replace(userAnswer, @"\s+", "");
         Debug.Log(userAnswer);
-        selectedq.Answer = Regex.Replace(selectedq.Answer, @"\s+", "");
         Debug.Log(selectedq.Answer);
         string difficulty = PlayerPrefs.GetString("difficulty", "easy").ToLower();
         //if (userAnswer.CompareTo(selectedq.Answer) == 0)
-        if (string.Equals(userAnswer, selectedq.Answer.ToString()))
+        if (string.Equals(userAnswer, selectedq.Answer))
         {
             PlayerPrefs.SetInt(difficulty + "Correct", PlayerPrefs.GetInt(difficulty + "Correct", 0) + 1);
             SceneManager.LoadScene("AnswerCorrect");
