@@ -57,9 +57,7 @@ public class JoinLobby : MonoBehaviourPunCallbacks
         if(PhotonNetwork.IsConnected)
         {
             PhotonNetwork.LeaveRoom();
-        }
-        Spawner.isDuoMode = false;
-        PlayerMovement.isDuoMode = false;
+        }        
     }
 
     

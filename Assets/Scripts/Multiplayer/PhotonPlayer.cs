@@ -8,7 +8,6 @@ public class PhotonPlayer : MonoBehaviour
 {
     private PhotonView pV;
     public GameObject myCharacter;
-    private int index = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,11 +16,11 @@ public class PhotonPlayer : MonoBehaviour
         if (pV.IsMine)
         {
             myCharacter = PhotonNetwork.Instantiate(Path.Combine("ForMulti", "Player"), new Vector3(-5f, yValue ,0f), Quaternion.identity, 0);
-            myCharacter.name = "Player" + index;
-            index++;
+            myCharacter.name = "Player";
             Debug.Log("New player was created");
         }
     }
+
     // Update is called once per frame
     void Update()
     {

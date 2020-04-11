@@ -97,9 +97,7 @@ public class Lobby : MonoBehaviourPunCallbacks
         if (PhotonRoom.theRoom != null)
         {
             Destroy(PhotonRoom.theRoom.gameObject);
-        }
-        Spawner.isDuoMode = false;
-        PlayerMovement.isDuoMode = false;
+        }                         
     }
 
     // Update is called once per frame
