@@ -146,7 +146,7 @@ public class MainMenu : MonoBehaviour
             }
         }
         else{
-            Debug.Log("No such key");
+            ReturnMainMenu();
         }
     }
 }
