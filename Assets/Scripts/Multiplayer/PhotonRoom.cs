@@ -212,6 +212,8 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         PlayerMovement.isDuoMode = true;
         FireController.isDuoMode = true;
         Health.isDuoMode = true;
+        SceneChanger.isDuoMode = true;
+        NextLevelDoor.isDuoMode = true;
     }
     void RestartTime()
     {

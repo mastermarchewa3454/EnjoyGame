@@ -19,26 +19,54 @@ public class Health : MonoBehaviourPunCallbacks, IPunObservable
 
     public static bool isDuoMode = false;
     private PhotonView pV;
-    private bool isKilled = false;
 
     /// <summary>
     /// Gets the health bars of entities
     /// </summary>
     void Start()
     {
-        if (gameObject.tag == "Player")
-            currHealth = PlayerPrefs.GetInt("health", totalHealth);
-        else
-            currHealth = totalHealth;
-        bar = transform.Find("HealthBar/Bar");
-        UpdateBar();
-
         sceneChanger = FindObjectOfType<SceneChanger>();
-        gameHUD = FindObjectOfType<GameHUD>();
         if (isDuoMode)
         {
             pV = GetComponent<PhotonView>();
+            if(gameObject.tag == "Player")
+            {
+                if(MultiplayerSettings.multiSettings.multiScene != "Level 1")
+                {
+                    if (GameObject.FindGameObjectsWithTag("Player").Length == 1)
+                    {
+                        currHealth = sceneChanger.getPlayerHealth1();
+                    }
+                    else if (GameObject.FindGameObjectsWithTag("Player").Length == 2)
+                    {
+                        currHealth = sceneChanger.getPlayerHealth2();
+                    }
+                }
+                else
+                {
+                    currHealth = PlayerPrefs.GetInt("health", totalHealth);
+                }
+            }
+
+            else
+            {
+                currHealth = totalHealth;
+            }
         }
+        if(!isDuoMode)
+        {
+            if (gameObject.tag == "Player")
+                currHealth = PlayerPrefs.GetInt("health", totalHealth);
+            else
+                currHealth = totalHealth;
+        }
+        
+        bar = transform.Find("HealthBar/Bar");
+        UpdateBar();
+
+        
+        gameHUD = FindObjectOfType<GameHUD>();
+        
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -93,7 +121,6 @@ public class Health : MonoBehaviourPunCallbacks, IPunObservable
             {
                 if(isDuoMode)
                 {
-                    isKilled = true;
                     pV.RPC("isDead", RpcTarget.All);
                 }
                 else
