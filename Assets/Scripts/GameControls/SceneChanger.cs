@@ -39,10 +39,6 @@ public class SceneChanger : MonoBehaviour
                 level = PlayerPrefs.GetInt("level", 1);
             }
         }        
-        else
-        {
-            players = GameObject.FindGameObjectsWithTag("Player");         
-        }
     }
     /// <summary>
     /// Changes to next game scene.
@@ -60,6 +56,8 @@ public class SceneChanger : MonoBehaviour
         }
         else
         {
+            players = GameObject.FindGameObjectsWithTag("Player");
+            Debug.Log("Objects with tag players:" + players.Length);
             playerHealth1 = players[0].GetComponent<Health>().GetCurrHealth();
             playerHealth2 = players[1].GetComponent<Health>().GetCurrHealth();
         }
