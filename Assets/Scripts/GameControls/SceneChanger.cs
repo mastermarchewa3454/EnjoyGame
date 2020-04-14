@@ -30,14 +30,19 @@ public class SceneChanger : MonoBehaviour
     /// </summary>
     void Start()
     {
-      
+        if(!isDuoMode)
+        {
             player = GameObject.Find("Player");
             if (player != null)
             {
                 playerHealth = player.GetComponent<Health>();
                 level = PlayerPrefs.GetInt("level", 1);
             }
-                
+        }        
+        else
+        {
+            players = GameObject.FindGameObjectsWithTag("Player");         
+        }
     }
     /// <summary>
     /// Changes to next game scene.
@@ -45,13 +50,19 @@ public class SceneChanger : MonoBehaviour
     /// </summary>
     public void ChangeToNextScene()
     {
-          
+        if(!isDuoMode)
+        {           
             PlayerPrefs.SetInt("health", playerHealth.GetCurrHealth());
             PlayerPrefs.SetInt("level", level + 1);
 
             if (level % 3 == 2)
                 PlayerPrefs.SetInt("treasure", 1);
-        
+        }
+        else
+        {
+            playerHealth1 = players[0].GetComponent<Health>().GetCurrHealth();
+            playerHealth2 = players[1].GetComponent<Health>().GetCurrHealth();
+        }
 
         theCurrentScene = SceneManager.GetActiveScene().buildIndex;
 
