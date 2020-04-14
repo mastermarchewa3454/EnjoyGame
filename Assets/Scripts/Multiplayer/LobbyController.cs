@@ -83,6 +83,8 @@ public class LobbyController : MonoBehaviourPunCallbacks
         PlayerMovement.isDuoMode = false;
         FireController.isDuoMode = false;
         Health.isDuoMode = false;
+        SceneChanger.isDuoMode = false;
+        NextLevelDoor.isDuoMode = false;
     }
 
     public override void OnJoinedRoom()
