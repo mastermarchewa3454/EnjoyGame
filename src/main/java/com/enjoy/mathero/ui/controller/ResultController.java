@@ -42,17 +42,17 @@ public class ResultController {
         return null;
     }
 
-    @GetMapping(path = "/results/top10")
-    public CustomList<SoloResultRest> getTop10(@RequestParam(required = false, name = "stageNumber") Integer stageNumber){
+    @GetMapping(path = "/results/top20")
+    public CustomList<SoloResultRest> getTop20(@RequestParam(required = false, name = "stageNumber") Integer stageNumber){
         CustomList<SoloResultRest> returnValue = new CustomList<>();
 
         List<SoloResultDto> soloResultDtos;
 
         if(stageNumber == null){
-            soloResultDtos = resultService.getTop10();
+            soloResultDtos = resultService.getTop20();
         }
         else{
-            soloResultDtos = resultService.getTop10(stageNumber);
+            soloResultDtos = resultService.getTop20(stageNumber);
         }
         for(SoloResultDto soloResultDto: soloResultDtos){
             SoloResultRest soloResultRest = new SoloResultRest();
@@ -122,17 +122,17 @@ public class ResultController {
         return returnValue;
     }
 
-    @GetMapping(path = "/results/duo/top10")
-    public CustomList<DuoResultRest> getTop10Duo(@RequestParam(required = false, name = "stageNumber") Integer stageNumber){
+    @GetMapping(path = "/results/duo/top20")
+    public CustomList<DuoResultRest> getTop20Duo(@RequestParam(required = false, name = "stageNumber") Integer stageNumber){
         CustomList<DuoResultRest> returnValue = new CustomList<>();
 
         List<DuoResultDto> duoResultDtos;
 
         if(stageNumber == null){
-            duoResultDtos = resultService.getTop10Duo();
+            duoResultDtos = resultService.getTop20Duo();
         }
         else{
-            duoResultDtos = resultService.getTop10Duo(stageNumber);
+            duoResultDtos = resultService.getTop20Duo(stageNumber);
         }
         for(DuoResultDto duoResultDto: duoResultDtos){
             DuoResultRest duoResultRest = new DuoResultRest();

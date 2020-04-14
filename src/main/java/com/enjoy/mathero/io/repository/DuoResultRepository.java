@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface DuoResultRepository extends CrudRepository<DuoResultEntity, Long> {
-    List<DuoResultEntity> findTop10ByOrderByScoreDesc();
-    List<DuoResultEntity> findTop10ByStageNumberOrderByScoreDesc(int stageNumber);
+    List<DuoResultEntity> findTop20ByOrderByScoreDesc();
+    List<DuoResultEntity> findTop20ByStageNumberOrderByScoreDesc(int stageNumber);
 }

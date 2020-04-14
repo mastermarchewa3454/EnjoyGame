@@ -129,10 +129,10 @@ class ResultServiceImplTest {
     }
 
     @Test
-    void getTop10() {
-        when(soloResultRepository.findTop10ByOrderByScoreDesc()).thenReturn(soloResultEntityList);
+    void getTop20() {
+        when(soloResultRepository.findTop20ByOrderByScoreDesc()).thenReturn(soloResultEntityList);
 
-        List<SoloResultDto> returnedValue = resultService.getTop10();
+        List<SoloResultDto> returnedValue = resultService.getTop20();
 
         assertNotNull(returnedValue);
         assertEquals(soloResultEntityList.size(), returnedValue.size());
@@ -140,30 +140,30 @@ class ResultServiceImplTest {
     }
 
     @Test
-    void getTop10_stageNumberSpecified() {
-        when(soloResultRepository.findTop10ByStageNumberOrderByScoreDesc(anyInt())).thenReturn(soloResultEntityList);
+    void getTop20_stageNumberSpecified() {
+        when(soloResultRepository.findTop20ByStageNumberOrderByScoreDesc(anyInt())).thenReturn(soloResultEntityList);
 
-        List<SoloResultDto> returnedValue = resultService.getTop10(3);
+        List<SoloResultDto> returnedValue = resultService.getTop20(3);
 
         assertNotNull(returnedValue);
         assertEquals(soloResultEntityList.size(), returnedValue.size());
     }
 
     @Test
-    void getTop10Duo_stageNumberSpecified() {
-        when(duoResultRepository.findTop10ByStageNumberOrderByScoreDesc(anyInt())).thenReturn(duoResultEntityList);
+    void getTop20Duo_stageNumberSpecified() {
+        when(duoResultRepository.findTop20ByStageNumberOrderByScoreDesc(anyInt())).thenReturn(duoResultEntityList);
 
-        List<DuoResultDto> returnedValue = resultService.getTop10Duo(3);
+        List<DuoResultDto> returnedValue = resultService.getTop20Duo(3);
 
         assertNotNull(returnedValue);
         assertEquals(duoResultEntityList.size(), returnedValue.size());
     }
 
     @Test
-    void getTop10Duo() {
-        when(duoResultRepository.findTop10ByOrderByScoreDesc()).thenReturn(duoResultEntityList);
+    void getTop20Duo() {
+        when(duoResultRepository.findTop20ByOrderByScoreDesc()).thenReturn(duoResultEntityList);
 
-        List<DuoResultDto> returnedValue = resultService.getTop10Duo();
+        List<DuoResultDto> returnedValue = resultService.getTop20Duo();
 
         assertNotNull(returnedValue);
         assertEquals(duoResultEntityList.size(), returnedValue.size());
@@ -275,7 +275,7 @@ class ResultServiceImplTest {
         SoloResultDto soloResultDto = new SoloResultDto();
         soloResultDto.setUserDetails(new UserDto());
         soloResultDto.setEasyCorrect(5);
-        soloResultDto.setEasyTotal(10);
+        soloResultDto.setEasyTotal(20);
         soloResultDto.setMediumCorrect(7);
         soloResultDto.setMediumTotal(15);
         soloResultDto.setHardCorrect(3);
@@ -291,7 +291,7 @@ class ResultServiceImplTest {
         soloResultEntity.setUserDetails(new UserEntity());
         soloResultEntity.setResultId(soloResultId);
         soloResultEntity.setEasyCorrect(5);
-        soloResultEntity.setEasyTotal(10);
+        soloResultEntity.setEasyTotal(20);
         soloResultEntity.setMediumCorrect(7);
         soloResultEntity.setMediumTotal(15);
         soloResultEntity.setHardCorrect(3);
@@ -325,7 +325,7 @@ class ResultServiceImplTest {
 
     private List<SoloResultEntity> getListSoloEntity(){
         List<SoloResultEntity> list = new ArrayList<>();
-        for(int i = 0;i<10;i++){
+        for(int i = 0;i<20;i++){
             list.add(soloResultEntity);
         }
 
@@ -334,7 +334,7 @@ class ResultServiceImplTest {
 
     private List<DuoResultEntity> getListDuoEntity(){
         List<DuoResultEntity> list = new ArrayList<>();
-        for(int i = 0;i<10;i++){
+        for(int i = 0;i<20;i++){
             list.add(duoResultEntity);
         }
 
@@ -355,10 +355,10 @@ class ResultServiceImplTest {
     private StageSummaryReportEntity getStageSummaryEntity(){
         StageSummaryReportEntity stageSummaryReportEntity = factory.createProjection(StageSummaryReportEntity.class);
         stageSummaryReportEntity.setEasyCorrect(7);
-        stageSummaryReportEntity.setEasyTotal(10);
+        stageSummaryReportEntity.setEasyTotal(20);
         stageSummaryReportEntity.setMediumCorrect(4);
         stageSummaryReportEntity.setMediumTotal(8);
-        stageSummaryReportEntity.setHardCorrect(10);
+        stageSummaryReportEntity.setHardCorrect(20);
         stageSummaryReportEntity.setHardTotal(12);
         stageSummaryReportEntity.setUserId(publicUserId);
         stageSummaryReportEntity.setStageNumber(2);
@@ -380,10 +380,10 @@ class ResultServiceImplTest {
         classStageSummaryEntity.setClassName("Class A");
         classStageSummaryEntity.setEasyCorrect(4);
         classStageSummaryEntity.setEasyTotal(6);
-        classStageSummaryEntity.setMediumCorrect(10);
+        classStageSummaryEntity.setMediumCorrect(20);
         classStageSummaryEntity.setMediumTotal(12);
         classStageSummaryEntity.setHardCorrect(8);
-        classStageSummaryEntity.setHardTotal(10);
+        classStageSummaryEntity.setHardTotal(20);
         classStageSummaryEntity.setStageNumber(1);
 
         return classStageSummaryEntity;

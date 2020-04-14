@@ -14,8 +14,8 @@ import java.util.List;
 @Repository
 public interface SoloResultRepository extends CrudRepository<SoloResultEntity, Long> {
     List<SoloResultEntity> findAllByUserDetails(UserEntity userEntity);
-    List<SoloResultEntity> findTop10ByOrderByScoreDesc();
-    List<SoloResultEntity> findTop10ByStageNumberOrderByScoreDesc(int stageNumber);
+    List<SoloResultEntity> findTop20ByOrderByScoreDesc();
+    List<SoloResultEntity> findTop20ByStageNumberOrderByScoreDesc(int stageNumber);
 
     @Query(value = "SELECT u.user_id AS userId, r.stage_number AS stageNumber, SUM(r.easy_correct) AS easyCorrect, SUM(r.medium_correct) AS mediumCorrect, SUM(r.hard_correct) AS hardCorrect, SUM(r.easy_total) AS easyTotal, SUM(r.medium_total) AS mediumTotal, SUM(r.hard_total) AS hardTotal FROM users u INNER JOIN solo_results r ON u.id=r.user_id WHERE u.user_id = :userId AND r.stage_number = :stageNumber GROUP BY u.user_id, r.stage_number;", nativeQuery = true)
     StageSummaryReportEntity getStageSummaryReport(@Param("userId") String userId, @Param("stageNumber") int stageNumber);

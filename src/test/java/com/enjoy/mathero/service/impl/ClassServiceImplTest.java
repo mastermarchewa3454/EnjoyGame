@@ -128,7 +128,7 @@ class ClassServiceImplTest {
 
         assertNotNull(returnedValue);
         assertEquals(classEntityList.size(), returnedValue.size());
-        
+
     }
 
     private UserEntity getTeacherEntity(){

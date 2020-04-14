@@ -91,13 +91,13 @@ public class ResultServiceImpl implements ResultService {
     }
 
     @Override
-    public List<SoloResultDto> getTop10() {
+    public List<SoloResultDto> getTop20() {
         List<SoloResultDto> returnValue = new ArrayList<>();
 
-        List<SoloResultEntity> top10 = soloResultRepository.findTop10ByOrderByScoreDesc();
+        List<SoloResultEntity> top20 = soloResultRepository.findTop20ByOrderByScoreDesc();
         ModelMapper modelMapper = new ModelMapper();
 
-        for(SoloResultEntity soloResultEntity: top10){
+        for(SoloResultEntity soloResultEntity: top20){
             returnValue.add(modelMapper.map(soloResultEntity, SoloResultDto.class));
         }
 
@@ -105,13 +105,13 @@ public class ResultServiceImpl implements ResultService {
     }
 
     @Override
-    public List<SoloResultDto> getTop10(int stageNumber) {
+    public List<SoloResultDto> getTop20(int stageNumber) {
         List<SoloResultDto> returnValue = new ArrayList<>();
 
-        List<SoloResultEntity> top10 = soloResultRepository.findTop10ByStageNumberOrderByScoreDesc(stageNumber);
+        List<SoloResultEntity> top20 = soloResultRepository.findTop20ByStageNumberOrderByScoreDesc(stageNumber);
         ModelMapper modelMapper = new ModelMapper();
 
-        for(SoloResultEntity soloResultEntity: top10){
+        for(SoloResultEntity soloResultEntity: top20){
             returnValue.add(modelMapper.map(soloResultEntity, SoloResultDto.class));
         }
 
@@ -119,13 +119,13 @@ public class ResultServiceImpl implements ResultService {
     }
 
     @Override
-    public List<DuoResultDto> getTop10Duo() {
+    public List<DuoResultDto> getTop20Duo() {
         List<DuoResultDto> returnValue = new ArrayList<>();
 
-        List<DuoResultEntity> top10 = duoResultRepository.findTop10ByOrderByScoreDesc();
+        List<DuoResultEntity> top20 = duoResultRepository.findTop20ByOrderByScoreDesc();
         ModelMapper modelMapper = new ModelMapper();
 
-        for(DuoResultEntity duoResultEntity: top10){
+        for(DuoResultEntity duoResultEntity: top20){
             returnValue.add(modelMapper.map(duoResultEntity, DuoResultDto.class));
         }
 
@@ -133,13 +133,13 @@ public class ResultServiceImpl implements ResultService {
     }
 
     @Override
-    public List<DuoResultDto> getTop10Duo(int stageNumber) {
+    public List<DuoResultDto> getTop20Duo(int stageNumber) {
         List<DuoResultDto> returnValue = new ArrayList<>();
 
-        List<DuoResultEntity> top10 = duoResultRepository.findTop10ByStageNumberOrderByScoreDesc(stageNumber);
+        List<DuoResultEntity> top20 = duoResultRepository.findTop20ByStageNumberOrderByScoreDesc(stageNumber);
         ModelMapper modelMapper = new ModelMapper();
 
-        for(DuoResultEntity duoResultEntity: top10){
+        for(DuoResultEntity duoResultEntity: top20){
             returnValue.add(modelMapper.map(duoResultEntity, DuoResultDto.class));
         }
 
