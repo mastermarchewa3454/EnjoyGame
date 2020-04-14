@@ -22,11 +22,9 @@ MonoBehaviour:
     Server: 
     Port: 0
     Protocol: 0
-    AuthMode: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
-  DevRegion: eu
-  PunLogging: 2
+  PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
   StartInOfflineMode: 0
@@ -35,10 +33,9 @@ MonoBehaviour:
   - DestroyRpc
   - DestroySpaceship
   - Fire
-  - RespawnSpaceship
-  - RPC_LoadedGameScene
-  - RPC_CreatePlayer
   - isDead
+  - RespawnSpaceship
+  - RPC_CreatePlayer
+  - RPC_LoadedGameScene
   DisableAutoOpenWizard: 1
-  ShowSettings: 1
-  DevRegionSetOnce: 1
+  ShowSettings: 0

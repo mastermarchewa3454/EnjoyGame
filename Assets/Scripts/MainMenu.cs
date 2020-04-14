@@ -141,11 +141,7 @@ public class MainMenu : MonoBehaviour
             if(flag==1){
                 EnterTeacherScreen();
             }
-<<<<<<< HEAD
-            else{
-=======
             else if (flag==0){
->>>>>>> a7f68547c9212d86bb1f44fe4afe544f2d028f4b
                 ReturnMainMenu();
             }
         }

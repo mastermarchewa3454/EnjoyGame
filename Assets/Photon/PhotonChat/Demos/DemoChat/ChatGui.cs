@@ -12,6 +12,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using Photon.Chat;
+using Photon.Realtime;
 
 #if PHOTON_UNITY_NETWORKING
 using Photon.Pun;
@@ -52,7 +53,7 @@ public class ChatGui : MonoBehaviour, IChatClientListener
     #if !PHOTON_UNITY_NETWORKING
     [SerializeField]
     #endif
-    protected internal ChatAppSettings chatAppSettings;
+    protected internal AppSettings chatAppSettings;
 
 
     public GameObject missingAppIdErrorPanel;
@@ -128,10 +129,10 @@ public class ChatGui : MonoBehaviour, IChatClientListener
 		}
 
         #if PHOTON_UNITY_NETWORKING
-        this.chatAppSettings = PhotonNetwork.PhotonServerSettings.AppSettings.GetChatSettings();
+        this.chatAppSettings = PhotonNetwork.PhotonServerSettings.AppSettings;
         #endif
 
-        bool appIdPresent = !string.IsNullOrEmpty(this.chatAppSettings.AppId);
+        bool appIdPresent = !string.IsNullOrEmpty(this.chatAppSettings.AppIdChat);
 
 	    this.missingAppIdErrorPanel.SetActive(!appIdPresent);
 		this.UserIdFormPanel.gameObject.SetActive(appIdPresent);
@@ -150,8 +151,8 @@ public class ChatGui : MonoBehaviour, IChatClientListener
         #if !UNITY_WEBGL
         this.chatClient.UseBackgroundWorkerForSending = true;
         #endif
-        this.chatClient.AuthValues = new AuthenticationValues(this.UserName);
-		this.chatClient.ConnectUsingSettings(this.chatAppSettings);
+
+		this.chatClient.Connect(this.chatAppSettings.AppIdChat, "1.0", new Photon.Chat.AuthenticationValues(this.UserName));
 
 		this.ChannelToggleToInstantiate.gameObject.SetActive(false);
 		Debug.Log("Connecting as: " + this.UserName);
