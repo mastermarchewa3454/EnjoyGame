@@ -23,13 +23,43 @@ public class Login : MonoBehaviour
         PlayerPrefs.DeleteKey("userId");
     }
 
-    public void UserLogin()
+    public void StudentLogin()
     {
         string username = usernameField.text;
         string password = passwordField.text;
         Debug.Log(username);
         Debug.Log(password);
         StartCoroutine(db.Login(username, password));
+        if(PlayerPrefs.HasKey("Teacher")){
+            PlayerPrefs.SetInt("Teacher", 0);
+            PlayerPrefs.Save();
+            Debug.Log("Teacher key: " + PlayerPrefs.GetInt("Teacher"));
+        }
+        else{
+            Debug.Log("PlayerPrefs doesn't exist.");
+            PlayerPrefs.SetInt("Teacher", 0);
+            Debug.Log("PlayerPrefs 'Teacher' created" + PlayerPrefs.GetInt("Teacher"));
+        }
+        mm.ReturnMainMenu();
+    }
+
+    public void TeacherLogin()
+    {
+        string username = usernameField.text;
+        string password = passwordField.text;
+        Debug.Log(username);
+        Debug.Log(password);
+        StartCoroutine(db.Login(username, password));
+        if(PlayerPrefs.HasKey("Teacher")){
+            PlayerPrefs.SetInt("Teacher", 1);
+            PlayerPrefs.Save();
+            Debug.Log("Teacher key: " + PlayerPrefs.GetInt("Teacher"));
+        }
+        else{
+            Debug.Log("PlayerPrefs doesn't exist.");
+            PlayerPrefs.SetInt("Teacher", 1);
+            Debug.Log("PlayerPrefs 'Teacher' created" + PlayerPrefs.GetInt("Teacher"));
+        }
         mm.ReturnMainMenu();
     }
 }
