@@ -48,10 +48,6 @@ public class CustomLobbyController {
         CustomLobbyDto customLobbyDto = new CustomLobbyDto();
 
         UserDto authorDto = userService.getUserByUserId(customLobbyRequestModel.getAuthorId());
-
-        if(authorDto == null)
-            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
-
         customLobbyDto.setAuthorDetails(authorDto);
 
         List<QuestionRequestModel> questionRequestModels = customLobbyRequestModel.getQuestions();
@@ -64,9 +60,7 @@ public class CustomLobbyController {
         }
 
         customLobbyDto.setQuestions(questionDtos);
-
         CustomLobbyDto saved = customLobbyService.createCustomLobby(customLobbyDto);
-
         CustomLobbyRest returnValue = MapUtils.customLobbyDtoToCustomLobbyRest(saved);
 
         return returnValue;

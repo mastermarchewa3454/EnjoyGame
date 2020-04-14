@@ -143,8 +143,6 @@ public class UserController {
         OperationStatusModel returnValue = new OperationStatusModel();
 
         UserDto userDto = userService.getUserByUserId(userId);
-        if(userDto == null)
-            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
         userDto.setMaxStageCanPlay(maxStageRequestModel.getMaxStageCanPlay());
         userService.updateUser(userId, userDto);

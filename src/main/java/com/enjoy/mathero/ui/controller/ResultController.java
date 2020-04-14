@@ -37,10 +37,6 @@ public class ResultController {
     @Autowired
     DuoResultValidator duoResultValidator;
 
-    @GetMapping(path = "/results/{resultId}")
-    public SoloResultRest getResult(@PathVariable String resultId){
-        return null;
-    }
 
     @GetMapping(path = "/results/top20")
     public CustomList<SoloResultRest> getTop20(@RequestParam(required = false, name = "stageNumber") Integer stageNumber){
@@ -63,11 +59,6 @@ public class ResultController {
         return returnValue;
     }
 
-    @GetMapping(path = "/results")
-    public List<SoloResultRest> getAllResults(){
-        return null;
-    }
-
     @PostMapping(path = "/users/{userId}/results")
     public SoloResultRest createResult(@PathVariable String userId, @RequestBody SoloResultRequestModel resultDetails,
                                        BindingResult result){
@@ -79,8 +70,6 @@ public class ResultController {
         SoloResultRest returnValue = new SoloResultRest();
 
         UserDto userDto = userService.getUserByUserId(userId);
-        if(userDto == null)
-            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
         SoloResultDto soloResultDto = new SoloResultDto();
         soloResultDto.setUserDetails(userDto);
@@ -105,9 +94,6 @@ public class ResultController {
 
         UserDto userDto1 = userService.getUserByUserId(userId1);
         UserDto userDto2 = userService.getUserByUserId(userId2);
-
-        if(userDto1 == null || userDto2==null)
-            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
         DuoResultDto duoResultDto = new DuoResultDto();
         duoResultDto.setUserDetails1(userDto1);
@@ -150,8 +136,6 @@ public class ResultController {
         StageSummaryReportRest returnValue = new StageSummaryReportRest();
 
         UserDto userDto = userService.getUserByUserId(userId);
-        if(userDto == null)
-            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
         StageSummaryReportDto stageSummaryReportDto = resultService.getStageSummaryReportByUserId(userId, stageNumber);
         BeanUtils.copyProperties(stageSummaryReportDto, returnValue);
@@ -165,8 +149,6 @@ public class ResultController {
         CustomList<StageSummaryReportRest> returnValue = new CustomList<>();
 
         UserDto userDto = userService.getUserByUserId(userId);
-        if(userDto == null)
-            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
         List<StageSummaryReportDto> results = resultService.getAllStagesReportsByUserId(userId);
 
@@ -185,8 +167,6 @@ public class ResultController {
         ClassStageSummaryRest returnValue = new ClassStageSummaryRest();
 
         ClassDto classDto = classService.getClassByClassId(classId);
-        if(classDto == null)
-            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
         ClassStageSummaryDto stageSummaryReportDto = resultService.getClassStageSummaryByClassId(classId, stageNumber);
         BeanUtils.copyProperties(stageSummaryReportDto, returnValue);
@@ -199,8 +179,6 @@ public class ResultController {
         CustomList<ClassStageSummaryRest> returnValue = new CustomList<>();
 
         ClassDto classDto = classService.getClassByClassId(classId);
-        if(classDto == null)
-            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
         List<ClassStageSummaryDto> results = resultService.getAllClassStageSummaryByClassId(classId);
 
