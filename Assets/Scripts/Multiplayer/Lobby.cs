@@ -11,29 +11,30 @@ using UnityEngine.SceneManagement;
 public class Lobby : MonoBehaviourPunCallbacks
 {
     public static Lobby lobby;
-    public SceneChanger sceneChanger;
     public GameObject searchButton;
     public GameObject cancelButton;
     public GameObject playButton;
     public TextMeshProUGUI waitingText;
     public TextMeshProUGUI lobbyID;
+    public static Spawner spawner;
     private void Awake()
     {
         lobby = this; // Creates singleton
     }
     void Start()
     {
-        PhotonNetwork.ConnectUsingSettings(); // Connects to server
-        
+        PhotonNetwork.ConnectUsingSettings(); // Connects to server        
         PhotonNetwork.NickName = "Hans";
         waitingText.SetText("");
         playButton.SetActive(false);
+        searchButton.SetActive(false);
+        cancelButton.SetActive(false);
     }
 
     public override void OnConnectedToMaster()
     {
         Debug.Log("User has connected to Photon Server ");
-        PhotonNetwork.JoinLobby();
+        PhotonNetwork.AutomaticallySyncScene = true;
         searchButton.SetActive(true);
     }
 
@@ -53,10 +54,10 @@ public class Lobby : MonoBehaviourPunCallbacks
         {
             IsVisible = true,
             IsOpen = true,
-            MaxPlayers = 2
+            MaxPlayers = 2,
         };    
         lobbyID.SetText("LOBBY ID: " + roomID.ToString());
-        PhotonNetwork.CreateRoom(roomID.ToString(), roomOptions);
+        PhotonNetwork.CreateRoom("Room" + roomID, roomOptions);
     }
 
     public override void OnJoinedRoom()
@@ -68,7 +69,6 @@ public class Lobby : MonoBehaviourPunCallbacks
     {
         waitingText.SetText("Connected to " + newPlayer.NickName);
         cancelButton.SetActive(false);
-        playButton.SetActive(true);
     }
     public override void OnCreatedRoom()
     {
@@ -85,12 +85,28 @@ public class Lobby : MonoBehaviourPunCallbacks
         cancelButton.SetActive(false);
         searchButton.SetActive(true);
         waitingText.SetText("");
-        lobbyID.SetText("LOBBY ID: <>");
+        lobbyID.SetText("LOBBY ID: <>");        
         PhotonNetwork.LeaveRoom();
     }
-    public void OnPlayButtonClick()
+
+    public void OnBackButtonClick()
     {
-        PhotonNetwork.LoadLevel("StageSelection");
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.LeaveRoom();
+        }
+        if (PhotonRoom.theRoom != null)
+        {
+            Destroy(PhotonRoom.theRoom.gameObject);
+        }
+        setToSingleMode();   
+    }
+    void setToSingleMode()
+    {
+        Spawner.isDuoMode = false;
+        PlayerMovement.isDuoMode = false;
+        FireController.isDuoMode = false;
+        Health.isDuoMode = false;
     }
 
     // Update is called once per frame

@@ -1003,6 +1003,31 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4028935867399916133, guid: 927110b54256c3940ab35f57272955b2,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.4156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 4028935867399916133, guid: 927110b54256c3940ab35f57272955b2,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.4156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 4028935867399916133, guid: 927110b54256c3940ab35f57272955b2,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.4156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 4028935867399916133, guid: 927110b54256c3940ab35f57272955b2,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4028935867399916133, guid: 927110b54256c3940ab35f57272955b2,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 927110b54256c3940ab35f57272955b2, type: 3}
 --- !u!224 &1850468308 stripped

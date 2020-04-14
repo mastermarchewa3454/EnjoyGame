@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -9,13 +10,13 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class TextboxAnswer : MonoBehaviour
 {
-    [SerializeField]
-    private string userAnswer;
+
     [SerializeField]
     private GameObject inputField;
     List<Quest> quests = new List<Quest>();
     static Quest selectedq;
-    public GameObject changingtext;
+    [SerializeField]
+    private GameObject changingtext;
     /// <summary>
     /// Checks if users answer is correct
     /// </summary>
@@ -34,7 +35,7 @@ public class TextboxAnswer : MonoBehaviour
 
         for (int i = 0; i < data.Length - 1; i++)
         {
-            string[] row = data[i].Split(new char[] { ';' });
+            string[] row = data[i].Split(';');
             Quest q = new Quest();
             int.TryParse(row[0], out q.QuestionID);
             int.TryParse(row[1], out q.DifficultyLevel);
@@ -79,6 +80,7 @@ public class TextboxAnswer : MonoBehaviour
         for (int k = 0; k < q.Count; k++)
         {
             questions.Add(q[k].QuestionID);
+            Debug.Log(q[k].QuestionID);
         }
         int randomquestion = questions[Random.Range(0, questions.Count)];
         return randomquestion;
@@ -88,6 +90,7 @@ public class TextboxAnswer : MonoBehaviour
     {
         string question;
         List<Quest> filteredquests = FilterQuestion(quests);
+        Debug.Log("lol");
         int questID = PickRandomQuestion(filteredquests);
         Debug.Log(questID);
         for (int j = 0; j < filteredquests.Count; j++)
@@ -95,27 +98,36 @@ public class TextboxAnswer : MonoBehaviour
             if (questID == filteredquests[j].QuestionID)
             {
                 selectedq = filteredquests[j];
+                Debug.Log(filteredquests[j].QuestionID);
+                Debug.Log(selectedq.Answer);
                 break;
             }
         }
+        
         question = selectedq.Question;
         changingtext.GetComponent<Text>().text = question;
-        Debug.Log("Answer is:" + selectedq.Answer);
+        
     }
 
 
     public void CheckUserAnswer()
     {
-        userAnswer = inputField.GetComponent<Text>().text;
+        
+        string userAnswer = inputField.GetComponent<Text>().text;
+        userAnswer = Regex.Replace(userAnswer, @"\s+", "");
+        Debug.Log(userAnswer);
+        selectedq.Answer = Regex.Replace(selectedq.Answer, @"\s+", "");
+        Debug.Log(selectedq.Answer);
         string difficulty = PlayerPrefs.GetString("difficulty", "easy").ToLower();
-        if (userAnswer.CompareTo(selectedq.Answer) == 0)
+        //if (userAnswer.CompareTo(selectedq.Answer) == 0)
+        if (string.Equals(userAnswer, selectedq.Answer.ToString()))
         {
             PlayerPrefs.SetInt(difficulty + "Correct", PlayerPrefs.GetInt(difficulty + "Correct", 0) + 1);
             SceneManager.LoadScene("AnswerCorrect");
         }
         else
         {
-            PlayerPrefs.SetInt(difficulty + "Wrong", PlayerPrefs.GetInt(difficulty + "easyWrong", 0) + 1);
+            PlayerPrefs.SetInt(difficulty + "Wrong", PlayerPrefs.GetInt(difficulty + "Wrong", 0) + 1);
             SceneManager.LoadScene("AnswerWrong");
         }
     }

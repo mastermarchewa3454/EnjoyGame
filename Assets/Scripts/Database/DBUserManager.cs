@@ -42,6 +42,7 @@ public class DBUserManager : DBManager
         {
             string userString = "";
             yield return StartCoroutine(GetData("/users/" + userId, callback: data => userString = data));
+
             Student student = JsonUtility.FromJson<Student>(userString);
             Debug.Log(student.userId);
             Debug.Log(student.username);

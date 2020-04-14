@@ -23,12 +23,14 @@ public class JoinLobby : MonoBehaviourPunCallbacks
         waitingText.SetText("");
         lobbyID.SetText("");
         username.SetText("");
+        enterRoomButton.SetActive(false);
     }
 
     public override void OnConnectedToMaster()
     {
         Debug.Log("User has connected to Photon Server ");
-        PhotonNetwork.JoinLobby();
+        PhotonNetwork.AutomaticallySyncScene = true;
+        enterRoomButton.SetActive(true);
     }
     public void OnEnterRoomButtonClick()
     {
@@ -48,15 +50,31 @@ public class JoinLobby : MonoBehaviourPunCallbacks
             PhotonNetwork.NickName = user;
             Debug.Log("The roomID is " + roomID);
             Debug.Log("The username is: " + user);
+            Debug.Log("num of rooms: " + PhotonNetwork.CountOfRooms);
             PhotonNetwork.JoinRandomRoom();
         }        
     }
+    public void OnBackButtonClick()
+    {
+        if(PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.LeaveRoom();
+        }
+        setToSingleMode();
+    }
+    void setToSingleMode()
+    {
+        Spawner.isDuoMode = false;
+        PlayerMovement.isDuoMode = false;
+        FireController.isDuoMode = false;
+        Health.isDuoMode = false;
+    }
 
-    
     public override void OnJoinedRoom()
     {
         Debug.Log("We are now in the room");
         waitingText.SetText("Connected to room" + lobbyID.GetParsedText());
+        enterRoomButton.SetActive(false);
     }
     public override void OnJoinRoomFailed(short returnCode, string message)
     {

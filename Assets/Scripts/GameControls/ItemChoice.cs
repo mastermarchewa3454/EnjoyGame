@@ -18,6 +18,7 @@ public class ItemChoice : MonoBehaviour
     {
         difficulty = GameObject.Find("Attack/Text").GetComponent<Text>();
         PlayerPrefs.SetString("difficulty", difficulty.text);
+        PlayerPrefs.SetString("stat", "attack");
         SceneManager.LoadScene("QuestionDisplay");
     }
 
@@ -28,6 +29,7 @@ public class ItemChoice : MonoBehaviour
     {
         difficulty = GameObject.Find("Health/Text").GetComponent<Text>();
         PlayerPrefs.SetString("difficulty", difficulty.text);
+        PlayerPrefs.SetString("stat", "health");
         SceneManager.LoadScene("QuestionDisplay");
     }
 
@@ -38,6 +40,7 @@ public class ItemChoice : MonoBehaviour
     {
         difficulty = GameObject.Find("Speed/Text").GetComponent<Text>();
         PlayerPrefs.SetString("difficulty", difficulty.text);
+        PlayerPrefs.SetString("stat", "speed");
         SceneManager.LoadScene("QuestionDisplay");
     }
 }
