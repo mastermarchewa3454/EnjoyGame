@@ -88,10 +88,10 @@ public class ClassServiceImpl implements ClassService {
         List<ClassDto> returnValue = new ArrayList<>();
         ModelMapper modelMapper = new ModelMapper();
 
-        Pageable pageableRequest = PageRequest.of(0, 1000);
+        Iterable<ClassEntity> usersPage = classRepository.findAll();
 
-        Page<ClassEntity> usersPage = classRepository.findAll(pageableRequest);
-        List<ClassEntity> allEntities = usersPage.getContent();
+        List<ClassEntity> allEntities = new ArrayList<>();
+        usersPage.forEach(allEntities::add);
 
         for(ClassEntity classEntity: allEntities){
 

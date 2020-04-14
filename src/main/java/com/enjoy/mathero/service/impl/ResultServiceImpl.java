@@ -1,7 +1,9 @@
 package com.enjoy.mathero.service.impl;
 
+import com.enjoy.mathero.exceptions.ClassServiceException;
 import com.enjoy.mathero.exceptions.UserServiceException;
 import com.enjoy.mathero.io.entity.*;
+import com.enjoy.mathero.io.repository.ClassRepository;
 import com.enjoy.mathero.io.repository.DuoResultRepository;
 import com.enjoy.mathero.io.repository.SoloResultRepository;
 import com.enjoy.mathero.io.repository.UserRepository;
@@ -31,6 +33,9 @@ public class ResultServiceImpl implements ResultService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ClassRepository classRepository;
 
     @Autowired
     Utils utils;
@@ -145,6 +150,9 @@ public class ResultServiceImpl implements ResultService {
     public StageSummaryReportDto getStageSummaryReportByUserId(String userId, int stageNumber) {
         StageSummaryReportDto returnValue = new StageSummaryReportDto();
 
+        if(userRepository.findByUserId(userId) == null)
+            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+
         StageSummaryReportEntity results = soloResultRepository.getStageSummaryReport(userId, stageNumber);
         returnValue.setUserId(results.getUserId());
         returnValue.setStageNumber(results.getStageNumber());
@@ -162,6 +170,9 @@ public class ResultServiceImpl implements ResultService {
     public List<StageSummaryReportDto> getAllStagesReportsByUserId(String userId) {
         List<StageSummaryReportDto> returnValue = new ArrayList<>();
 
+        if(userRepository.findByUserId(userId) == null)
+            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+
         List<StageSummaryReportEntity> results = soloResultRepository.getAllStageSummaryReports(userId);
         for(StageSummaryReportEntity entity: results){
             StageSummaryReportDto stageSummaryReportDto = new StageSummaryReportDto();
@@ -175,6 +186,9 @@ public class ResultServiceImpl implements ResultService {
     @Override
     public ClassStageSummaryDto getClassStageSummaryByClassId(String classId, int stageNumber) {
         ClassStageSummaryDto returnValue = new ClassStageSummaryDto();
+
+        if(classRepository.findByClassId(classId) == null)
+            throw new ClassServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
         ClassStageSummaryEntity results = soloResultRepository.getClassStageSummary(classId, stageNumber);
         returnValue.setClassId(results.getClassId());
@@ -193,6 +207,9 @@ public class ResultServiceImpl implements ResultService {
     @Override
     public List<ClassStageSummaryDto> getAllClassStageSummaryByClassId(String classId) {
         List<ClassStageSummaryDto> returnValue = new ArrayList<>();
+
+        if(classRepository.findByClassId(classId) == null)
+            throw new ClassServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
         List<ClassStageSummaryEntity> results = soloResultRepository.getAllClassStageSummary(classId);
         for(ClassStageSummaryEntity entity: results){

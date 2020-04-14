@@ -1,6 +1,7 @@
 package com.enjoy.mathero.service.impl;
 
 import com.enjoy.mathero.exceptions.ClassServiceException;
+import com.enjoy.mathero.exceptions.RoleServiceException;
 import com.enjoy.mathero.exceptions.UserServiceException;
 import com.enjoy.mathero.io.entity.ClassEntity;
 import com.enjoy.mathero.io.entity.RoleEntity;
@@ -54,9 +55,12 @@ public class UserServiceImpl implements UserService {
         if(userRepository.findByUsername(user.getUsername()) != null)
             throw new UserServiceException(ErrorMessages.RECORD_ALREADY_EXISTS.getErrorMessage());
 
-        ClassEntity studentClass = classRepository.findByClassName(className);
-        if(studentClass == null && role.equals("ROLE_STUDENT"))
-            throw new ClassServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+        ClassEntity studentClass = null;
+        if(role.equals("ROLE_STUDENT")){
+            studentClass = classRepository.findByClassName(className);
+            if(studentClass == null)
+                throw new ClassServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+        }
 
         UserEntity userEntity = new UserEntity();
         BeanUtils.copyProperties(user, userEntity);
@@ -66,17 +70,24 @@ public class UserServiceImpl implements UserService {
         userEntity.setUserId(publicUserId);
         List<RoleEntity> roles = new ArrayList<>();
         roles.add(roleRepository.findByRoleName(role));
+
+        if(roles.get(0) == null)
+            throw new RoleServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+
         userEntity.setRoles(roles);
         userEntity.setClassDetails(studentClass);
         userEntity.setMaxStageCanPlay(0);
 
-        UserEntity storedUserDetails = userRepository.save(userEntity);
-        ClassDto classDto = new ClassDto();
-        BeanUtils.copyProperties(storedUserDetails.getClassDetails(), classDto);
-
         UserDto returnValue = new UserDto();
+
+        UserEntity storedUserDetails = userRepository.save(userEntity);
+        if(storedUserDetails.getRoles().get(0).getRoleName().equals("ROLE_STUDENT")){
+            ClassDto classDto = new ClassDto();
+            BeanUtils.copyProperties(storedUserDetails.getClassDetails(), classDto);
+            returnValue.setClassDetails(classDto);
+        }
+
         BeanUtils.copyProperties(storedUserDetails, returnValue);
-        returnValue.setClassDetails(classDto);
 
         return returnValue;
     }
@@ -106,9 +117,10 @@ public class UserServiceImpl implements UserService {
         if(userEntity == null)
             throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
-        UserDto returnValue = new UserDto();
-        BeanUtils.copyProperties(userEntity, returnValue);
-        return returnValue;
+        ModelMapper modelMapper = new ModelMapper();
+        UserDto userDto = modelMapper.map(userEntity, UserDto.class);
+
+        return userDto;
     }
 
     @Override
@@ -171,6 +183,7 @@ public class UserServiceImpl implements UserService {
 
         Page<UserEntity> usersPage = userRepository.findAll(pageableRequest);
         List<UserEntity> users = usersPage.getContent();
+
 
         for(UserEntity userEntity: users){
             UserDto userDto = new UserDto();

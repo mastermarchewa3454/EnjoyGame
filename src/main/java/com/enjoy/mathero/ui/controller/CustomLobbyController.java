@@ -49,6 +49,9 @@ public class CustomLobbyController {
 
         UserDto authorDto = userService.getUserByUserId(customLobbyRequestModel.getAuthorId());
 
+        if(authorDto == null)
+            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+
         customLobbyDto.setAuthorDetails(authorDto);
 
         List<QuestionRequestModel> questionRequestModels = customLobbyRequestModel.getQuestions();
