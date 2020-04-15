@@ -20,7 +20,9 @@ public class MapUtils {
     public static ClassRest classDtoToClassRest(ClassDto classDto){
         ClassRest classRest = new ClassRest();
         classRest.setClassName(classDto.getClassName());
-        classRest.setTeacher(classDto.getTeacherDetails().getFirstName() + " " + classDto.getTeacherDetails().getLastName());
+        classRest.setTeacherId(classDto.getTeacherDetails().getUserId());
+        classRest.setTeacherFirstName(classDto.getTeacherDetails().getFirstName());
+        classRest.setTeacherLastName(classDto.getTeacherDetails().getLastName());
         List<StudentRest> students = new ArrayList<>();
         List<UserDto> studentsDto = classDto.getStudents();
         for(int i =0;i<studentsDto.size();i++){

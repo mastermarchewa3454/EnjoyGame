@@ -39,7 +39,10 @@ public class ClassController {
         ClassDto saved = classService.create(classDto, classRequestModel.getTeacherId());
 
         returnValue.setClassName(saved.getClassName());
-        returnValue.setTeacher(saved.getTeacherDetails().getFirstName() + saved.getTeacherDetails().getLastName());
+        returnValue.setClassId(saved.getClassId());
+        returnValue.setTeacherId(saved.getTeacherDetails().getUserId());
+        returnValue.setTeacherFirstName(saved.getTeacherDetails().getFirstName());
+        returnValue.setTeacherLastName(saved.getTeacherDetails().getLastName());
         returnValue.setStudents(new ArrayList<>());
 
         return returnValue;

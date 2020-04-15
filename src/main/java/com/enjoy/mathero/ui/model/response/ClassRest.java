@@ -5,7 +5,9 @@ import java.util.List;
 public class ClassRest {
     private String classId;
     private String className;
-    private String teacher;
+    private String teacherId;
+    private String teacherFirstName;
+    private String teacherLastName;
     private List<StudentRest> students;
 
     public String getClassId() {
@@ -24,12 +26,28 @@ public class ClassRest {
         this.className = className;
     }
 
-    public String getTeacher() {
-        return teacher;
+    public String getTeacherId() {
+        return teacherId;
     }
 
-    public void setTeacher(String teacher) {
-        this.teacher = teacher;
+    public void setTeacherId(String teacherId) {
+        this.teacherId = teacherId;
+    }
+
+    public String getTeacherFirstName() {
+        return teacherFirstName;
+    }
+
+    public void setTeacherFirstName(String teacherFirstName) {
+        this.teacherFirstName = teacherFirstName;
+    }
+
+    public String getTeacherLastName() {
+        return teacherLastName;
+    }
+
+    public void setTeacherLastName(String teacherLastName) {
+        this.teacherLastName = teacherLastName;
     }
 
     public List<StudentRest> getStudents() {

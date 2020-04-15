@@ -17,7 +17,7 @@ public class ClassRequestModel {
         return teacherId;
     }
 
-    public void setTeacherUsername(String teacherUsername) {
+    public void setTeacherId(String teacherId) {
         this.teacherId = teacherId;
     }
 }

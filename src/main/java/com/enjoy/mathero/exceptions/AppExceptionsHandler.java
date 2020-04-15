@@ -55,7 +55,7 @@ public class AppExceptionsHandler {
         return new ResponseEntity<>(body, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(value = {ResultServiceException.class})
+    @ExceptionHandler(value = {RoleServiceException.class})
     public ResponseEntity<Object> handleRoleServiceException(RoleServiceException e, WebRequest request){
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", new Date());
