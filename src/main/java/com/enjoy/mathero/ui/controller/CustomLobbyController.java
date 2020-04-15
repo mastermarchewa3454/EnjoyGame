@@ -15,6 +15,7 @@ import com.enjoy.mathero.ui.model.response.CustomLobbyRest;
 import com.enjoy.mathero.ui.model.response.ErrorMessages;
 import com.enjoy.mathero.ui.model.response.QuestionRest;
 import com.enjoy.mathero.ui.validator.CustomLobbyValidator;
+import io.swagger.annotations.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Api(value = "Custom Lobby Controller", description = "Endpoints connected with custom lobbies")
 @RestController
 @RequestMapping(path = "custom-lobbies")
 public class CustomLobbyController {
@@ -38,8 +40,13 @@ public class CustomLobbyController {
     @Autowired
     CustomLobbyValidator customLobbyValidator;
 
+
+
+    @ApiOperation(value = "Create new class")
     @PostMapping
-    public CustomLobbyRest createCustomLobby(@RequestBody CustomLobbyRequestModel customLobbyRequestModel, BindingResult result){
+    @ApiImplicitParam(name = "Authorization", value = "Authorization token", paramType = "header", required = true)
+    public CustomLobbyRest createCustomLobby(
+            @ApiParam(value = "Custom lobby details to store in the database", required = true) @RequestBody CustomLobbyRequestModel customLobbyRequestModel, BindingResult result){
         customLobbyValidator.validate(customLobbyRequestModel, result);
 
         if(result.hasErrors())
@@ -66,8 +73,11 @@ public class CustomLobbyController {
         return returnValue;
     }
 
+    @ApiOperation(value = "Return custom lobby with provided id")
     @GetMapping(path = "/{lobbyId}")
-    public CustomLobbyRest getCustomLobbyByLobbyId(@PathVariable String lobbyId){
+    @ApiImplicitParam(name = "Authorization", value = "Authorization token", paramType = "header", required = true)
+    public CustomLobbyRest getCustomLobbyByLobbyId(
+            @ApiParam(value = "Custom lobby id from which custom lobby object will be retrieved", required = true) @PathVariable String lobbyId){
         CustomLobbyDto customLobbyDto = customLobbyService.getCustomLobbyByLobbyId(lobbyId);
 
         CustomLobbyRest returnValue = MapUtils.customLobbyDtoToCustomLobbyRest(customLobbyDto);

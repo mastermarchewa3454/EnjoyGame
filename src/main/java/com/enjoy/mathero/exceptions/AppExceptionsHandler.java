@@ -25,7 +25,7 @@ public class AppExceptionsHandler {
         body.put("timestamp", new Date());
         body.put("errors", e.getMessage());
 
-        return new ResponseEntity<>(body, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(body, new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = {ClassServiceException.class})
@@ -34,7 +34,7 @@ public class AppExceptionsHandler {
         body.put("timestamp", new Date());
         body.put("errors", e.getMessage());
 
-        return new ResponseEntity<>(body, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(body, new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = {ResultServiceException.class})
@@ -43,7 +43,7 @@ public class AppExceptionsHandler {
         body.put("timestamp", new Date());
         body.put("errors", e.getMessage());
 
-        return new ResponseEntity<>(body, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(body, new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = {CustomLobbyServiceException.class})
@@ -52,7 +52,7 @@ public class AppExceptionsHandler {
         body.put("timestamp", new Date());
         body.put("errors", e.getMessage());
 
-        return new ResponseEntity<>(body, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(body, new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = {RoleServiceException.class})
@@ -61,7 +61,7 @@ public class AppExceptionsHandler {
         body.put("timestamp", new Date());
         body.put("errors", e.getMessage());
 
-        return new ResponseEntity<>(body, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(body, new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = {Exception.class})
@@ -71,7 +71,7 @@ public class AppExceptionsHandler {
         body.put("errors", e.getMessage());
 
 
-        return new ResponseEntity<>(body, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(body, new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = {InvalidRequestBodyException.class})

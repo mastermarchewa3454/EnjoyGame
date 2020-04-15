@@ -7,6 +7,10 @@ import com.enjoy.mathero.shared.dto.UserDto;
 import com.enjoy.mathero.ui.model.request.TeacherDetailsRequestModel;
 import com.enjoy.mathero.ui.model.response.TeacherRest;
 import com.enjoy.mathero.ui.model.response.UserRest;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Api(value = "Teacher Controller", description = "Endpoints connected with teachers")
 @RestController
 @RequestMapping(path = "teachers")
 public class TeacherController {
@@ -21,8 +26,11 @@ public class TeacherController {
     @Autowired
     UserService userService;
 
+    @ApiOperation(value = "Create new teacher")
     @PostMapping
-    public UserRest createTeacher(@RequestBody TeacherDetailsRequestModel teacherDetailsRequestModel){
+    @ApiImplicitParam(name = "Authorization", value = "Authorization token", paramType = "header", required = true)
+    public UserRest createTeacher(
+            @ApiParam(value = "Teacher details to store in the database")  @RequestBody TeacherDetailsRequestModel teacherDetailsRequestModel){
         UserRest returnValue = new UserRest();
 
         UserDto userDto = new UserDto();
@@ -34,8 +42,11 @@ public class TeacherController {
         return returnValue;
     }
 
+    @ApiOperation(value = "Return teacher with provided id")
     @GetMapping(path = "/{userId}")
-    public TeacherRest getTeacherDetails(@PathVariable String userId){
+    @ApiImplicitParam(name = "Authorization", value = "Authorization token", paramType = "header", required = true)
+    public TeacherRest getTeacherDetails(
+            @ApiParam(value = "User id from which teacher object will be retrieved") @PathVariable String userId){
         TeacherRest returnValue = new TeacherRest();
 
         UserDto userDto = userService.getTeacherByUserId(userId);

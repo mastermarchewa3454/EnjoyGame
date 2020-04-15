@@ -24,9 +24,16 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(org.springframework.security.config.annotation.web.builders.WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL)
+                .permitAll()
+                .antMatchers("/swagger-ui/**", "/v3/api-docs/**")
                 .permitAll()
                 .antMatchers(HttpMethod.POST, SecurityConstants.CREATE_TEACHER_URL)
                 .hasRole("ADMIN")

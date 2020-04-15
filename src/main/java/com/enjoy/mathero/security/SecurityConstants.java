@@ -8,4 +8,5 @@ public class SecurityConstants {
     public static final String CREATE_TEACHER_URL = "/teachers";
     public static final String CREATE_CLASS_URL = "/classes";
     public static final String TOKEN_SECRET = "jf9i4jgu83nfl0";
+    public static final String API_DOC = "/doc/**";
 }

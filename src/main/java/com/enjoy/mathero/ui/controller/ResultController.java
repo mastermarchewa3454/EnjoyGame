@@ -12,6 +12,10 @@ import com.enjoy.mathero.ui.model.request.SoloResultRequestModel;
 import com.enjoy.mathero.ui.model.response.*;
 import com.enjoy.mathero.ui.validator.DuoResultValidator;
 import com.enjoy.mathero.ui.validator.SoloResultValidator;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Api(value = "Result Controller", description = "Endpoints connected with results")
 @RestController
 public class ResultController {
 
@@ -29,17 +34,13 @@ public class ResultController {
     ResultService resultService;
 
     @Autowired
-    ClassService classService;
-
-    @Autowired
-    SoloResultValidator soloResultValidator;
-
-    @Autowired
     DuoResultValidator duoResultValidator;
 
-
+    @ApiOperation(value = "Return top 20 solo results")
     @GetMapping(path = "/results/top20")
-    public CustomList<SoloResultRest> getTop20(@RequestParam(required = false, name = "stageNumber") Integer stageNumber){
+    @ApiImplicitParam(name = "Authorization", value = "Authorization token", paramType = "header", required = true)
+    public CustomList<SoloResultRest> getTop20(
+            @ApiParam(value = "Stage number for which top 20 results will be retrieved (top 20 from all stages if not specified)") @RequestParam(required = false, name = "stageNumber") Integer stageNumber){
         CustomList<SoloResultRest> returnValue = new CustomList<>();
 
         List<SoloResultDto> soloResultDtos;
@@ -59,32 +60,14 @@ public class ResultController {
         return returnValue;
     }
 
-    @PostMapping(path = "/users/{userId}/results")
-    public SoloResultRest createResult(@PathVariable String userId, @RequestBody SoloResultRequestModel resultDetails,
-                                       BindingResult result){
-        soloResultValidator.validate(resultDetails, result);
-
-        if(result.hasErrors())
-            throw new InvalidRequestBodyException(result);
-
-        SoloResultRest returnValue = new SoloResultRest();
-
-        UserDto userDto = userService.getUserByUserId(userId);
-
-        SoloResultDto soloResultDto = new SoloResultDto();
-        soloResultDto.setUserDetails(userDto);
-        BeanUtils.copyProperties(resultDetails, soloResultDto);
-
-        SoloResultDto createdResult = resultService.createSoloResult(soloResultDto);
-        BeanUtils.copyProperties(createdResult, returnValue);
-        returnValue.setUserId(userDto.getUserId());
-
-        return returnValue;
-    }
-
+    @ApiOperation(value = "Create duo result")
     @PostMapping(path = "/results/duo")
-    public DuoResultRest createDuoResult(@RequestParam(name = "userId1") String userId1, @RequestParam(name = "userId2") String userId2, @RequestBody DuoResultRequestModel resultDetails,
-                                         BindingResult result){
+    @ApiImplicitParam(name = "Authorization", value = "Authorization token", paramType = "header", required = true)
+    public DuoResultRest createDuoResult(
+            @ApiParam(value = "User id of first player", required = true) @RequestParam(name = "userId1") String userId1,
+            @ApiParam(value = "User id of second player", required = true) @RequestParam(name = "userId2") String userId2,
+            @ApiParam(value = "Duo result details to store in the database", required = true) @RequestBody DuoResultRequestModel resultDetails,
+            BindingResult result){
         duoResultValidator.validate(resultDetails, result);
 
         if(result.hasErrors())
@@ -108,8 +91,11 @@ public class ResultController {
         return returnValue;
     }
 
+    @ApiOperation(value = "Return top 20 duo results")
     @GetMapping(path = "/results/duo/top20")
-    public CustomList<DuoResultRest> getTop20Duo(@RequestParam(required = false, name = "stageNumber") Integer stageNumber){
+    @ApiImplicitParam(name = "Authorization", value = "Authorization token", paramType = "header", required = true)
+    public CustomList<DuoResultRest> getTop20Duo(
+            @ApiParam(value = "Stage number for which top 20 results will be retrieved (top 20 from all stages if not specified)") @RequestParam(required = false, name = "stageNumber") Integer stageNumber){
         CustomList<DuoResultRest> returnValue = new CustomList<>();
 
         List<DuoResultDto> duoResultDtos;
@@ -127,67 +113,6 @@ public class ResultController {
             duoResultRest.setUserId2(duoResultDto.getUserDetails2().getUserId());
             returnValue.add(duoResultRest);
         }
-        return returnValue;
-
-    }
-
-    @GetMapping(path = "/users/{userId}/summary-report")
-    public StageSummaryReportRest getStageSummaryReport(@RequestParam(name = "stageNumber") int stageNumber, @PathVariable String userId){
-        StageSummaryReportRest returnValue = new StageSummaryReportRest();
-
-        UserDto userDto = userService.getUserByUserId(userId);
-
-        StageSummaryReportDto stageSummaryReportDto = resultService.getStageSummaryReportByUserId(userId, stageNumber);
-        BeanUtils.copyProperties(stageSummaryReportDto, returnValue);
-
-        return returnValue;
-
-    }
-
-    @GetMapping(path = "/users/{userId}/summary-report-all")
-    public CustomList<StageSummaryReportRest> getAllStageSummaryReport(@PathVariable String userId){
-        CustomList<StageSummaryReportRest> returnValue = new CustomList<>();
-
-        UserDto userDto = userService.getUserByUserId(userId);
-
-        List<StageSummaryReportDto> results = resultService.getAllStagesReportsByUserId(userId);
-
-        for(StageSummaryReportDto dto: results){
-            StageSummaryReportRest rest = new StageSummaryReportRest();
-            BeanUtils.copyProperties(dto, rest);
-            returnValue.add(rest);
-        }
-
-        return returnValue;
-
-    }
-
-    @GetMapping(path = "/classes/{classId}/summary-report")
-    public ClassStageSummaryRest getClassStageSummary(@RequestParam(name = "stageNumber") int stageNumber, @PathVariable String classId){
-        ClassStageSummaryRest returnValue = new ClassStageSummaryRest();
-
-        ClassDto classDto = classService.getClassByClassId(classId);
-
-        ClassStageSummaryDto stageSummaryReportDto = resultService.getClassStageSummaryByClassId(classId, stageNumber);
-        BeanUtils.copyProperties(stageSummaryReportDto, returnValue);
-
-        return returnValue;
-    }
-
-    @GetMapping(path = "/classes/{classId}/summary-report-all")
-    public CustomList<ClassStageSummaryRest> getAllClassStageSummary(@PathVariable String classId){
-        CustomList<ClassStageSummaryRest> returnValue = new CustomList<>();
-
-        ClassDto classDto = classService.getClassByClassId(classId);
-
-        List<ClassStageSummaryDto> results = resultService.getAllClassStageSummaryByClassId(classId);
-
-        for(ClassStageSummaryDto dto: results){
-            ClassStageSummaryRest rest = new ClassStageSummaryRest();
-            BeanUtils.copyProperties(dto, rest);
-            returnValue.add(rest);
-        }
-
         return returnValue;
 
     }
