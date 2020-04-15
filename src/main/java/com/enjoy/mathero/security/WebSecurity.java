@@ -33,8 +33,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL)
                 .permitAll()
-                .antMatchers("/swagger-ui/**", "/v3/api-docs/**")
-                .permitAll()
                 .antMatchers(HttpMethod.POST, SecurityConstants.CREATE_TEACHER_URL)
                 .hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, SecurityConstants.CREATE_CLASS_URL)

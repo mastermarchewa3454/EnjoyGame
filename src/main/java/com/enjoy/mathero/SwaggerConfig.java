@@ -35,7 +35,7 @@ public class SwaggerConfig {
                                         .message("Accessing the resource you were trying to reach is forbidden")
                                         .build(),
                                 new ResponseMessageBuilder()
-                                        .code(404)
+                                        .code(500)
                                         .message("Object with provided id not found")
                                         .build()))
                 .globalResponseMessage(RequestMethod.POST,
@@ -50,6 +50,10 @@ public class SwaggerConfig {
                                 new ResponseMessageBuilder()
                                         .code(400)
                                         .message("The request body is invalid")
+                                        .build(),
+                                new ResponseMessageBuilder()
+                                        .code(500)
+                                        .message("Object with these details already exists")
                                         .build()))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.enjoy.mathero.ui.controller"))

@@ -88,7 +88,7 @@ public class InitialSetup {
         students.add(student13);
         students.add(student14);
 
-        /*for(int i =0;i<100;i++){
+        for(int i =0;i<100;i++){
             UserEntity firstStudent = students.get(utils.getRandomNumberInRange(0,13));
             UserEntity secondStudent = students.get(utils.getRandomNumberInRange(0,13));
 
@@ -97,7 +97,7 @@ public class InitialSetup {
                 DuoResultEntity duoResultEntity = createDuoResult(firstStudent, secondStudent);
             }
 
-        }*/
+        }
 
 
     }

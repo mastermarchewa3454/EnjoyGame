@@ -181,16 +181,8 @@ class UserServiceImplTest {
         UserDto returnedDetails = userService.getUser("student");
 
         assertNotNull(returnedDetails);
-        assertNotNull(returnedDetails.getClassDetails());
-        assertEquals(studentEntity.getFirstName(), returnedDetails.getFirstName());
-        assertEquals(studentEntity.getLastName(), returnedDetails.getLastName());
-        assertEquals(studentEntity.getUserId(), returnedDetails.getUserId());
-        assertEquals(studentEntity.getEncryptedPassword(), returnedDetails.getEncryptedPassword());
-        assertEquals(studentEntity.getEmail(), returnedDetails.getEmail());
         assertEquals(studentEntity.getUsername(), returnedDetails.getUsername());
-        assertEquals(classEntities.get(0).getClassName(), returnedDetails.getClassDetails().getClassName());
-        assertEquals(classEntities.get(0).getClassId(), returnedDetails.getClassDetails().getClassId());
-        assertEquals(0, returnedDetails.getTeachClasses().size());
+        assertEquals(studentEntity.getUserId(), returnedDetails.getUserId());
 
     }
 

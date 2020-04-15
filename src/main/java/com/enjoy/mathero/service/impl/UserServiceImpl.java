@@ -117,8 +117,9 @@ public class UserServiceImpl implements UserService {
         if(userEntity == null)
             throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
-        ModelMapper modelMapper = new ModelMapper();
-        UserDto userDto = modelMapper.map(userEntity, UserDto.class);
+        UserDto userDto = new UserDto();
+        userDto.setUsername(userEntity.getUsername());
+        userDto.setUserId(userEntity.getUserId());
 
         return userDto;
     }

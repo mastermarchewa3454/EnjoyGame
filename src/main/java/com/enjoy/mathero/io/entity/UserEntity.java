@@ -39,13 +39,13 @@ public class UserEntity implements Serializable {
     @Column(nullable=false)
     private String encryptedPassword;
 
-    @OneToMany(mappedBy = "userDetails", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userDetails", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<SoloResultEntity> soloResults = new ArrayList<>();
 
-    @OneToMany(mappedBy = "teacherDetails")
+    @OneToMany(mappedBy = "teacherDetails", fetch = FetchType.LAZY)
     private List<ClassEntity> teachClasses = new ArrayList<>();
 
-    @OneToMany(mappedBy = "authorDetails")
+    @OneToMany(mappedBy = "authorDetails", fetch = FetchType.LAZY)
     private List<CustomLobbyEntity> customLobbies = new ArrayList<>();
 
     @ManyToMany(cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
