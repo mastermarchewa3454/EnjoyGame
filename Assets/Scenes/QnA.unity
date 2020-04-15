@@ -279,8 +279,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b95e15f97ebd4bd4189c7edd49440fa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  counterText: {fileID: 0}
-  counterValue: 1
 --- !u!1 &109480080
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,7 +528,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1615401218}
-        m_MethodName: ReturnMainMenu
+        m_MethodName: LeaveFromCustomLobby
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2149,6 +2147,49 @@ MonoBehaviour:
   questionInput: {fileID: 1515561442}
   answerInput: {fileID: 1976409818}
   submitButton: {fileID: 584694806}
+  db: {fileID: 0}
+  questionArr:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  answerArr:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
 --- !u!4 &1615401217
 Transform:
   m_ObjectHideFlags: 0
@@ -2227,8 +2268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b95e15f97ebd4bd4189c7edd49440fa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  counterText: {fileID: 0}
-  counterValue: 1
 --- !u!114 &1841409972
 MonoBehaviour:
   m_ObjectHideFlags: 0

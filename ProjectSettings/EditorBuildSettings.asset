@@ -86,4 +86,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CustomLobbyScreen.unity
     guid: 38cef32dc16146b40be3c55a3c613aac
+  - enabled: 1
+    path: Assets/Scenes/JoinCustomLobby.unity
+    guid: 7535818074a69b3468c5662e8abb12b8
+  - enabled: 1
+    path: Assets/Scenes/SocialScreen.unity
+    guid: 8bce202e3f71bb64dabcae8e1c7abe31
+  - enabled: 1
+    path: Assets/Scenes/SearchingProfile.unity
+    guid: 9477015cccdfcfa4baf1829f6a7e5c8d
   m_configObjects: {}
