@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +12,7 @@ public class SoloHighscoreTable : MonoBehaviour
     private Transform entryTemplate;
     private Transform stageButton;
     private Transform entryTransform;
-    private List<Result> highscoreEntryList;
+    private Result[][] highscoreEntryList;
     private List<Transform> highscoreEntryTransformList;
     private string highscoreTable;
     private string buttonPath;
@@ -19,6 +20,7 @@ public class SoloHighscoreTable : MonoBehaviour
     private DBResultsManager db;
 
     public void Start(){
+        db = FindObjectOfType<DBResultsManager>();
         Button btn1 = GameObject.Find("stage1Button").GetComponent<Button>();
         Button btn2 = GameObject.Find("stage2Button").GetComponent<Button>();
         Button btn3 = GameObject.Find("stage3Button").GetComponent<Button>();
@@ -37,6 +39,9 @@ public class SoloHighscoreTable : MonoBehaviour
         transform.Find("SoloStage/stageContainer/stageButtonContainer/stage4Button/highscoreEntryContainer").transform.Find("highscoreEntryTemplate").gameObject.SetActive(false);
         transform.Find("SoloStage/stageContainer/stageButtonContainer/stage5Button/highscoreEntryContainer").transform.Find("highscoreEntryTemplate").gameObject.SetActive(false);
 
+        //Load highscore data
+        StartCoroutine(db.GetTop10(callback:data => highscoreEntryList = data));
+
         //Select Stage 1 by default
         btn1.Select();
         OnClick(1);
@@ -46,6 +51,13 @@ public class SoloHighscoreTable : MonoBehaviour
         if(entryTransform != null)
             Destroy(entryTransform.gameObject);
 
+        if(highscoreEntryTransformList != null){
+            foreach(Transform hstransform in highscoreEntryTransformList){
+            Destroy(hstransform.gameObject);
+            }
+        }
+        
+
         highscoreTable = "highscoreTableSS" + index;
         buttonPath = "stage" + index + "Button";
 
@@ -54,18 +66,24 @@ public class SoloHighscoreTable : MonoBehaviour
 
         entryTemplate.gameObject.SetActive(false);
         
-        //Load highscore data
-        StartCoroutine(db.GetTop10(callback:data => highscoreEntryList = data));
+        DisplayLeaderboard(index);
     }
 
-    private void DisplayLeaderboard(List<Result> highscoreEntryList){
+    private void DisplayLeaderboard(int index){
+        Result[] hsStageEntryList = highscoreEntryList[index];
+        List<Result> resultList = new List<Result>(hsStageEntryList);
+
         //Sort highscore data
-        highscoreEntryList.Sort((highscoreEntry1,highscoreEntry2)=>highscoreEntry2.score.CompareTo(highscoreEntry1.score));
+        resultList.Sort((highscoreEntry1,highscoreEntry2)=>highscoreEntry2.score.CompareTo(highscoreEntry1.score));
 
         highscoreEntryTransformList = new List<Transform>();
-
-        foreach (HighscoreEntry highscoreEntry in highscoreEntryList){
+        int count = 0;
+        foreach (Result highscoreEntry in resultList){
+            if(count>9){
+                return;
+            }
             CreateHighscoreEntryTransform(highscoreEntry, entryContainer, highscoreEntryTransformList);
+            count++;
         }
     }
 
@@ -127,9 +145,5 @@ public class SoloHighscoreTable : MonoBehaviour
         transformList.Add(entryTransform);
 
         
-    }
-
-    private class Highscores{
-        public List<Result> highscoreEntryList;
     }
 }

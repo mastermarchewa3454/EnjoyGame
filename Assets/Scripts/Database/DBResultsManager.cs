@@ -6,19 +6,7 @@ public class DBResultsManager : DBManager
 {
     Result result;
     Result[] results;
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            StartCoroutine(GetTop10());
-        }
-        else if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log(authHeader);
-            Debug.Log(userId);
-        }
-    }
+    Result[][] leaderboardResults;
 
     public IEnumerator SaveResults(int[] results)
     {
@@ -71,24 +59,21 @@ public class DBResultsManager : DBManager
         }
     }
 
-    public IEnumerator GetTop10(System.Action<Result[]> callback)
+    public IEnumerator GetTop10(System.Action<Result[][]> callback)
     {
         if (userId == null)
             Debug.Log("Log in first");
         else
         {
-            string resultString = "";
-            string[] headers = { "stageNumber:1" };
-            yield return StartCoroutine(GetData("/results/top10", header:headers, callback: data => resultString = data));
-            results = JsonHelper.FromJson<Result>(resultString);
+            for(int i=0; i<5; i++){
+                string resultString = "";
+                yield return StartCoroutine(GetData("/results/top20?stageNumber="+i, callback: data => resultString = data));
+                leaderboardResults[i] = JsonHelper.FromJson<Result>(resultString);
 
-            Debug.Log(results.score);
-            callback(results);
-            // for (int i=0; i<results.Length; i++)
-            // {
-            //     Result r = results[i];
-            //     Debug.Log(r.score);
-            // }
+                Debug.Log(leaderboardResults[i][0].score);
+            }
+
+            callback(leaderboardResults);
         }
     }
 }
