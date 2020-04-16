@@ -17,15 +17,25 @@ public class TextboxAnswer : MonoBehaviour
     static Quest selectedq;
     [SerializeField]
     private GameObject changingtext;
+    int qnNo;
+
     /// <summary>
     /// Checks if users answer is correct
     /// </summary>
     /// 
-
     public void Start()
     {
-        CSVQuestion();
-        DisplayQuestion();
+        if (PlayerPrefs.GetInt("customLobby") == 1)
+        {
+            qnNo = PlayerPrefs.GetInt("level") / 3 - 1;
+            string question = PlayerPrefs.GetString("qns" + qnNo);
+            DisplayQuestion(question);
+        }
+        else
+        {
+            CSVQuestion();
+            DisplayQuestion();
+        }
     }
 
     public void CSVQuestion()
@@ -86,25 +96,28 @@ public class TextboxAnswer : MonoBehaviour
         return randomquestion;
     }
 
-    public void DisplayQuestion()
+    public void DisplayQuestion(string question = null)
     {
-        string question;
-        List<Quest> filteredquests = FilterQuestion(quests);
-        Debug.Log("lol");
-        int questID = PickRandomQuestion(filteredquests);
-        Debug.Log(questID);
-        for (int j = 0; j < filteredquests.Count; j++)
+        if (question == null)
         {
-            if (questID == filteredquests[j].QuestionID)
+            List<Quest> filteredquests = FilterQuestion(quests);
+            int questID = PickRandomQuestion(filteredquests);
+            for (int j = 0; j < filteredquests.Count; j++)
             {
-                selectedq = filteredquests[j];
-                Debug.Log(filteredquests[j].QuestionID);
-                Debug.Log(selectedq.Answer);
-                break;
+                if (questID == filteredquests[j].QuestionID)
+                {
+                    selectedq = filteredquests[j];
+                    Debug.Log(selectedq.Answer);
+                    break;
+                }
             }
+
+            question = selectedq.Question;
         }
-        
-        question = selectedq.Question;
+        else
+        {
+            Debug.Log(PlayerPrefs.GetString("ans" + qnNo));
+        }
         changingtext.GetComponent<Text>().text = question;
         
     }
@@ -112,15 +125,25 @@ public class TextboxAnswer : MonoBehaviour
 
     public void CheckUserAnswer()
     {
-        
+        string correctAnswer;
+
+        if (PlayerPrefs.GetInt("customLobby") == 1)
+        {
+            correctAnswer = PlayerPrefs.GetString("ans" + qnNo);
+        }
+        else
+        {
+            correctAnswer = selectedq.Answer;
+        }
+
         string userAnswer = inputField.GetComponent<Text>().text;
         userAnswer = Regex.Replace(userAnswer, @"\s+", "");
-        selectedq.Answer = Regex.Replace(selectedq.Answer, @"\s+", "");
+        correctAnswer = Regex.Replace(correctAnswer, @"\s+", "");
         Debug.Log(userAnswer);
-        Debug.Log(selectedq.Answer);
+        Debug.Log(correctAnswer);
         string difficulty = PlayerPrefs.GetString("difficulty", "easy").ToLower();
         //if (userAnswer.CompareTo(selectedq.Answer) == 0)
-        if (string.Equals(userAnswer, selectedq.Answer))
+        if (string.Equals(userAnswer, correctAnswer))
         {
             PlayerPrefs.SetInt(difficulty + "Correct", PlayerPrefs.GetInt(difficulty + "Correct", 0) + 1);
             SceneManager.LoadScene("AnswerCorrect");

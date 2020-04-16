@@ -41,8 +41,13 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-            string[] questions = { "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a" }; ;
-            string[] answers = { "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a" }; ;
+            string[] questions = new string[20];
+            string[] answers = new string[20];
+            for (int i=0; i<20; i++)
+            {
+                questions[i] = "Question " + (i+1);
+                answers[i] = "Answer " + (i+1);
+            }
             StartCoroutine(db.CreateCustomLobby(questions, answers, loadingofScenings));
         }
     }
