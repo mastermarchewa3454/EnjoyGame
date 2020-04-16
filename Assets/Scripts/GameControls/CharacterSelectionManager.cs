@@ -8,19 +8,30 @@ public class CharacterSelectionManager : MonoBehaviour
     public void ChooseArcher()
     {
         PlayerPrefs.SetInt("character", 1);
-        SceneManager.LoadScene("StageSelection");
+        NextScene();
     }
 
     public void ChooseMole()
     {
         PlayerPrefs.SetInt("character", 2);
-        SceneManager.LoadScene("StageSelection");
+        NextScene();
     }
 
     public void ChooseTreant()
     {
         PlayerPrefs.SetInt("character", 3);
-        SceneManager.LoadScene("StageSelection");
+        NextScene();
     }
 
+    void NextScene()
+    {
+        if (PlayerPrefs.GetInt("customLobby", 0) == 1)
+        {
+            SceneManager.LoadScene("Level 1");
+        }
+        else
+        {
+            SceneManager.LoadScene("StageSelection");
+        }
+    }
 }
