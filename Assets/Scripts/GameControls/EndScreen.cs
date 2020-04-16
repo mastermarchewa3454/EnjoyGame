@@ -67,7 +67,10 @@ public class EndScreen : MonoBehaviour
         results[8] = CalculateScore(results);
         timerText.text = results[8].ToString();
 
-        StartCoroutine(db.SaveResults(results));
+        if (PlayerPrefs.GetInt("customLoby") == 0)
+        {
+            StartCoroutine(db.SaveResults(results));
+        }
     }
 
     /// <summary>

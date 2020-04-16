@@ -78,7 +78,8 @@ public class DBResultsManager : DBManager
         else
         {
             string resultString = "";
-            yield return StartCoroutine(GetData("/results/top10", callback: data => resultString = data));
+            string[] headers = { "stageNumber:1" };
+            yield return StartCoroutine(GetData("/results/top10", header:headers, callback: data => resultString = data));
             results = JsonHelper.FromJson<Result>(resultString);
 
             for (int i=0; i<results.Length; i++)
