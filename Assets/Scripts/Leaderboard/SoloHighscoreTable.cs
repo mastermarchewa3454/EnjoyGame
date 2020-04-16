@@ -11,10 +11,12 @@ public class SoloHighscoreTable : MonoBehaviour
     private Transform entryTemplate;
     private Transform stageButton;
     private Transform entryTransform;
-    private List<HighscoreEntry> highscoreEntryList;
+    private List<Result> highscoreEntryList;
     private List<Transform> highscoreEntryTransformList;
     private string highscoreTable;
     private string buttonPath;
+
+    private DBResultsManager db;
 
     public void Start(){
         Button btn1 = GameObject.Find("stage1Button").GetComponent<Button>();
@@ -52,23 +54,11 @@ public class SoloHighscoreTable : MonoBehaviour
 
         entryTemplate.gameObject.SetActive(false);
         
-        //If highscore data is null, instantiate new file
-        if(!PlayerPrefs.HasKey(highscoreTable)){
-            List<HighscoreEntry> list = new List<HighscoreEntry>(){
-                new HighscoreEntry{ name = highscoreTable, score = 0}
-            };
-            Highscores hs = new Highscores{highscoreEntryList = list};
-            string json = JsonUtility.ToJson(hs);
-            PlayerPrefs.SetString(highscoreTable, json);
-            PlayerPrefs.Save();
-        }
-
         //Load highscore data
-        string jsonString = PlayerPrefs.GetString(highscoreTable);
-        Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
-        
-        highscoreEntryList = highscores.highscoreEntryList;
+        StartCoroutine(db.GetTop10(callback:data => highscoreEntryList = data));
+    }
 
+    private void DisplayLeaderboard(List<Result> highscoreEntryList){
         //Sort highscore data
         highscoreEntryList.Sort((highscoreEntry1,highscoreEntry2)=>highscoreEntry2.score.CompareTo(highscoreEntry1.score));
 
@@ -77,10 +67,9 @@ public class SoloHighscoreTable : MonoBehaviour
         foreach (HighscoreEntry highscoreEntry in highscoreEntryList){
             CreateHighscoreEntryTransform(highscoreEntry, entryContainer, highscoreEntryTransformList);
         }
-
     }
 
-    private void CreateHighscoreEntryTransform(HighscoreEntry highscoreEntry, Transform container, List<Transform> transformList){
+    private void CreateHighscoreEntryTransform(Result highscoreEntry, Transform container, List<Transform> transformList){
         entryTransform = Instantiate(entryTemplate, container);
         float templateHeight = 51f;
         RectTransform entryRectTransform = entryTransform.GetComponent<RectTransform>();
@@ -119,7 +108,7 @@ public class SoloHighscoreTable : MonoBehaviour
             
         entryTransform.Find("rankText").GetComponent<Text>().text = rankString;
 
-        string name = highscoreEntry.name;
+        string name = highscoreEntry.userId;
         entryTransform.Find("nameText").GetComponent<Text>().text = name;
 
         int score = highscoreEntry.score;
@@ -140,36 +129,7 @@ public class SoloHighscoreTable : MonoBehaviour
         
     }
 
-    private void AddHighscoreEntry(string name, int score){
-        HighscoreEntry highscoreEntry = new HighscoreEntry{name = name, score = score};
-        Highscores highscores;
-
-        //Load highscore data
-        string jsonString = PlayerPrefs.GetString(highscoreTable);
-        highscores = JsonUtility.FromJson<Highscores>(jsonString);
-
-        highscores.highscoreEntryList.Add(highscoreEntry);
-
-        //Limit number of entries on table to 10
-        if(highscores.highscoreEntryList.Count > 10){
-            highscores.highscoreEntryList.Sort((highscoreEntry1,highscoreEntry2)=>highscoreEntry2.score.CompareTo(highscoreEntry1.score));
-            highscores.highscoreEntryList.RemoveAt(10);
-        }
-
-        //Save highscore data
-        string json = JsonUtility.ToJson(highscores);
-        PlayerPrefs.SetString(highscoreTable, json);
-        PlayerPrefs.Save();
-
-    }
-
     private class Highscores{
-        public List<HighscoreEntry> highscoreEntryList;
-    }
-
-    [System.Serializable]
-    private class HighscoreEntry{
-        public string name;
-        public int score;
+        public List<Result> highscoreEntryList;
     }
 }

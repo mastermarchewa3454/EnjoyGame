@@ -71,7 +71,7 @@ public class DBResultsManager : DBManager
         }
     }
 
-    public IEnumerator GetTop10()
+    public IEnumerator GetTop10(System.Action<Result[]> callback)
     {
         if (userId == null)
             Debug.Log("Log in first");
@@ -82,11 +82,13 @@ public class DBResultsManager : DBManager
             yield return StartCoroutine(GetData("/results/top10", header:headers, callback: data => resultString = data));
             results = JsonHelper.FromJson<Result>(resultString);
 
-            for (int i=0; i<results.Length; i++)
-            {
-                Result r = results[i];
-                Debug.Log(r.score);
-            }
+            Debug.Log(results.score);
+            callback(results);
+            // for (int i=0; i<results.Length; i++)
+            // {
+            //     Result r = results[i];
+            //     Debug.Log(r.score);
+            // }
         }
     }
 }
