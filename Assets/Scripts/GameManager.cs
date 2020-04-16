@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 /// <summary>
 /// Class to contain the functions required during custom creation lobby
@@ -29,6 +30,15 @@ public class GameManager : MonoBehaviour
     public DBCustomLobbyManager db;
     public string[] questionArr = new string[20];
     public string[] answerArr = new string[20];
+
+
+    public void Start()
+    {
+        db = FindObjectOfType<DBCustomLobbyManager>();
+    }
+
+
+
 
     /// <summary>
     /// Method to get question from the SerializeField questionInput
@@ -59,8 +69,7 @@ public class GameManager : MonoBehaviour
     {
         if (counterValue == 20)
         {
-            StartCoroutine(db.SaveQuestionsAndAnswers(questionArr, answerArr));
-            SceneManager.LoadScene("CustomLobbyComplete");
+            StartCoroutine(db.CreateCustomLobby(questionArr, answerArr, loadingofScenings));
         }
         else
         {
@@ -83,6 +92,11 @@ public class GameManager : MonoBehaviour
 
             }
         }
+    }
+
+    public void loadingofScenings()
+    {
+        SceneManager.LoadScene("CustomLobbyComplete");
     }
 
 }
