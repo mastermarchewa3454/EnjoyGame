@@ -29,7 +29,7 @@ public class DBResultsManager : DBManager
         Debug.Log("Max stage set");
     }
 
-    public IEnumerator GetUserResults(int stage=-1)
+    public IEnumerator GetUserResults(int stage=-1, System.Action callback=null)
     {
         if (userId == null)
             Debug.Log("Log in first");
@@ -44,17 +44,18 @@ public class DBResultsManager : DBManager
             else {
                 yield return StartCoroutine(GetData("/users/" + userId + "/summary-report?stageNumber=" + stage, callback: data => resultString = data));
                 result = JsonUtility.FromJson<Result>(resultString);
-
                 int easy = result.easyCorrect;
                 int medium = result.mediumCorrect;
                 int hard = result.hardCorrect;
                 int total = easy + medium + hard;
-                int easyPercent = easy / total * 100;
-                int mediumPercent = medium / total * 100;
-                int hardPercent = hard / total * 100;
+                int easyPercent = (int)((float) easy / total * 100);
+                int mediumPercent = (int)((float) medium / total * 100);
+                int hardPercent = (int)((float) hard / total * 100);
                 string[] arr = { total.ToString(), easyPercent.ToString(), mediumPercent.ToString(), hardPercent.ToString() };
-
+                foreach (string s in arr)
+                    Debug.Log(s);
                 PlayerPrefs.SetString("pastResults", string.Join(",", arr));
+                callback();
             }
         }
     }

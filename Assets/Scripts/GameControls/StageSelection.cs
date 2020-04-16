@@ -26,11 +26,6 @@ public class StageSelection : MonoBehaviour
         db = GetComponent<DBResultsManager>();
     }
 
-    void GetPastResults(int stage)
-    {
-        StartCoroutine(db.GetUserResults(stage));
-    }
-
     void UnlockStages()
     {
         stagesCleared = PlayerPrefs.GetInt("stagesCleared", 0);
@@ -60,8 +55,9 @@ public class StageSelection : MonoBehaviour
         if (stage <= stagesCleared + 1)
         {
             PlayerPrefs.SetInt("stage", stage);
-            GetPastResults(stage);
-            SceneManager.LoadScene("Level 1");
+            StartCoroutine(db.GetUserResults(stage, () => {
+                SceneManager.LoadScene("Level 1");
+            }));
         }
         else
         {
