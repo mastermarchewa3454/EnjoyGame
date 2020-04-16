@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Text.RegularExpressions;
 
 /// <summary>
 /// Gets questions and checks answers
@@ -113,6 +114,8 @@ public class TextboxAnswer : MonoBehaviour
     {
         
         string userAnswer = inputField.GetComponent<Text>().text;
+        userAnswer = Regex.Replace(userAnswer, @"\s+", "");
+        selectedq.Answer = Regex.Replace(selectedq.Answer, @"\s+", "");
         Debug.Log(userAnswer);
         Debug.Log(selectedq.Answer);
         string difficulty = PlayerPrefs.GetString("difficulty", "easy").ToLower();

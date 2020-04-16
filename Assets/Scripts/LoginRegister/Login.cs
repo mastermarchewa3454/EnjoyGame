@@ -23,24 +23,39 @@ public class Login : MonoBehaviour
         PlayerPrefs.DeleteKey("userId");
     }
 
+    void LoginRedirect(int status)
+    {
+        Debug.Log("Status code : " + status.ToString());
+        if (status == 200)
+        {
+            Debug.Log("Logging in...");
+            mm.ReturnMainMenu();
+        }
+        else
+        {
+            Debug.Log("Login failed");
+        }
+    }
+
     public void StudentLogin()
     {
         string username = usernameField.text;
         string password = passwordField.text;
         Debug.Log(username);
         Debug.Log(password);
-        StartCoroutine(db.Login(username, password));
-        if(PlayerPrefs.HasKey("Teacher")){
+        StartCoroutine(db.Login(username, password, LoginRedirect));
+        if (PlayerPrefs.HasKey("Teacher"))
+        {
             PlayerPrefs.SetInt("Teacher", 0);
             PlayerPrefs.Save();
             Debug.Log("Teacher key: " + PlayerPrefs.GetInt("Teacher"));
         }
-        else{
+        else
+        {
             Debug.Log("PlayerPrefs doesn't exist.");
             PlayerPrefs.SetInt("Teacher", 0);
-            Debug.Log("PlayerPrefs 'Teacher' created" + PlayerPrefs.GetInt("Teacher"));
+            Debug.Log("PlayerPrefs 'Teacher' created " + PlayerPrefs.GetInt("Teacher"));
         }
-        mm.ReturnMainMenu();
     }
 
     public void TeacherLogin()
@@ -49,7 +64,7 @@ public class Login : MonoBehaviour
         string password = passwordField.text;
         Debug.Log(username);
         Debug.Log(password);
-        StartCoroutine(db.Login(username, password));
+        StartCoroutine(db.Login(username, password, LoginRedirect));
         if(PlayerPrefs.HasKey("Teacher")){
             PlayerPrefs.SetInt("Teacher", 1);
             PlayerPrefs.Save();
@@ -60,6 +75,5 @@ public class Login : MonoBehaviour
             PlayerPrefs.SetInt("Teacher", 1);
             Debug.Log("PlayerPrefs 'Teacher' created" + PlayerPrefs.GetInt("Teacher"));
         }
-        mm.ReturnMainMenu();
     }
 }

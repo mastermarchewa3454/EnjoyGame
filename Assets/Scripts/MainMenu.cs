@@ -12,18 +12,11 @@ public class MainMenu : MonoBehaviour
 
     public void Start()
     {
-        PlayerPrefs.DeleteKey("health");
-        PlayerPrefs.DeleteKey("timer");
-        PlayerPrefs.DeleteKey("level");
-        PlayerPrefs.DeleteKey("treasure");
-        PlayerPrefs.DeleteKey("difficulty");
-        PlayerPrefs.DeleteKey("stagesCleared");
-        PlayerPrefs.DeleteKey("easyCorrect");
-        PlayerPrefs.DeleteKey("easyWrong");
-        PlayerPrefs.DeleteKey("mediumCorrect");
-        PlayerPrefs.DeleteKey("mediumWrong");
-        PlayerPrefs.DeleteKey("hardCorrect");
-        PlayerPrefs.DeleteKey("hardWrong");
+        string userId = PlayerPrefs.GetString("userId", null);
+        string authHeader = PlayerPrefs.GetString("authHeader", null);
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.SetString("userId", userId);
+        PlayerPrefs.SetString("authHeader", authHeader);
     }
 
     /// <summary>

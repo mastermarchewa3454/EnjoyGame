@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
+        moveSpeed = PlayerPrefs.GetFloat("speed", moveSpeed);
         if(isDuoMode)
         {
             pV = GetComponent<PhotonView>();

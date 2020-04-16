@@ -53,6 +53,7 @@ public class EndScreen : MonoBehaviour
         if (level == 60 && stage ==  stagesCleared + 1)
         {
             PlayerPrefs.SetInt("stagesCleared", stagesCleared + 1);
+            StartCoroutine(db.SetMaxStage(stagesCleared + 1));
         }
 
         timerText = GameObject.Find("StatsPanel/TimeContainer/TimeValue").GetComponent<TextMeshProUGUI>();

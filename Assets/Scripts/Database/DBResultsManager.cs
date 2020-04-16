@@ -23,15 +23,22 @@ public class DBResultsManager : DBManager
     public IEnumerator SaveResults(int[] results)
     {
         string score = "{\"score\":\"" + results[8] + "\"," +
-                        "\"stageNumber\":\"" + PlayerPrefs.GetInt("stage", 1) + "\"," +
+                        "\"stageNumber\":\"" + PlayerPrefs.GetInt("stage", 1).ToString() + "\"," +
                         "\"easyCorrect\":\"" + results[0] + "\"," +
                         "\"mediumCorrect\":\"" + results[2] + "\"," +
                         "\"hardCorrect\":\"" + results[4] + "\"," +
-                        "\"easyTotal\":\"" + results[0] + results[1] + "\"}," +
-                        "\"mediumTotal\":\"" + results[2] + results[3] + "\"}," +
-                        "\"hardTotal\":\"" + results[4] + results[5] + "\"}";
+                        "\"easyTotal\":\"" + (results[0] + results[1]).ToString() + "\"," +
+                        "\"mediumTotal\":\"" + (results[2] + results[3]).ToString() + "\"," +
+                        "\"hardTotal\":\"" + (results[4] + results[5]).ToString() + "\"}";
         yield return StartCoroutine(PostData("/users/"+userId+"/results", score));
         Debug.Log("Score submitted!");
+    }
+
+    public IEnumerator SetMaxStage(int stage)
+    {
+        string stageData = "{\"maxStageCanPlay\":\"" + stage.ToString() + "\"}";
+        yield return StartCoroutine(PostData("/users/" + userId + "/max-stage", stageData));
+        Debug.Log("Max stage set");
     }
 
     public IEnumerator GetUserResults(int stage=-1)

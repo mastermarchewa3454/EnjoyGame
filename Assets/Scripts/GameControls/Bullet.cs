@@ -12,6 +12,14 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private int damage = 10;
 
+    void Start()
+    {
+        if (this.name == "Lazer2(Clone)")
+        {
+            damage = PlayerPrefs.GetInt("attack", damage);
+        }
+    }
+
     /// <summary>
     /// Handles collisions of bullets
     /// </summary>

@@ -13,23 +13,31 @@ public class StageSelection : MonoBehaviour
     private int stagesCleared;
 
     DBResultsManager db;
+    DBUserManager dbu;
 
     /// <summary>
     /// Unlocks the appropriate number of stages
     /// </summary>
     void Start()
     {
-        stagesCleared = PlayerPrefs.GetInt("stagesCleared", 0);
-        for (int i=0; i<=stagesCleared; i++)
-        {
-            Unlock(i+1);
-        }
+        PlayerPrefs.SetInt("stagesCleared", -1);
+        dbu = GetComponent<DBUserManager>();
+        StartCoroutine(dbu.GetUser(UnlockStages));
         db = GetComponent<DBResultsManager>();
     }
 
     void GetPastResults(int stage)
     {
         StartCoroutine(db.GetUserResults(stage));
+    }
+
+    void UnlockStages()
+    {
+        stagesCleared = PlayerPrefs.GetInt("stagesCleared", 0);
+        for (int i = 0; i <= stagesCleared; i++)
+        {
+            Unlock(i + 1);
+        }
     }
 
     /// <summary>

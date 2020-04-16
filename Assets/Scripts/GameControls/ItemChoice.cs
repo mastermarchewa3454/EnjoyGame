@@ -18,8 +18,7 @@ public class ItemChoice : MonoBehaviour
     {
         difficulty = GameObject.Find("Attack/Text").GetComponent<Text>();
         PlayerPrefs.SetString("difficulty", difficulty.text);
-        float attack = PlayerPrefs.GetFloat("attack", 0);
-        PlayerPrefs.SetFloat("attack", attack + 5);
+        PlayerPrefs.SetString("temp", "attack");
         SceneManager.LoadScene("QuestionDisplay");
     }
 
@@ -30,7 +29,7 @@ public class ItemChoice : MonoBehaviour
     {
         difficulty = GameObject.Find("Health/Text").GetComponent<Text>();
         PlayerPrefs.SetString("difficulty", difficulty.text);
-        PlayerPrefs.SetInt("health", 100);
+        PlayerPrefs.SetString("temp", "health");
         SceneManager.LoadScene("QuestionDisplay");
     }
 
@@ -41,8 +40,7 @@ public class ItemChoice : MonoBehaviour
     {
         difficulty = GameObject.Find("Speed/Text").GetComponent<Text>();
         PlayerPrefs.SetString("difficulty", difficulty.text);
-        float speed = PlayerPrefs.GetFloat("speed", 0);
-        PlayerPrefs.SetFloat("speed", speed + 5);
+        PlayerPrefs.SetString("temp", "speed");
         SceneManager.LoadScene("QuestionDisplay");
     }
 }

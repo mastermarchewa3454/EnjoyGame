@@ -26,15 +26,16 @@ public class DBUserManager : DBManager
         Debug.Log("Registered!");
     }
 
-    public IEnumerator Login(string username, string password)
+    public IEnumerator Login(string username, string password, System.Action<int> callback)
     {
         string loginDetails = "{\"username\":\"" + username + "\"," +
                                "\"password\":\"" + password + "\"}";
-        yield return StartCoroutine(PostData("/users/login", loginDetails, setAuth: true));
-        Debug.Log("Logged in!");
+        string status = "empty";
+        yield return StartCoroutine(PostData("/users/login", loginDetails, setAuth: true, callback: data => status = data));
+        callback(int.Parse(status));
     }
 
-    public IEnumerator GetUser()
+    public IEnumerator GetUser(System.Action callback)
     {
         if (userId == null)
             Debug.Log("Log in first");
@@ -49,6 +50,9 @@ public class DBUserManager : DBManager
             Debug.Log(student.firstName);
             Debug.Log(student.lastName);
             Debug.Log(student.email);
+            Debug.Log(student.maxStageCanPlay);
+            PlayerPrefs.SetInt("stagesCleared", student.maxStageCanPlay);
+            callback();
         }
     }
 }
@@ -56,10 +60,12 @@ public class DBUserManager : DBManager
 [System.Serializable]
 public class Student
 {
-    public string userId;
-    public string username;
+    public string classId;
+    public string className;
+    public string email;
     public string firstName;
     public string lastName;
-    public string email;
-    public string className;
+    public int maxStageCanPlay;
+    public string userId;
+    public string username;
 }

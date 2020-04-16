@@ -6,7 +6,7 @@ using System.Text;
 
 public class DBManager : MonoBehaviour
 {
-    private string url = "http://13.229.205.106:8080/mathero";
+    private string url = "http://18.185.65.201:8080/mathero";
     protected string userId;
     protected string authHeader;
 
@@ -58,22 +58,25 @@ public class DBManager : MonoBehaviour
         {
             if (setAuth)
             {
-                foreach (KeyValuePair<string, string> dict in www.GetResponseHeaders())
+                if (www.responseCode == 200)
                 {
-                    if (dict.Key == "Authorization")
+                    foreach (KeyValuePair<string, string> dict in www.GetResponseHeaders())
                     {
-                        authHeader = dict.Value;
-                        PlayerPrefs.SetString("authHeader", authHeader);
-                    }
-                    else if (dict.Key == "UserID")
-                    {
-                        userId = dict.Value;
-                        PlayerPrefs.SetString("userId", userId);
+                        if (dict.Key == "Authorization")
+                        {
+                            authHeader = dict.Value;
+                            PlayerPrefs.SetString("authHeader", authHeader);
+                        }
+                        else if (dict.Key == "UserID")
+                        {
+                            userId = dict.Value;
+                            PlayerPrefs.SetString("userId", userId);
+                        }
                     }
                 }
+                callback(www.responseCode.ToString());
             }
-
-            if (callback != null)
+            else if (callback != null)
             {
                 callback(www.downloadHandler.text);
             }
