@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,12 +12,15 @@ public class SoloHighscoreTable : MonoBehaviour
     private Transform entryTemplate;
     private Transform stageButton;
     private Transform entryTransform;
-    private List<HighscoreEntry> highscoreEntryList;
+    private Result[][] highscoreEntryList;
     private List<Transform> highscoreEntryTransformList;
     private string highscoreTable;
     private string buttonPath;
 
+    private DBResultsManager db;
+
     public void Start(){
+        db = FindObjectOfType<DBResultsManager>();
         Button btn1 = GameObject.Find("stage1Button").GetComponent<Button>();
         Button btn2 = GameObject.Find("stage2Button").GetComponent<Button>();
         Button btn3 = GameObject.Find("stage3Button").GetComponent<Button>();
@@ -35,6 +39,9 @@ public class SoloHighscoreTable : MonoBehaviour
         transform.Find("SoloStage/stageContainer/stageButtonContainer/stage4Button/highscoreEntryContainer").transform.Find("highscoreEntryTemplate").gameObject.SetActive(false);
         transform.Find("SoloStage/stageContainer/stageButtonContainer/stage5Button/highscoreEntryContainer").transform.Find("highscoreEntryTemplate").gameObject.SetActive(false);
 
+        //Load highscore data
+        StartCoroutine(db.GetTop10(callback:data => highscoreEntryList = data));
+
         //Select Stage 1 by default
         btn1.Select();
         OnClick(1);
@@ -44,6 +51,13 @@ public class SoloHighscoreTable : MonoBehaviour
         if(entryTransform != null)
             Destroy(entryTransform.gameObject);
 
+        if(highscoreEntryTransformList != null){
+            foreach(Transform hstransform in highscoreEntryTransformList){
+            Destroy(hstransform.gameObject);
+            }
+        }
+        
+
         highscoreTable = "highscoreTableSS" + index;
         buttonPath = "stage" + index + "Button";
 
@@ -52,35 +66,28 @@ public class SoloHighscoreTable : MonoBehaviour
 
         entryTemplate.gameObject.SetActive(false);
         
-        //If highscore data is null, instantiate new file
-        if(!PlayerPrefs.HasKey(highscoreTable)){
-            List<HighscoreEntry> list = new List<HighscoreEntry>(){
-                new HighscoreEntry{ name = highscoreTable, score = 0}
-            };
-            Highscores hs = new Highscores{highscoreEntryList = list};
-            string json = JsonUtility.ToJson(hs);
-            PlayerPrefs.SetString(highscoreTable, json);
-            PlayerPrefs.Save();
-        }
-
-        //Load highscore data
-        string jsonString = PlayerPrefs.GetString(highscoreTable);
-        Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
-        
-        highscoreEntryList = highscores.highscoreEntryList;
-
-        //Sort highscore data
-        highscoreEntryList.Sort((highscoreEntry1,highscoreEntry2)=>highscoreEntry2.score.CompareTo(highscoreEntry1.score));
-
-        highscoreEntryTransformList = new List<Transform>();
-
-        foreach (HighscoreEntry highscoreEntry in highscoreEntryList){
-            CreateHighscoreEntryTransform(highscoreEntry, entryContainer, highscoreEntryTransformList);
-        }
-
+        DisplayLeaderboard(index);
     }
 
-    private void CreateHighscoreEntryTransform(HighscoreEntry highscoreEntry, Transform container, List<Transform> transformList){
+    private void DisplayLeaderboard(int index){
+        Result[] hsStageEntryList = highscoreEntryList[index];
+        List<Result> resultList = new List<Result>(hsStageEntryList);
+
+        //Sort highscore data
+        resultList.Sort((highscoreEntry1,highscoreEntry2)=>highscoreEntry2.score.CompareTo(highscoreEntry1.score));
+
+        highscoreEntryTransformList = new List<Transform>();
+        int count = 0;
+        foreach (Result highscoreEntry in resultList){
+            if(count>9){
+                return;
+            }
+            CreateHighscoreEntryTransform(highscoreEntry, entryContainer, highscoreEntryTransformList);
+            count++;
+        }
+    }
+
+    private void CreateHighscoreEntryTransform(Result highscoreEntry, Transform container, List<Transform> transformList){
         entryTransform = Instantiate(entryTemplate, container);
         float templateHeight = 51f;
         RectTransform entryRectTransform = entryTransform.GetComponent<RectTransform>();
@@ -119,7 +126,7 @@ public class SoloHighscoreTable : MonoBehaviour
             
         entryTransform.Find("rankText").GetComponent<Text>().text = rankString;
 
-        string name = highscoreEntry.name;
+        string name = highscoreEntry.userId;
         entryTransform.Find("nameText").GetComponent<Text>().text = name;
 
         int score = highscoreEntry.score;
@@ -138,38 +145,5 @@ public class SoloHighscoreTable : MonoBehaviour
         transformList.Add(entryTransform);
 
         
-    }
-
-    private void AddHighscoreEntry(string name, int score){
-        HighscoreEntry highscoreEntry = new HighscoreEntry{name = name, score = score};
-        Highscores highscores;
-
-        //Load highscore data
-        string jsonString = PlayerPrefs.GetString(highscoreTable);
-        highscores = JsonUtility.FromJson<Highscores>(jsonString);
-
-        highscores.highscoreEntryList.Add(highscoreEntry);
-
-        //Limit number of entries on table to 10
-        if(highscores.highscoreEntryList.Count > 10){
-            highscores.highscoreEntryList.Sort((highscoreEntry1,highscoreEntry2)=>highscoreEntry2.score.CompareTo(highscoreEntry1.score));
-            highscores.highscoreEntryList.RemoveAt(10);
-        }
-
-        //Save highscore data
-        string json = JsonUtility.ToJson(highscores);
-        PlayerPrefs.SetString(highscoreTable, json);
-        PlayerPrefs.Save();
-
-    }
-
-    private class Highscores{
-        public List<HighscoreEntry> highscoreEntryList;
-    }
-
-    [System.Serializable]
-    private class HighscoreEntry{
-        public string name;
-        public int score;
     }
 }
