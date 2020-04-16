@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DBCustomLobbyManager : DBManager
 {
+
     public IEnumerator SaveQuestionsAndAnswers(string[] questions, string[] answers)
     {
         string questionsJSON = "{\"qn1\":\"" + questions[0] + "\"," +
@@ -59,36 +60,42 @@ public class DBCustomLobbyManager : DBManager
 
         Debug.Log("START OF CREATE CUSTOM LOBBY");
 
-
         //Creation of Questonlist
         string questionList;
         questionList = "";
         for (int i = 0; i < 20; i++)
         {
             questionList += "{\"content\":\"" + questions[i] + "\"," +
-                            "\"correctAnswer\":\"" + answers[i] + "\"},";
+                            "\"correctAnswer\":\"" + answers[i] + "\"}";
+            if (i != 19)
+            {
+                questionList += ",";
+            }
         }
 
 
         string customLobbyDetails = "{\"authorId\":\"" + userId + "\"," +
-            "\"questions\":[" + questionList + "]";
+            "\"questions\":[" + questionList + "]}";
 
 
         string customLobbyString = "";
 
-        yield return StartCoroutine(PostData("/custom-lobbies", customLobbyDetails, callback: gettingCustomLobby));
+        yield return StartCoroutine(PostData("/custom-lobbies", customLobbyDetails, callback: data =>
+        {
+            gettingCustomLobby(data, callback);
+        }));
 
         Debug.Log("Custom Lobby Created");
-        callback();
     }
 
-    public void gettingCustomLobby(string customLobbyString)
+    public void gettingCustomLobby(string customLobbyString, System.Action callback)
     {
         CustomLobby customlobby = JsonUtility.FromJson<CustomLobby>(customLobbyString);
         Debug.Log(customlobby.authorId);
         Debug.Log(customlobby.lobbyId);
 
         PlayerPrefs.SetString("SavedCLI", customlobby.lobbyId);
+        callback();
     }
  
 

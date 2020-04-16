@@ -56,6 +56,7 @@ public class DBManager : MonoBehaviour
         }
         else
         {
+            Debug.Log(www.responseCode);
             if (setAuth)
             {
                 if (www.responseCode == 200)
