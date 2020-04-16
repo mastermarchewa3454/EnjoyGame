@@ -32,8 +32,10 @@ public class DBManager : MonoBehaviour
             }
             else
             {
+                Debug.Log(www.responseCode);
                 if (callback != null)
                     callback(www.downloadHandler.text);
+                    Debug.Log(www.downloadHandler.text);
             }
         }
     }

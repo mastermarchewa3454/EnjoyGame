@@ -104,6 +104,13 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("LoginScreen");
     }
     /// <summary>
+    /// Method call to redirect the user to the register page.
+    /// </summary>
+    public void EnterRegister()
+    {
+        SceneManager.LoadScene("RegisterScreen");
+    }
+    /// <summary>
     /// Method call to choose the class and students to view the report for the teacher.
     /// </summary>
     public void EnterCustomLobbyTeacherEdt()
