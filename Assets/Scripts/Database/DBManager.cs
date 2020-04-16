@@ -16,7 +16,7 @@ public class DBManager : MonoBehaviour
         authHeader = PlayerPrefs.GetString("authHeader", null);
     }
 
-    protected IEnumerator GetData(string endpoint, System.Action<string> callback = null)
+    protected IEnumerator GetData(string endpoint, string[] header = null, System.Action<string> callback = null)
     {
         if (authHeader == null)
             Debug.Log("Log in first");
@@ -32,13 +32,22 @@ public class DBManager : MonoBehaviour
             }
             else
             {
+                if (header != null)
+                {
+                    foreach (string h in header)
+                    {
+                        string[] arr = h.Split(':');
+                        www.SetRequestHeader(arr[0], arr[1]);
+                    }
+                }
+
                 if (callback != null)
                     callback(www.downloadHandler.text);
             }
         }
     }
 
-    protected IEnumerator PostData(string endpoint, string body, bool setAuth = false, string[] header=null, System.Action<string> callback = null)
+    protected IEnumerator PostData(string endpoint, string body, bool setAuth = false, System.Action<string> callback = null)
     {
         byte[] bodyRaw = Encoding.UTF8.GetBytes(body);
         var www = new UnityWebRequest(url + endpoint, "POST");
@@ -47,14 +56,7 @@ public class DBManager : MonoBehaviour
         www.SetRequestHeader("Content-Type", "application/json");
         if (authHeader != null)
             www.SetRequestHeader("Authorization", authHeader);
-        if (header != null)
-        {
-            foreach (string h in header)
-            {
-                string[] arr = h.Split(':');
-                www.SetRequestHeader(arr[0], arr[1]);
-            }
-        }
+
         yield return www.Send();
 
         if (www.isNetworkError)
