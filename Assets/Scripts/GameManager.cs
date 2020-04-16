@@ -37,8 +37,15 @@ public class GameManager : MonoBehaviour
         db = FindObjectOfType<DBCustomLobbyManager>();
     }
 
-
-
+    void Update()
+    {
+        if (Input.GetKeyDown("space"))
+        {
+            string[] questions = { "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a" }; ;
+            string[] answers = { "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a" }; ;
+            StartCoroutine(db.CreateCustomLobby(questions, answers, loadingofScenings));
+        }
+    }
 
     /// <summary>
     /// Method to get question from the SerializeField questionInput

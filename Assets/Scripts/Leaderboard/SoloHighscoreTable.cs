@@ -150,7 +150,7 @@ public class SoloHighscoreTable : MonoBehaviour
             
         entryTransform.Find("rankText").GetComponent<Text>().text = rankString;
 
-        string name = highscoreEntry.userId;
+        string name = highscoreEntry.username;
         entryTransform.Find("nameText").GetComponent<Text>().text = name;
 
         int score = highscoreEntry.score;

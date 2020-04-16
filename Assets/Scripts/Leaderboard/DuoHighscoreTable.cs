@@ -150,7 +150,7 @@ public class DuoHighscoreTable : MonoBehaviour
             
         entryTransform.Find("rankText").GetComponent<Text>().text = rankString;
 
-        string name = highscoreEntry.userId1 + " & " + highscoreEntry.userId2;
+        string name = highscoreEntry.username1 + " & " + highscoreEntry.username2;
         entryTransform.Find("nameText").GetComponent<Text>().text = name;
 
         int score = highscoreEntry.score;

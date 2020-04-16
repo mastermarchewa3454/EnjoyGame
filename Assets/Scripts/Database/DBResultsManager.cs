@@ -98,6 +98,7 @@ public class DBResultsManager : DBManager
 public class Result
 {
     public string userId;
+    public string username;
     public int score;
     public int stageNumber;
     public int easyCorrect;
@@ -113,5 +114,7 @@ public class DuoResult
 {
     public string userId1;
     public string userId2;
+    public string username1;
+    public string username2;
     public int score;
 }
