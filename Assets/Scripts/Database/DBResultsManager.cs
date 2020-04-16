@@ -6,7 +6,7 @@ public class DBResultsManager : DBManager
 {
     Result result;
     Result[] results;
-    Result[][] leaderboardResults;
+    DuoResult[] duoResults;
 
     public IEnumerator SaveResults(int[] results)
     {
@@ -59,21 +59,37 @@ public class DBResultsManager : DBManager
         }
     }
 
-    public IEnumerator GetTop10(System.Action<Result[][]> callback)
+    public IEnumerator GetTop10(int index, System.Action<Result[]> callback)
     {
         if (userId == null)
             Debug.Log("Log in first");
         else
         {
-            for(int i=0; i<5; i++){
-                string resultString = "";
-                yield return StartCoroutine(GetData("/results/top20?stageNumber="+i, callback: data => resultString = data));
-                leaderboardResults[i] = JsonHelper.FromJson<Result>(resultString);
+            string resultString = "";
+            yield return StartCoroutine(GetData("/results/top20?stageNumber="+index, callback: data => {
+                resultString = data;
+                Debug.Log(data);
+            }));
+            results = JsonHelper.FromJson<Result>(resultString);
+            Debug.Log(results[0].score);
+            callback(results);
+        }
+    }
 
-                Debug.Log(leaderboardResults[i][0].score);
-            }
-
-            callback(leaderboardResults);
+    public IEnumerator GetDuoTop10(int index, System.Action<DuoResult[]> callback)
+    {
+        if (userId == null)
+            Debug.Log("Log in first");
+        else
+        {
+            string resultString = "";
+            yield return StartCoroutine(GetData("/results/duo/top20?stageNumber="+index, callback: data => {
+                resultString = data;
+                Debug.Log(data);
+            }));
+            duoResults = JsonHelper.FromJson<DuoResult>(resultString);
+            Debug.Log(duoResults[0].score);
+            callback(duoResults);
         }
     }
 }
@@ -90,4 +106,12 @@ public class Result
     public int easyTotal;
     public int mediumTotal;
     public int hardTotal;
+}
+
+[System.Serializable]
+public class DuoResult
+{
+    public string userId1;
+    public string userId2;
+    public int score;
 }

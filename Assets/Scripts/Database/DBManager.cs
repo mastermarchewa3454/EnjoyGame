@@ -16,7 +16,7 @@ public class DBManager : MonoBehaviour
         authHeader = PlayerPrefs.GetString("authHeader", null);
     }
 
-    protected IEnumerator GetData(string endpoint, string[] header = null, System.Action<string> callback = null)
+    protected IEnumerator GetData(string endpoint, System.Action<string> callback = null)
     {
         if (authHeader == null)
             Debug.Log("Log in first");
@@ -32,17 +32,10 @@ public class DBManager : MonoBehaviour
             }
             else
             {
-                if (header != null)
-                {
-                    foreach (string h in header)
-                    {
-                        string[] arr = h.Split(':');
-                        www.SetRequestHeader(arr[0], arr[1]);
-                    }
-                }
-
+                Debug.Log(www.responseCode);
                 if (callback != null)
                     callback(www.downloadHandler.text);
+                    Debug.Log(www.downloadHandler.text);
             }
         }
     }
