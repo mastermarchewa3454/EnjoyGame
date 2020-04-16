@@ -126,17 +126,42 @@ public class MainMenu : MonoBehaviour
     ///</summary>
     public void LeaveFromCustomLobby()
     {
-        if(PlayerPrefs.HasKey("Teacher")){
+        if (PlayerPrefs.HasKey("Teacher"))
+        {
             int flag = PlayerPrefs.GetInt("Teacher");
-            if(flag==1){
+            if (flag == 19)
+            {
                 EnterTeacherScreen();
             }
-            else if (flag==0){
+            else
+            {
                 ReturnMainMenu();
             }
         }
-        else{
-            ReturnMainMenu();
-        }
+    }
+
+    /// <summary>
+    /// Method call to redirect the user to the Join Custom Lobby Screen
+    /// </summary>
+    public void JoinCustomLobby()
+    {
+        SceneManager.LoadScene("JoinCustomLobby");
+    }
+
+
+    /// <summary>
+    /// Method to call return the user back to the social screen.
+    /// </summary>
+    public void SocialScreen()
+    {
+        SceneManager.LoadScene("SocialScreen");
+    }
+
+    /// <summary>
+    /// Method to call to direct the user to the searching profile screen.
+    /// </summary>
+    public void SearchingProfile()
+    {
+        SceneManager.LoadScene("SearchingProfile");
     }
 }
