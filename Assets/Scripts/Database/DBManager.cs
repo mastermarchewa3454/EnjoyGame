@@ -29,13 +29,14 @@ public class DBManager : MonoBehaviour
             if (www.isNetworkError || www.isHttpError)
             {
                 Debug.Log(www.error);
+                Debug.Log("Error at endpoint " + endpoint);
             }
             else
             {
                 Debug.Log(www.responseCode);
+                Debug.Log(www.downloadHandler.text);
                 if (callback != null)
                     callback(www.downloadHandler.text);
-                    Debug.Log(www.downloadHandler.text);
             }
         }
     }

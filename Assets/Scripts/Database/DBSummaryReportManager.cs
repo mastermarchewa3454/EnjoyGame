@@ -39,6 +39,7 @@ public class DBSummaryReportManager : DBManager
 public class SumReport
 {
     public string userId;
+    public string username;
     public int stageNumber;
     public int easyCorrect;
     public int mediumCorrect;

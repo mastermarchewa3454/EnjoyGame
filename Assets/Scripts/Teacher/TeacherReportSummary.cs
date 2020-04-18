@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class TeacherReportSummary : MonoBehaviour
@@ -34,8 +35,8 @@ public class TeacherReportSummary : MonoBehaviour
     IEnumerator PopulateList()
     {
         yield return StartCoroutine(db.GetTeacher(callback:data => teacher = data));
-        teacherName.text = "Welcome : " + teacher.firstName + " " + teacher.lastName;
-        className.text = "Class : " + teacher.teachClassName;
+        teacherName.text = "Welcome: " + teacher.firstName + " " + teacher.lastName;
+        className.text = "Class: " + teacher.teachClassName;
         PlayerPrefs.SetString("className", teacher.teachClassName);
 
         yield return StartCoroutine(db.GetClasses(teacher.teachClassId, callback: data => classes = data));
@@ -45,5 +46,19 @@ public class TeacherReportSummary : MonoBehaviour
             names.Add(s.firstName);
         }
         dropdown.AddOptions(names);
+    }
+
+    public void GenerateReport()
+    {
+        string userFirstName = dropdown.options[dropdown.value].text;
+        foreach (Student s in classes.students)
+        {
+            if (userFirstName.Equals(s.firstName))
+            {
+                PlayerPrefs.SetString("otherUserId", s.userId);
+                PlayerPrefs.SetString("firstName", userFirstName);
+            }
+        }
+        SceneManager.LoadScene("SummaryReportDetails");
     }
 }
