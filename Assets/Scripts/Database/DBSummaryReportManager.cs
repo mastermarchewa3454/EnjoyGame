@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class DBSummaryReportManager : DBManager
 {
-    public IEnumerator GetSummaryReport(string otherUserId, int stage, System.Action<SumReport> callback)
+    public IEnumerator GetSummaryReport(string otherUserId, int stage, System.Action<Result> callback)
     {
-        SumReport result;
+        Result result;
 
         if (userId == null)
             Debug.Log("Log in first");
@@ -14,14 +14,14 @@ public class DBSummaryReportManager : DBManager
         {
             string resultString = "";
             yield return StartCoroutine(GetData("/users/" + otherUserId + "/summary-report?stageNumber=" + stage, callback: data => resultString = data));
-            result = JsonUtility.FromJson<SumReport>(resultString);
+            result = JsonUtility.FromJson<Result>(resultString);
             callback(result);
         }
     }
 
-    public IEnumerator GetSummaryReport(string otherUserId, System.Action<SumReport[]> callback)
+    public IEnumerator GetSummaryReport(string otherUserId, System.Action<Result[]> callback)
     {
-        SumReport[] results;
+        Result[] results;
 
         if (userId == null)
             Debug.Log("Log in first");
@@ -29,7 +29,7 @@ public class DBSummaryReportManager : DBManager
         {
             string resultString = "";
             yield return StartCoroutine(GetData("/users/" + otherUserId + "/summary-report-all", callback: data => resultString = data));
-            results = JsonHelper.FromJson<SumReport>(resultString);
+            results = JsonHelper.FromJson<Result>(resultString);
             callback(results);
         }
     }

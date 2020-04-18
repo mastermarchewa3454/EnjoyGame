@@ -12,7 +12,7 @@ public class DisplayReport : MonoBehaviour
 
     DBSummaryReportManager db;
 
-    Result user;
+    Result[] user;
 
     public void Start()
     {
@@ -21,13 +21,16 @@ public class DisplayReport : MonoBehaviour
     }
 
 
+    
     IEnumerator GetStudentDetails()
     {
-        yield return StartCoroutine(db.GetUserResults(callback: data => user = data));
+        string userId = PlayerPrefs.GetString("userId");
+        Debug.Log(userId);
+        yield return StartCoroutine(db.GetSummaryReport(userId, callback: data => user = data));
 
-        studentName.text = user.userId;
-        studentClass.text = PlayerPrefs.GetString("className");
-        maxLevel.text = stageNumber;
+        studentName.text = userId;
+        studentClass.text = "Class: " + PlayerPrefs.GetString("className");
+        maxLevel.text = "Maximium Level Reached: " + user[0].stageNumber.ToString();
 
     }
 }
