@@ -9,14 +9,6 @@ using UnityEngine.Networking;
 
 public class DBUserManager : DBManager
 {
-    void Update()
-    {
-        if (Input.GetKeyDown("space"))
-        {
-            StartCoroutine(GetClasses());
-        }
-    }
-
     public IEnumerator Register(string username,
                         string firstName,
                         string lastName,
@@ -65,7 +57,29 @@ public class DBUserManager : DBManager
         }
     }
 
-    public IEnumerator GetClasses(System.Action<Class[]> callback = null)
+    public IEnumerator GetClasses(string classId, System.Action<Class> callback)
+    {
+        string classString = "";
+        yield return StartCoroutine(GetData("/classes/" + classId, callback: data => classString = data));
+        Class c = JsonUtility.FromJson<Class>(classString);
+        Regex reg = new Regex("\"students\":(.|\n)+?]");
+        MatchCollection matches = reg.Matches(classString);
+
+        foreach (Match m in matches)
+        {
+            string students = m.Value;
+            students = "{\"wrapperList\"" + m.Value.Substring(10) + "}";
+            Debug.Log(students);
+            Student[] sArr = JsonHelper.FromJson<Student>(students);
+            foreach (Student s in sArr)
+            {
+                c.students.Add(s);
+            }
+        }
+        callback(c);
+    }
+
+    public IEnumerator GetClasses(System.Action<Class[]> callback)
     {
         string classString = "";
         yield return StartCoroutine(GetData("/classes", callback: data => classString = data));
@@ -85,6 +99,7 @@ public class DBUserManager : DBManager
                 c[i].students.Add(s);
             }
             i++;
+            callback(c);
         }
     }
 
@@ -96,6 +111,7 @@ public class DBUserManager : DBManager
         callback(teacher);
     }
 }
+
 
 [System.Serializable]
 public class Student
@@ -126,6 +142,6 @@ public class Teacher
 {
     public string firstName;
     public string lastName;
-    public string[] teaches;
+    public string teaches;
     public string userId;
 }
