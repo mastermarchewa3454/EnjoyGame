@@ -20,9 +20,6 @@ public class TeacherReportSummary : MonoBehaviour
         db = GetComponent<DBUserManager>();
         
         StartCoroutine(PopulateList());
-
-        teacherName.text = "hello";
-        className.text = "3a";
     }
 
     /*public void PopulateList()
@@ -44,5 +41,9 @@ public class TeacherReportSummary : MonoBehaviour
             names.Add(s.firstName);
         }
         dropdown.AddOptions(names);
+
+
+        teacherName.text = teacher.firstName + " " + teacher.lastName ;
+        className.text = classes.className;
     }
 }
