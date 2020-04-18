@@ -2,6 +2,7 @@ package com.enjoy.mathero.ui.model.response;
 
 public class SoloResultRest {
     private String userId;
+    private String username;
     private int score;
     private int stageNumber;
     private int easyCorrect;
@@ -17,6 +18,14 @@ public class SoloResultRest {
 
     public String getUserId() {
         return userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public int getScore() {

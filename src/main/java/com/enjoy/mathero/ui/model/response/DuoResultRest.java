@@ -2,7 +2,9 @@ package com.enjoy.mathero.ui.model.response;
 
 public class DuoResultRest {
     private String userId1;
+    private String username1;
     private String userId2;
+    private String username2;
     private int score;
     private int stageNumber;
 
@@ -20,6 +22,22 @@ public class DuoResultRest {
 
     public void setUserId2(String userId2) {
         this.userId2 = userId2;
+    }
+
+    public String getUsername1() {
+        return username1;
+    }
+
+    public void setUsername1(String username1) {
+        this.username1 = username1;
+    }
+
+    public String getUsername2() {
+        return username2;
+    }
+
+    public void setUsername2(String username2) {
+        this.username2 = username2;
     }
 
     public int getScore() {

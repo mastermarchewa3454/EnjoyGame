@@ -7,7 +7,8 @@ public class TeacherRest {
     private String userId;
     private String firstName;
     private String lastName;
-    private List<String> teaches;
+    private String teachClassId;
+    private String teachClassName;
 
     public String getUserId() {
         return userId;
@@ -33,11 +34,19 @@ public class TeacherRest {
         this.lastName = lastName;
     }
 
-    public List<String> getTeaches() {
-        return teaches;
+    public String getTeachClassId() {
+        return teachClassId;
     }
 
-    public void setTeaches(List<String> teaches) {
-        this.teaches = teaches;
+    public void setTeachClassId(String teachClassId) {
+        this.teachClassId = teachClassId;
+    }
+
+    public String getTeachClassName() {
+        return teachClassName;
+    }
+
+    public void setTeachClassName(String teachClassName) {
+        this.teachClassName = teachClassName;
     }
 }

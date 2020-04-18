@@ -55,7 +55,7 @@ public class CustomLobbyServiceImpl implements CustomLobbyService {
 
         toSave.setAuthorDetails(authorEntity);
         toSave.setQuestions(questionEntities);
-        toSave.setLobbyId(utils.generateCustomLobbyId(30));
+        toSave.setLobbyId(utils.generateCustomLobbyId(7));
 
         CustomLobbyEntity saved = customLobbyRepository.save(toSave);
 

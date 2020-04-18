@@ -52,13 +52,8 @@ public class TeacherController {
         UserDto userDto = userService.getTeacherByUserId(userId);
         BeanUtils.copyProperties(userDto, returnValue);
 
-        List<String> classesId = new ArrayList<>();
-
-        for(ClassDto classDto: userDto.getTeachClasses()){
-            classesId.add(classDto.getClassId());
-        }
-
-        returnValue.setTeaches(classesId);
+        returnValue.setTeachClassId(userDto.getTeachClasses().getClassId());
+        returnValue.setTeachClassName(userDto.getTeachClasses().getClassName());
 
         return returnValue;
     }

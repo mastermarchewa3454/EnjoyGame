@@ -60,15 +60,15 @@ class TeacherControllerTest {
         classDtos.add(getClassDto());
         classDtos.add(getClassDto());
         classDtos.add(getClassDto());
-        teacherDto.setTeachClasses(classDtos);
+        teacherDto.setTeachClasses(classDtos.get(0));
 
         when(userService.getTeacherByUserId(anyString())).thenReturn(teacherDto);
 
         TeacherRest returnedValue = teacherController.getTeacherDetails("AJHEGRJH5asdhjag");
 
         assertNotNull(returnedValue);
-        assertNotNull(returnedValue.getTeaches());
-        assertEquals(teacherDto.getTeachClasses().size(), returnedValue.getTeaches().size());
+        assertNotNull(returnedValue.getTeachClassId());
+        assertNotNull(returnedValue.getTeachClassName());
         assertEquals(teacherDto.getFirstName(), returnedValue.getFirstName());
         assertEquals(teacherDto.getLastName(), returnedValue.getLastName());
 

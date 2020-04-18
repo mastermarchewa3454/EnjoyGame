@@ -152,6 +152,7 @@ public class UserController {
             SoloResultRest soloResultRest = new SoloResultRest();
             BeanUtils.copyProperties(soloResultDto, soloResultRest);
             soloResultRest.setUserId(userId);
+            soloResultRest.setUsername(soloResultDto.getUserDetails().getUsername());
             returnValue.add(soloResultRest);
         }
 

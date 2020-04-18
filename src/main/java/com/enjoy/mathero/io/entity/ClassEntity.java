@@ -19,7 +19,7 @@ public class ClassEntity implements Serializable {
     @Column(unique = true)
     private String className;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "teacher_id")
     private UserEntity teacherDetails;
 

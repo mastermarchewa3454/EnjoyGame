@@ -19,8 +19,9 @@ public class UserDto implements Serializable {
     private String encryptedPassword;
     private int maxStageCanPlay;
     private List<SoloResultDto> soloResults;
-    private List<ClassDto> teachClasses;
+    private ClassDto teachClasses;
     private List<CustomLobbyDto> customLobbies;
+    private RoleDto role;
 
     public long getId() {
         return id;
@@ -102,11 +103,11 @@ public class UserDto implements Serializable {
         this.soloResults = soloResults;
     }
 
-    public List<ClassDto> getTeachClasses() {
+    public ClassDto getTeachClasses() {
         return teachClasses;
     }
 
-    public void setTeachClasses(List<ClassDto> teachClasses) {
+    public void setTeachClasses(ClassDto teachClasses) {
         this.teachClasses = teachClasses;
     }
 
@@ -124,5 +125,13 @@ public class UserDto implements Serializable {
 
     public void setMaxStageCanPlay(int maxStageCanPlay) {
         this.maxStageCanPlay = maxStageCanPlay;
+    }
+
+    public RoleDto getRole() {
+        return role;
+    }
+
+    public void setRole(RoleDto role) {
+        this.role = role;
     }
 }

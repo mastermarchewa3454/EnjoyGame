@@ -4,6 +4,7 @@ package com.enjoy.mathero.io.entity;
 
 public interface StageSummaryReportEntity {
     String getUserId();
+    String getUsername();
     Integer getStageNumber();
     Integer getEasyCorrect();
     Integer getMediumCorrect();
@@ -12,6 +13,7 @@ public interface StageSummaryReportEntity {
     Integer getMediumTotal();
     Integer getHardTotal();
     void setUserId(String userId);
+    void setUsername(String username);
     void setStageNumber(Integer stageNumber);
     void setEasyCorrect(Integer easyCorrect);
     void setEasyTotal(Integer easyTotal);

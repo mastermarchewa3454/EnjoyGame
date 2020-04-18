@@ -2,6 +2,7 @@ package com.enjoy.mathero.ui.model.response;
 
 public class StageSummaryReportRest {
     private String userId;
+    private String username;
     private int stageNumber;
     private int easyCorrect;
     private int easyTotal;
@@ -16,6 +17,14 @@ public class StageSummaryReportRest {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public int getStageNumber() {

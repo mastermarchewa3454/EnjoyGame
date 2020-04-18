@@ -209,7 +209,6 @@ class UserServiceImplTest {
         assertEquals(studentEntity.getUsername(), returnedDetails.getUsername());
         assertEquals(classEntities.get(0).getClassName(), returnedDetails.getClassDetails().getClassName());
         assertEquals(classEntities.get(0).getClassId(), returnedDetails.getClassDetails().getClassId());
-        assertEquals(0, returnedDetails.getTeachClasses().size());
 
     }
 
@@ -227,7 +226,6 @@ class UserServiceImplTest {
         assertEquals(teacherEntity.getEncryptedPassword(), returnedDetails.getEncryptedPassword());
         assertEquals(teacherEntity.getEmail(), returnedDetails.getEmail());
         assertEquals(teacherEntity.getUsername(), returnedDetails.getUsername());
-        assertEquals(2, returnedDetails.getTeachClasses().size());
 
     }
 
@@ -340,7 +338,7 @@ class UserServiceImplTest {
         teacherEntity.setLastName("Test");
         teacherEntity.setUsername("teacher");
         teacherEntity.setEmail("test@test.com");
-        teacherEntity.setTeachClasses(classEntities);
+        teacherEntity.setTeachClasses(classEntities.get(0));
         teacherEntity.setEncryptedPassword(encryptedPassword);
         teacherEntity.setRoles(teacherRole);
         return teacherEntity;

@@ -2,6 +2,7 @@ package com.enjoy.mathero.shared.dto;
 
 public class StageSummaryReportDto {
     private String userId;
+    private String username;
     private int stageNumber;
     private int easyCorrect;
     private int mediumCorrect;
@@ -16,6 +17,14 @@ public class StageSummaryReportDto {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public int getStageNumber() {

@@ -155,6 +155,7 @@ public class ResultServiceImpl implements ResultService {
 
         StageSummaryReportEntity results = soloResultRepository.getStageSummaryReport(userId, stageNumber);
         returnValue.setUserId(results.getUserId());
+        returnValue.setUsername(results.getUsername());
         returnValue.setStageNumber(results.getStageNumber());
         returnValue.setEasyCorrect(results.getEasyCorrect());
         returnValue.setMediumCorrect(results.getMediumCorrect());

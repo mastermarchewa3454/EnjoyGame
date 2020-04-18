@@ -55,6 +55,7 @@ public class ResultController {
             SoloResultRest soloResultRest = new SoloResultRest();
             BeanUtils.copyProperties(soloResultDto, soloResultRest);
             soloResultRest.setUserId(soloResultDto.getUserDetails().getUserId());
+            soloResultRest.setUsername(soloResultDto.getUserDetails().getUsername());
             returnValue.add(soloResultRest);
         }
         return returnValue;
@@ -111,6 +112,8 @@ public class ResultController {
             BeanUtils.copyProperties(duoResultDto, duoResultRest);
             duoResultRest.setUserId1(duoResultDto.getUserDetails1().getUserId());
             duoResultRest.setUserId2(duoResultDto.getUserDetails2().getUserId());
+            duoResultRest.setUsername1(duoResultDto.getUserDetails1().getUsername());
+            duoResultRest.setUsername2(duoResultDto.getUserDetails2().getUsername());
             returnValue.add(duoResultRest);
         }
         return returnValue;

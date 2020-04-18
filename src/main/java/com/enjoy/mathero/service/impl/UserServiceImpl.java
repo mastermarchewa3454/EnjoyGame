@@ -12,6 +12,7 @@ import com.enjoy.mathero.io.entity.UserEntity;
 import com.enjoy.mathero.service.UserService;
 import com.enjoy.mathero.shared.Utils;
 import com.enjoy.mathero.shared.dto.ClassDto;
+import com.enjoy.mathero.shared.dto.RoleDto;
 import com.enjoy.mathero.shared.dto.UserDto;
 import com.enjoy.mathero.ui.model.response.ErrorMessages;
 import org.modelmapper.ModelMapper;
@@ -117,9 +118,13 @@ public class UserServiceImpl implements UserService {
         if(userEntity == null)
             throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
+        RoleDto roleDto = new RoleDto();
+        BeanUtils.copyProperties(userEntity.getRoles().get(0), roleDto);
+
         UserDto userDto = new UserDto();
         userDto.setUsername(userEntity.getUsername());
         userDto.setUserId(userEntity.getUserId());
+        userDto.setRole(roleDto);
 
         return userDto;
     }

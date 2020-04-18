@@ -42,8 +42,8 @@ public class UserEntity implements Serializable {
     @OneToMany(mappedBy = "userDetails", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<SoloResultEntity> soloResults = new ArrayList<>();
 
-    @OneToMany(mappedBy = "teacherDetails", fetch = FetchType.LAZY)
-    private List<ClassEntity> teachClasses = new ArrayList<>();
+    @OneToOne(mappedBy = "teacherDetails", fetch = FetchType.LAZY)
+    private ClassEntity teachClasses;
 
     @OneToMany(mappedBy = "authorDetails", fetch = FetchType.LAZY)
     private List<CustomLobbyEntity> customLobbies = new ArrayList<>();
@@ -128,11 +128,11 @@ public class UserEntity implements Serializable {
         this.soloResults = soloResults;
     }
 
-    public List<ClassEntity> getTeachClasses() {
+    public ClassEntity getTeachClasses() {
         return teachClasses;
     }
 
-    public void setTeachClasses(List<ClassEntity> teachClasses) {
+    public void setTeachClasses(ClassEntity teachClasses) {
         this.teachClasses = teachClasses;
     }
 
