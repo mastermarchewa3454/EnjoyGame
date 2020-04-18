@@ -16,15 +16,16 @@ public class RadialBar : MonoBehaviour
     public Image mask;
     public Image fill;
     public Color color;
-
     public Text experienceText;
 
+    DBResultsManager db;
 
 
-    public void Update()
+    public void Start()
     {
         GetCurrentFill();
     }
+
 
     public void GetCurrentFill()
     {

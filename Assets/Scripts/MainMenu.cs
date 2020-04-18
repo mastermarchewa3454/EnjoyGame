@@ -59,7 +59,10 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void ReturnMainMenu()
     {
-        SceneManager.LoadScene("StartScreen");
+        if (PlayerPrefs.GetInt("teacher") == 0)
+            SceneManager.LoadScene("StartScreen");
+        else
+            EnterTeacherScreen();
     }
     /// <summary>
     /// Method call to enter the social menu of the game.

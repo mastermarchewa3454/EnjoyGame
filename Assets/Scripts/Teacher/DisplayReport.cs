@@ -11,7 +11,6 @@ public class DisplayReport : MonoBehaviour
     public TMP_Text maxLevel;
 
     DBSummaryReportManager db;
-
     SumReport[] user;
 
     public void Start()
@@ -76,8 +75,6 @@ public class DisplayReport : MonoBehaviour
             radialBar = GameObject.Find(radialBars[i]);
             GameObject goFill = radialBar.transform.GetChild(0).gameObject;
             mask = fill = goFill.GetComponent<Image>();
-/*            GameObject goMask = goFill.transform.GetChild(0).gameObject;
-            mask = goMask.GetComponent<Image>();*/
             experienceText = radialBar.transform.GetChild(1).GetComponent<Text>();
 
             string hexColor = "#F5A800";
@@ -88,7 +85,6 @@ public class DisplayReport : MonoBehaviour
             mask.fillAmount = fillAmount;
 
             experienceText.text = currentOffset.ToString() + "/" + maximumOffset.ToString() + "\n Questions Correct";
-
             if (ColorUtility.TryParseHtmlString(hexColor, out color))
             {
                 fill.color = color;
