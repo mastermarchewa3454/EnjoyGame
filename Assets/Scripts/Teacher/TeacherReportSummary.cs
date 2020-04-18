@@ -23,20 +23,11 @@ public class TeacherReportSummary : MonoBehaviour
         StartCoroutine(PopulateList());
     }
 
-    /*public void PopulateList()
-    {
-        List<string> names = new List<string>()
-        {
-            "View All", "Betty", "Funny", "Hello" 
-        };
-        dropdown.AddOptions(names);
-    }*/
-
     IEnumerator PopulateList()
     {
         yield return StartCoroutine(db.GetTeacher(callback:data => teacher = data));
         teacherName.text = "Welcome: " + teacher.firstName + " " + teacher.lastName;
-        className.text = "Class: " + teacher.teachClassName;
+        className.text = teacher.teachClassName;
         PlayerPrefs.SetString("className", teacher.teachClassName);
 
         yield return StartCoroutine(db.GetClasses(teacher.teachClassId, callback: data => classes = data));
