@@ -29,7 +29,10 @@ public class Login : MonoBehaviour
         if (status == 200)
         {
             Debug.Log("Logging in...");
-            mm.ReturnMainMenu();
+            if (PlayerPrefs.GetInt("teacher") == 0)
+                mm.ReturnMainMenu();
+            else
+                mm.EnterTeacherScreen();
         }
         else
         {
@@ -37,43 +40,12 @@ public class Login : MonoBehaviour
         }
     }
 
-    public void StudentLogin()
+    public void LoggingIn()
     {
         string username = usernameField.text;
         string password = passwordField.text;
         Debug.Log(username);
         Debug.Log(password);
         StartCoroutine(db.Login(username, password, LoginRedirect));
-        if (PlayerPrefs.HasKey("Teacher"))
-        {
-            PlayerPrefs.SetInt("Teacher", 0);
-            PlayerPrefs.Save();
-            Debug.Log("Teacher key: " + PlayerPrefs.GetInt("Teacher"));
-        }
-        else
-        {
-            Debug.Log("PlayerPrefs doesn't exist.");
-            PlayerPrefs.SetInt("Teacher", 0);
-            Debug.Log("PlayerPrefs 'Teacher' created " + PlayerPrefs.GetInt("Teacher"));
-        }
-    }
-
-    public void TeacherLogin()
-    {
-        string username = usernameField.text;
-        string password = passwordField.text;
-        Debug.Log(username);
-        Debug.Log(password);
-        StartCoroutine(db.Login(username, password, LoginRedirect));
-        if(PlayerPrefs.HasKey("Teacher")){
-            PlayerPrefs.SetInt("Teacher", 1);
-            PlayerPrefs.Save();
-            Debug.Log("Teacher key: " + PlayerPrefs.GetInt("Teacher"));
-        }
-        else{
-            Debug.Log("PlayerPrefs doesn't exist.");
-            PlayerPrefs.SetInt("Teacher", 1);
-            Debug.Log("PlayerPrefs 'Teacher' created" + PlayerPrefs.GetInt("Teacher"));
-        }
     }
 }

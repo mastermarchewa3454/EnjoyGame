@@ -75,6 +75,13 @@ public class DBManager : MonoBehaviour
                             userId = dict.Value;
                             PlayerPrefs.SetString("userId", userId);
                         }
+                        else if (dict.Key == "UserRole")
+                        {
+                            if (dict.Value == "ROLE_TEACHER")
+                                PlayerPrefs.SetInt("teacher", 1);
+                            else
+                                PlayerPrefs.SetInt("teacher", 0);
+                        }
                     }
                 }
                 callback(www.responseCode.ToString());

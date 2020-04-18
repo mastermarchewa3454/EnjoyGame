@@ -142,6 +142,7 @@ public class Teacher
 {
     public string firstName;
     public string lastName;
-    public string teaches;
+    public string teachClassId;
+    public string teachClassName;
     public string userId;
 }
