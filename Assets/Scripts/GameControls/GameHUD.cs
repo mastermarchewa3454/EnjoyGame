@@ -32,6 +32,12 @@ public class GameHUD : MonoBehaviour
 
         healthText.text = "Health: " + health + " / 100";
         levelText.text = "Level " + level;
+
+        if (level == 1)
+        {
+            GameObject tutorial = transform.Find("TutorialText").gameObject;
+            tutorial.SetActive(true);
+        }
     }
 
     /// <summary>

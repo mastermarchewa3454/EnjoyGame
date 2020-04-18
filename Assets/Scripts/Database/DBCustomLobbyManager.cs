@@ -46,13 +46,16 @@ public class DBCustomLobbyManager : DBManager
         PlayerPrefs.SetString("SavedCLI", customlobby.lobbyId);
         callback();
     }
- 
 
-
-
-    public IEnumerator GetCustomLobbyID(System.Action callback)
+    public IEnumerator JoinCustomLobby(string lobbyId, System.Action<string> callback=null)
     {
-        yield return StartCoroutine(GetData("/custom-lobbies/"));
+        string lobbyString = "";
+        yield return StartCoroutine(GetData("/custom-lobbies/"+lobbyId, callback:data => lobbyString = data));
+        string[] split = lobbyString.Split(new char[] { '[', ']' }, System.StringSplitOptions.RemoveEmptyEntries);
+        if (split.Length > 1)
+            callback(split[1]);
+        else
+            callback(null);
     }
 
     [System.Serializable]

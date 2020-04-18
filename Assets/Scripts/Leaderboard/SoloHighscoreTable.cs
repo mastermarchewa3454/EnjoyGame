@@ -12,12 +12,13 @@ public class SoloHighscoreTable : MonoBehaviour
     private Transform entryTemplate;
     private Transform stageButton;
     private Transform entryTransform;
-    private Result[][] highscoreEntryList;
     private List<Transform> highscoreEntryTransformList;
     private string highscoreTable;
     private string buttonPath;
 
     private DBResultsManager db;
+
+    private Result[] ra1, ra2, ra3, ra4, ra5;
 
     public void Start(){
         db = FindObjectOfType<DBResultsManager>();
@@ -40,11 +41,19 @@ public class SoloHighscoreTable : MonoBehaviour
         transform.Find("SoloStage/stageContainer/stageButtonContainer/stage5Button/highscoreEntryContainer").transform.Find("highscoreEntryTemplate").gameObject.SetActive(false);
 
         //Load highscore data
-        StartCoroutine(db.GetTop10(callback:data => highscoreEntryList = data));
+        StartCoroutine(db.GetTop10(1, callback:data => ra1 = data));
+        StartCoroutine(db.GetTop10(2, callback:data => ra2 = data));
+        StartCoroutine(db.GetTop10(3, callback:data => ra3 = data));
+        StartCoroutine(db.GetTop10(4, callback:data => ra4 = data));
+        StartCoroutine(db.GetTop10(5, callback:data => {
+            ra5 = data;
+            btn1.Select();
+            //Select Stage 1 by default
+            OnClick(1);
+        }
+        ));
 
-        //Select Stage 1 by default
-        btn1.Select();
-        OnClick(1);
+        
     }
 
     public void OnClick(int index){ 
@@ -66,12 +75,27 @@ public class SoloHighscoreTable : MonoBehaviour
 
         entryTemplate.gameObject.SetActive(false);
         
-        DisplayLeaderboard(index);
+        switch(index){
+            case 1:
+            DisplayLeaderboard(ra1);
+            break;
+            case 2:
+            DisplayLeaderboard(ra2);
+            break;
+            case 3:
+            DisplayLeaderboard(ra3);
+            break;
+            case 4:
+            DisplayLeaderboard(ra4);
+            break;
+            case 5:
+            DisplayLeaderboard(ra5);
+            break;
+        }
     }
 
-    private void DisplayLeaderboard(int index){
-        Result[] hsStageEntryList = highscoreEntryList[index];
-        List<Result> resultList = new List<Result>(hsStageEntryList);
+    private void DisplayLeaderboard(Result[] ra){
+        List<Result> resultList = new List<Result>(ra);
 
         //Sort highscore data
         resultList.Sort((highscoreEntry1,highscoreEntry2)=>highscoreEntry2.score.CompareTo(highscoreEntry1.score));
@@ -126,7 +150,7 @@ public class SoloHighscoreTable : MonoBehaviour
             
         entryTransform.Find("rankText").GetComponent<Text>().text = rankString;
 
-        string name = highscoreEntry.userId;
+        string name = highscoreEntry.username;
         entryTransform.Find("nameText").GetComponent<Text>().text = name;
 
         int score = highscoreEntry.score;
