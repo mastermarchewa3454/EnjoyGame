@@ -55,6 +55,13 @@ public class DBUserManager : DBManager
             callback();
         }
     }
+
+    public IEnumerator GetTeacher(System.Action callback)
+    {
+        string teacherString = "";
+        yield return StartCoroutine(GetData("/users/" + userId, callback: data => teacherString = data));
+        Teacher teacher = JsonUtility.FromJson<Teacher>(teacherString);
+    }
 }
 
 [System.Serializable]
@@ -69,3 +76,13 @@ public class Student
     public string userId;
     public string username;
 }
+
+[System.Serializable]
+public class Teacher
+{
+    public string firstName;
+    public string lastName;
+    public string[] teaches;
+    public string userId;
+}
+
