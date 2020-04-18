@@ -1,18 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class DisplayReport : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public TMP_Text studentName;
+    public TMP_Text studentClass;
+    public TMP_Text maxLevel;
+
+    DBSummaryReportManager db;
+
+    Result user;
+
+    public void Start()
     {
-        
+        db = GetComponent<DBSummaryReportManager>();
+        StartCoroutine(GetStudentDetails());
     }
 
-    // Update is called once per frame
-    void Update()
+
+    IEnumerator GetStudentDetails()
     {
-        
+        yield return StartCoroutine(db.GetUserResults(callback: data => user = data));
+
+        studentName.text = user.userId;
+        studentClass.text = PlayerPrefs.GetString("className");
+        maxLevel.text = stageNumber;
+
     }
 }
