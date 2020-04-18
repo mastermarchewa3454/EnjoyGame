@@ -7,6 +7,7 @@ using TMPro;
 public class CustomLobbyController : MonoBehaviour
 {
     DBCustomLobbyManager db;
+    public TMP_Text errorMsg;
 
     [SerializeField]
     TMP_InputField lobbyId;
@@ -20,7 +21,10 @@ public class CustomLobbyController : MonoBehaviour
     {
         StartCoroutine(db.JoinCustomLobby(lobbyId.text, questions => {
             if (questions == null)
+            {
                 Debug.Log("Nope");
+                errorMsg.text = "The lobbyID you have entered is incorrect. Please try again.";
+            }
             else
             {
                 FormatQuestions(questions);
@@ -40,5 +44,11 @@ public class CustomLobbyController : MonoBehaviour
             string[] ans = split[2*i+1].Split('"');
             PlayerPrefs.SetString("ans" + i, ans[3]);
         }
+    }
+
+
+    public void incorrectCustomLobbyID(string lobbyID)
+    {
+
     }
 }
