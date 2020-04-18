@@ -34,16 +34,16 @@ public class TeacherReportSummary : MonoBehaviour
     IEnumerator PopulateList()
     {
         yield return StartCoroutine(db.GetTeacher(callback:data => teacher = data));
-        yield return StartCoroutine(db.GetClasses(teacher.teaches, callback: data => classes = data));
+        teacherName.text = "Welcome : " + teacher.firstName + " " + teacher.lastName;
+        className.text = "Class : " + teacher.teachClassName;
+        PlayerPrefs.SetString("className", teacher.teachClassName);
+
+        yield return StartCoroutine(db.GetClasses(teacher.teachClassId, callback: data => classes = data));
         List<string> names = new List<string>();
         foreach (Student s in classes.students)
         {
             names.Add(s.firstName);
         }
         dropdown.AddOptions(names);
-
-
-        teacherName.text = teacher.firstName + " " + teacher.lastName ;
-        className.text = classes.className;
     }
 }
