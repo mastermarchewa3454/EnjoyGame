@@ -86,12 +86,14 @@ public class DBUserManager : DBManager
             }
             i++;
         }
-        /*Debug.Log(c[0].classId);
-        Debug.Log(c[0].className);
-        Debug.Log(c[0].teacherId);
-        Debug.Log(c[0].teacherFirstName);
-        Debug.Log(c[0].teacherLastName);
-        Debug.Log(c[0].students);*/
+    }
+
+    public IEnumerator GetTeacher(System.Action<Teacher> callback)
+    {
+        string teacherString = "";
+        yield return StartCoroutine(GetData("/teachers/" + userId, callback: data => teacherString = data));
+        Teacher teacher = JsonUtility.FromJson<Teacher>(teacherString);
+        callback(teacher);
     }
 }
 
@@ -117,4 +119,13 @@ public class Class
     public string teacherFirstName;
     public string teacherLastName;
     public List<Student> students;
+}
+
+[System.Serializable]
+public class Teacher
+{
+    public string firstName;
+    public string lastName;
+    public string[] teaches;
+    public string userId;
 }
