@@ -36,7 +36,7 @@ public class SceneChanger : MonoBehaviour
             if (player != null)
             {
                 playerHealth = player.GetComponent<Health>();
-                level = PlayerPrefs.GetInt("level", 1);
+                level = PlayerPrefs.GetInt("level", 58);
             }
         }        
     }
@@ -48,52 +48,55 @@ public class SceneChanger : MonoBehaviour
     {
         if (level == 60)
         {
+            Debug.Log("Done");
             ChangeToEndScene();
         }
-
-        if(!isDuoMode)
-        {           
-            PlayerPrefs.SetInt("health", playerHealth.GetCurrHealth());
-            PlayerPrefs.SetInt("level", level + 1);
-
-            if (level % 3 == 2)
-                PlayerPrefs.SetInt("treasure", 1);
-        }
         else
         {
-            players = GameObject.FindGameObjectsWithTag("Player");
-            Debug.Log("Objects with tag players:" + players.Length);
-            playerHealth1 = players[0].GetComponent<Health>().GetCurrHealth();
-            playerHealth2 = players[1].GetComponent<Health>().GetCurrHealth();
-        }
-
-        theCurrentScene = SceneManager.GetActiveScene().buildIndex;
-
-        if (!isDuoMode)
-        {
-            if (level % 3 == 0)
+            if (!isDuoMode)
             {
-                SceneManager.LoadScene(theCurrentScene - 2);
+                PlayerPrefs.SetInt("health", playerHealth.GetCurrHealth());
+                PlayerPrefs.SetInt("level", level + 1);
+
+                if (level % 3 == 2)
+                    PlayerPrefs.SetInt("treasure", 1);
             }
             else
             {
-                SceneManager.LoadScene(theCurrentScene + 1);
+                players = GameObject.FindGameObjectsWithTag("Player");
+                Debug.Log("Objects with tag players:" + players.Length);
+                playerHealth1 = players[0].GetComponent<Health>().GetCurrHealth();
+                playerHealth2 = players[1].GetComponent<Health>().GetCurrHealth();
             }
-        }
-        else
-        {
-            if (level % 3 == 0)
+
+            theCurrentScene = SceneManager.GetActiveScene().buildIndex;
+
+            if (!isDuoMode)
             {
-                var scene = SceneManager.GetSceneByBuildIndex(theCurrentScene - 2);
-                MultiplayerSettings.multiSettings.multiScene = scene.name;
+                if (level % 3 == 0)
+                {
+                    SceneManager.LoadScene(theCurrentScene - 2);
+                }
+                else
+                {
+                    SceneManager.LoadScene(theCurrentScene + 1);
+                }
             }
             else
             {
-                var scene = SceneManager.GetSceneByBuildIndex(theCurrentScene + 1);
-                MultiplayerSettings.multiSettings.multiScene = scene.name;
-            }
-            PhotonNetwork.LoadLevel(MultiplayerSettings.multiSettings.multiScene);
+                if (level % 3 == 0)
+                {
+                    var scene = SceneManager.GetSceneByBuildIndex(theCurrentScene - 2);
+                    MultiplayerSettings.multiSettings.multiScene = scene.name;
+                }
+                else
+                {
+                    var scene = SceneManager.GetSceneByBuildIndex(theCurrentScene + 1);
+                    MultiplayerSettings.multiSettings.multiScene = scene.name;
+                }
+                PhotonNetwork.LoadLevel(MultiplayerSettings.multiSettings.multiScene);
 
+            }
         }
     }
 
@@ -115,10 +118,13 @@ public class SceneChanger : MonoBehaviour
     /// </summary>
     public void ChangeToEndScene()
     {
-        SceneManager.LoadScene("GameEnd");
         if(isDuoMode)
         {
             PhotonNetwork.LoadLevel("GameEnd");
+        }
+        else
+        {
+            SceneManager.LoadScene("GameEnd");
         }
     }
 
