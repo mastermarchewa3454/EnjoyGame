@@ -11,6 +11,8 @@ public class Login : MonoBehaviour
     private DBUserManager db;
     private MainMenu mm;
 
+    private TMP_Text errorMsg;
+
     void Start()
     {
         db = GetComponent<DBUserManager>();
@@ -18,6 +20,7 @@ public class Login : MonoBehaviour
 
         usernameField = transform.Find("Username").GetComponent<TMP_InputField>();
         passwordField = transform.Find("Password").GetComponent<TMP_InputField>();
+        errorMsg = transform.Find("Error Message").GetComponent<TMP_Text>();
 
         PlayerPrefs.DeleteKey("authHeader");
         PlayerPrefs.DeleteKey("userId");
@@ -37,6 +40,7 @@ public class Login : MonoBehaviour
         else
         {
             Debug.Log("Login failed");
+            errorMsg.text = "You have entered an incorrect Login ID or Password. Please try again.";
         }
     }
 
