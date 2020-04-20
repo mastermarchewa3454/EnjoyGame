@@ -146,10 +146,10 @@ public class MainMenu : MonoBehaviour
             {
                 EnterTeacherScreen();
             }
-            else
-            {
-                ReturnMainMenu();
-            }
+        }
+        else
+        {
+            ReturnMainMenu();
         }
     }
 
