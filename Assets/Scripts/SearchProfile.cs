@@ -20,16 +20,14 @@ public class SearchProfile : MonoBehaviour
 
     void Start()
     {
-
         db = GetComponent<DBUserManager>();
+        listUser = new List<string>();
         Debug.Log("Starting");
         StartCoroutine(db.GetUsers(callback: data =>
         {
             foreach (Student s in data)
             {
                 listUser.Add(s.username + ":" + s.userId + ":" + s.firstName + ":" + s.className);
-                string example = s.username + ":" + s.userId + ":" + s.firstName + ":" + s.className;
-                Debug.Log(example);
             }
         }));
     }
@@ -63,8 +61,7 @@ public class SearchProfile : MonoBehaviour
     {
             foreach (string user in listUser)
             {
-                Debug.Log(user);
-                /*string[] identity = user.Split(":");
+                string[] identity = user.Split(':');
                 if (identity[0].Equals(otherUserName))
                 {
                     Debug.Log("Login Successful");
@@ -76,7 +73,7 @@ public class SearchProfile : MonoBehaviour
                 else
                 {
                     errorMsg.text = "You have entered and incorrect user name. Please try again.";
-                }*/
+                }
             }
     }
 }
