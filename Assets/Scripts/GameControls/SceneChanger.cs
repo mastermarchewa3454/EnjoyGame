@@ -46,6 +46,11 @@ public class SceneChanger : MonoBehaviour
     /// </summary>
     public void ChangeToNextScene()
     {
+        if (level == 60)
+        {
+            ChangeToEndScene();
+        }
+
         if(!isDuoMode)
         {           
             PlayerPrefs.SetInt("health", playerHealth.GetCurrHealth());
