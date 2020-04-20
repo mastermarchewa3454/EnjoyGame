@@ -46,14 +46,22 @@ public class DBUserManager : DBManager
             yield return StartCoroutine(GetData("/users/" + userId, callback: data => userString = data));
 
             Student student = JsonUtility.FromJson<Student>(userString);
-            Debug.Log(student.userId);
-            Debug.Log(student.username);
-            Debug.Log(student.firstName);
-            Debug.Log(student.lastName);
-            Debug.Log(student.email);
-            Debug.Log(student.maxStageCanPlay);
             PlayerPrefs.SetInt("stagesCleared", student.maxStageCanPlay);
             callback();
+        }
+    }
+
+    public IEnumerator GetUsers(System.Action<Student[]> callback)
+    {
+        if (userId == null)
+            Debug.Log("Log in first");
+        else
+        {
+            string userString = "";
+            yield return StartCoroutine(GetData("/users", callback: data => userString = data));
+
+            Student[] students = JsonHelper.FromJson<Student>(userString);
+            callback(students);
         }
     }
 
