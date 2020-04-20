@@ -59,21 +59,23 @@ public class SearchProfile : MonoBehaviour
 
     public void SearchByUserName(string otherUserName)
     {
-            foreach (string user in listUser)
+        bool found =false;
+        foreach (string user in listUser)
+        {
+            string[] identity = user.Split(':');
+            if (identity[0].Equals(otherUserName))
             {
-                string[] identity = user.Split(':');
-                if (identity[0].Equals(otherUserName))
-                {
-                    Debug.Log("Login Successful");
-                    PlayerPrefs.SetString("otherUserId", identity[1]);
-                    PlayerPrefs.SetString("firstName", identity[2]);
-                    PlayerPrefs.SetString("className", identity[3]);
-                    SceneManager.LoadScene("SummaryReportDetails");
-                }
-                else
-                {
-                    errorMsg.text = "You have entered and incorrect user name. Please try again.";
-                }
+                found = true; 
+                Debug.Log("Login Successful");
+                PlayerPrefs.SetString("otherUserId", identity[1]);
+                PlayerPrefs.SetString("firstName", identity[2]);
+                PlayerPrefs.SetString("className", identity[3]);
+                SceneManager.LoadScene("SummaryReportDetails");
             }
+        }
+        if(!found)
+        {
+            errorMsg.text = "You have entered and incorrect user name. Please try again.";
+        }
     }
 }

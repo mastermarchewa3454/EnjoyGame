@@ -83,7 +83,14 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void EnterTeacherReport()
     {
-        SceneManager.LoadScene("TeacherReport");
+        if (PlayerPrefs.HasKey("Teacher"))
+        {
+            SceneManager.LoadScene("TeacherReport");
+        }
+        else
+        {
+            SceneManager.LoadScene("SearchingProfile");
+        }
     }
     /// <summary>
     /// Method call to enter the main menu screen for the teacher.
@@ -131,7 +138,15 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void EnterCustomLobbyScreen()
     {
-        SceneManager.LoadScene("CustomLobbyScreen");
+        if (PlayerPrefs.HasKey("Teacher"))
+        {
+            EnterTeacherScreen();
+        }
+        else
+        {
+            SceneManager.LoadScene("CustomLobbyScreen");
+        }
+
     }
 
     /// <summary>
@@ -146,10 +161,10 @@ public class MainMenu : MonoBehaviour
             {
                 EnterTeacherScreen();
             }
-            else
-            {
-                ReturnMainMenu();
-            }
+        }
+        else
+        {
+            ReturnMainMenu();
         }
     }
 
