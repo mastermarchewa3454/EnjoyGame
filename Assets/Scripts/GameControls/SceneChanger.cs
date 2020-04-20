@@ -36,7 +36,7 @@ public class SceneChanger : MonoBehaviour
             if (player != null)
             {
                 playerHealth = player.GetComponent<Health>();
-                level = PlayerPrefs.GetInt("level", 58);
+                level = PlayerPrefs.GetInt("level", 1);
             }
         }        
     }
