@@ -8,15 +8,18 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class MainMenu : MonoBehaviour
 {
-
-
     public void Start()
     {
-        string userId = PlayerPrefs.GetString("userId", null);
-        string authHeader = PlayerPrefs.GetString("authHeader", null);
-        PlayerPrefs.DeleteAll();
-        PlayerPrefs.SetString("userId", userId);
-        PlayerPrefs.SetString("authHeader", authHeader);
+        if (SceneManager.GetActiveScene().name.Equals("StartScreen") || SceneManager.GetActiveScene().name.Equals("TeacherScreen"))
+        {
+            string userId = PlayerPrefs.GetString("userId", null);
+            string authHeader = PlayerPrefs.GetString("authHeader", null);
+            int teacher = PlayerPrefs.GetInt("teacher", 0);
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.SetString("userId", userId);
+            PlayerPrefs.SetString("authHeader", authHeader);
+            PlayerPrefs.SetInt("teacher", teacher);
+        }
     }
 
     /// <summary>
@@ -56,7 +59,10 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void ReturnMainMenu()
     {
-        SceneManager.LoadScene("StartScreen");
+        if (PlayerPrefs.GetInt("teacher") == 0)
+            SceneManager.LoadScene("StartScreen");
+        else
+            EnterTeacherScreen();
     }
     /// <summary>
     /// Method call to enter the social menu of the game.

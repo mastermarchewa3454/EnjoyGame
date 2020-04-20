@@ -39,8 +39,4 @@ public class RadialBar : MonoBehaviour
 
         fill.color = color;
     }
-
-
-
-
 }

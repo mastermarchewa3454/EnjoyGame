@@ -23,20 +23,11 @@ public class TeacherReportSummary : MonoBehaviour
         StartCoroutine(PopulateList());
     }
 
-    /*public void PopulateList()
-    {
-        List<string> names = new List<string>()
-        {
-            "View All", "Betty", "Funny", "Hello" 
-        };
-        dropdown.AddOptions(names);
-    }*/
-
     IEnumerator PopulateList()
     {
         yield return StartCoroutine(db.GetTeacher(callback:data => teacher = data));
-        teacherName.text = "Welcome : " + teacher.firstName + " " + teacher.lastName;
-        className.text = "Class : " + teacher.teachClassName;
+        teacherName.text = "Welcome: " + teacher.firstName + " " + teacher.lastName;
+        className.text = teacher.teachClassName;
         PlayerPrefs.SetString("className", teacher.teachClassName);
 
         yield return StartCoroutine(db.GetClasses(teacher.teachClassId, callback: data => classes = data));
@@ -48,14 +39,15 @@ public class TeacherReportSummary : MonoBehaviour
         dropdown.AddOptions(names);
     }
 
-    public void saveUserID()
+    public void GenerateReport()
     {
         string userFirstName = dropdown.options[dropdown.value].text;
         foreach (Student s in classes.students)
         {
-            if(userFirstName.Equals(s.firstName))
+            if (userFirstName.Equals(s.firstName))
             {
-                PlayerPrefs.SetString("userId", s.userId);
+                PlayerPrefs.SetString("otherUserId", s.userId);
+                PlayerPrefs.SetString("firstName", userFirstName);
             }
         }
         SceneManager.LoadScene("SummaryReportDetails");
