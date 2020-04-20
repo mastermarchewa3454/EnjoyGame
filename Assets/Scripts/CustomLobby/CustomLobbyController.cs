@@ -45,10 +45,4 @@ public class CustomLobbyController : MonoBehaviour
             PlayerPrefs.SetString("ans" + i, ans[3]);
         }
     }
-
-
-    public void incorrectCustomLobbyID(string lobbyID)
-    {
-
-    }
 }

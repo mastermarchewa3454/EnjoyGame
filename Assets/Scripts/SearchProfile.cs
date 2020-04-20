@@ -12,7 +12,8 @@ public class SearchProfile : MonoBehaviour
     /// </summary>
     [SerializeField]
     private TMP_InputField searchInput;
-
+    [SerializeField]
+    private TMP_Text errorMsg;
     /// <summary>
     /// Method to get the user name from the searchInput.
     /// </summary>
@@ -31,6 +32,20 @@ public class SearchProfile : MonoBehaviour
         if (searchBoolean)
         {
             Debug.Log("Please complete all fields");
+            errorMsg.text = "Please complete all fields.";
         }
+
+
+
+
+    }
+
+    public void GenerateReport()
+    {
+        string userFirstName = searchInput.text;
+        {
+
+        }
+        SceneManager.LoadScene("SummaryReportDetails");
     }
 }
