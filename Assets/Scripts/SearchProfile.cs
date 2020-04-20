@@ -14,6 +14,25 @@ public class SearchProfile : MonoBehaviour
     private TMP_InputField searchInput;
     [SerializeField]
     private TMP_Text errorMsg;
+    List<string> listUser;
+    DBUserManager db;
+
+
+    void Start()
+    {
+
+        db = GetComponent<DBUserManager>();
+        Debug.Log("Starting");
+        StartCoroutine(db.GetUsers(callback: data =>
+        {
+            foreach (Student s in data)
+            {
+                listUser.Add(s.username + ":" + s.userId + ":" + s.firstName + ":" + s.className);
+                string example = s.username + ":" + s.userId + ":" + s.firstName + ":" + s.className;
+                Debug.Log(example);
+            }
+        }));
+    }
     /// <summary>
     /// Method to get the user name from the searchInput.
     /// </summary>
@@ -34,18 +53,30 @@ public class SearchProfile : MonoBehaviour
             Debug.Log("Please complete all fields");
             errorMsg.text = "Please complete all fields.";
         }
-
-
-
-
+        else
+        {
+            SearchByUserName(searchInput.text);
+        }
     }
 
-    public void GenerateReport()
+    public void SearchByUserName(string otherUserName)
     {
-        string userFirstName = searchInput.text;
-        {
-
-        }
-        SceneManager.LoadScene("SummaryReportDetails");
+            foreach (string user in listUser)
+            {
+                Debug.Log(user);
+                /*string[] identity = user.Split(":");
+                if (identity[0].Equals(otherUserName))
+                {
+                    Debug.Log("Login Successful");
+                    PlayerPrefs.SetString("otherUserId", identity[1]);
+                    PlayerPrefs.SetString("firstName", identity[2]);
+                    PlayerPrefs.SetString("className", identity[3]);
+                    SceneManager.LoadScene("SummaryReportDetails");
+                }
+                else
+                {
+                    errorMsg.text = "You have entered and incorrect user name. Please try again.";
+                }*/
+            }
     }
 }

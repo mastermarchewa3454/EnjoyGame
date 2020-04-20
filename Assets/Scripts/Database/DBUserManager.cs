@@ -44,7 +44,6 @@ public class DBUserManager : DBManager
         {
             string userString = "";
             yield return StartCoroutine(GetData("/users/" + userId, callback: data => userString = data));
-
             Student student = JsonUtility.FromJson<Student>(userString);
             PlayerPrefs.SetInt("stagesCleared", student.maxStageCanPlay);
             callback();
@@ -60,7 +59,9 @@ public class DBUserManager : DBManager
             string userString = "";
             yield return StartCoroutine(GetData("/users", callback: data => userString = data));
 
+            Debug.Log(userString);
             Student[] students = JsonHelper.FromJson<Student>(userString);
+            Debug.Log(students[0].username);
             callback(students);
         }
     }
