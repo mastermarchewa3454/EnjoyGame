@@ -75,7 +75,7 @@ public class SearchProfile : MonoBehaviour
         }
         if(!found)
         {
-            errorMsg.text = "You have entered and incorrect user name. Please try again.";
+            errorMsg.text = "You have entered an incorrect user name. Please try again.";
         }
     }
 }
