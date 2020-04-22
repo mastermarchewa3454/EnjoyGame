@@ -38,7 +38,7 @@ public class SceneChanger : MonoBehaviour
                 playerHealth = player.GetComponent<Health>();
                 level = PlayerPrefs.GetInt("level", 1);
             }
-        }        
+        }
     }
     /// <summary>
     /// Changes to next game scene.
@@ -63,10 +63,11 @@ public class SceneChanger : MonoBehaviour
             }
             else
             {
+                level++;
                 players = GameObject.FindGameObjectsWithTag("Player");
                 Debug.Log("Objects with tag players:" + players.Length);
-                playerHealth1 = players[0].GetComponent<Health>().GetCurrHealth();
-                playerHealth2 = players[1].GetComponent<Health>().GetCurrHealth();
+                PhotonRoom.theRoom.playerHealth1 = players[0].GetComponent<Health>().GetCurrHealth();
+                PhotonRoom.theRoom.playerHealth2 = players[1].GetComponent<Health>().GetCurrHealth();
             }
 
             theCurrentScene = SceneManager.GetActiveScene().buildIndex;
@@ -86,14 +87,14 @@ public class SceneChanger : MonoBehaviour
             {
                 if (level % 3 == 0)
                 {
-                    var scene = SceneManager.GetSceneByBuildIndex(theCurrentScene - 2);
-                    MultiplayerSettings.multiSettings.multiScene = scene.name;
+                    string sceneName = System.IO.Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(theCurrentScene - 2));
+                    MultiplayerSettings.multiSettings.multiScene = sceneName;
                 }
                 else
                 {
-                    var scene = SceneManager.GetSceneByBuildIndex(theCurrentScene + 1);
-                    MultiplayerSettings.multiSettings.multiScene = scene.name;
-                }
+                    string sceneName = System.IO.Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(theCurrentScene + 1));
+                    MultiplayerSettings.multiSettings.multiScene = sceneName;
+                }              
                 PhotonNetwork.LoadLevel(MultiplayerSettings.multiSettings.multiScene);
 
             }
@@ -120,6 +121,7 @@ public class SceneChanger : MonoBehaviour
     {
         if(isDuoMode)
         {
+            MultiplayerSettings.multiSettings.multiScene = "GameEnd";
             PhotonNetwork.LoadLevel("GameEnd");
         }
         else
@@ -135,14 +137,5 @@ public class SceneChanger : MonoBehaviour
     {
         Application.Quit();
 
-    }
-
-    public int getPlayerHealth1()
-    {
-        return playerHealth1;
-    }
-    public int getPlayerHealth2()
-    {
-        return playerHealth2;
     }
 }
