@@ -14,7 +14,8 @@ public class DBUserManager : DBManager
                         string lastName,
                         string classId,
                         string email,
-                        string password)
+                        string password,
+                        System.Action<string> callback)
     {
         string userDetails = "{\"username\":\"" + username + "\"," +
                               "\"firstName\":\"" + firstName + "\"," +
@@ -23,8 +24,42 @@ public class DBUserManager : DBManager
                               "\"email\":\"" + email + "\"," +
                               "\"password\":\"" + password + "\"}";
 
-        yield return StartCoroutine(PostData("/users", userDetails, callback: data => Debug.Log(data)));
-        Debug.Log("Registered!");
+        yield return StartCoroutine(PostData("/users", userDetails, callback: data => {
+            Debug.Log(data);
+            if (data.Contains("errors"))
+            {
+                Debug.Log("error");
+                if (data.Contains("Record already exists"))
+                {
+                    Debug.Log("dupes");
+                    callback("Username already exists");
+                }
+                else if (data.Contains(" with provided id is not found"))
+                {
+                    Debug.Log("class");
+                    callback("Class not found");
+                }
+                else if (data.Contains("email"))
+                {
+                    Debug.Log("email");
+                    callback("Email must match email pattern!");
+                }
+                else if (data.Contains("empty"))
+                {
+                    Debug.Log("empty");
+                    callback("Fields cannot be empty!");
+                }
+                else
+                {
+                    Debug.Log("else");
+                    callback("There has been an error");
+                }
+            }
+            else
+            {
+                callback("success");
+            }
+        }));
     }
 
     public IEnumerator Login(string username, string password, System.Action<int> callback)

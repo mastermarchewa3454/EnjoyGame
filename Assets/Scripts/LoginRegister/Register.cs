@@ -12,6 +12,7 @@ public class Register : MonoBehaviour
     private TMP_InputField passwordField;
     private TMP_InputField firstNameField;
     private TMP_InputField lastNameField;
+    private TMP_Text errorMsg;
     private Button registerButton;
 
     DBUserManager db;
@@ -33,6 +34,7 @@ public class Register : MonoBehaviour
         passwordField = transform.Find("Password").GetComponent<TMP_InputField>();
         firstNameField = transform.Find("firstName").GetComponent<TMP_InputField>();
         lastNameField = transform.Find("lastName").GetComponent<TMP_InputField>();
+        errorMsg = transform.Find("ErrorMsg").GetComponent<TMP_Text>();
         registerButton = transform.Find("registerButton").GetComponent<Button>();
     }
 
@@ -77,8 +79,18 @@ public class Register : MonoBehaviour
                                    lastNameField.text,
                                    classValue,
                                    emailField.text,
-                                   passwordField.text));
-        mm.EnterLogIn();
+                                   passwordField.text,
+                                   data =>
+                                   {
+                                       if (data.Equals("success"))
+                                       {
+                                           mm.EnterLogIn();
+                                       }
+                                       else
+                                       {
+                                           errorMsg.text = data;
+                                       }
+                                   }));
     }
 
     /// <summary>
