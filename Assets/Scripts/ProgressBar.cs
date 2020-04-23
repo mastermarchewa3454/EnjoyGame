@@ -6,7 +6,10 @@ using UnityEngine.UI;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-
+/// <summary>
+/// The progressbar class is to act as a class that contains scripts that will be able to display the number of questions that are answered correctly
+/// versus the total amount of questions.
+/// </summary>
 [ExecuteInEditMode()]
 public class ProgressBar : MonoBehaviour
 {
@@ -32,12 +35,17 @@ public static void AddLinearProgressBar()
     public Text experienceText;
 
 
-
+    /// <summary>
+    /// An update function to display any changes and updates that were made. It will call the GetCurrentFill Function
+    /// </summary>
     public void Update()
     {
         GetCurrentFill();
     }
 
+    /// <summary>
+    /// GetCurrentFill is a function that will update to show the total number of correctly answered questions by the total number of questions
+    /// </summary>
     public void GetCurrentFill()
     {
         float currentOffset = current - minimum;

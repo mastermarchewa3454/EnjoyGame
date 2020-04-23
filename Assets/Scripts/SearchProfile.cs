@@ -12,12 +12,16 @@ public class SearchProfile : MonoBehaviour
     /// </summary>
     [SerializeField]
     private TMP_InputField searchInput;
+
     [SerializeField]
     private TMP_Text errorMsg;
     List<string> listUser;
     DBUserManager db;
 
-
+    /// <summary>
+    /// Start function that will be called upon entering the screen. It will contact the database and populate the summary page 
+    /// with the relevant details that are necessary.
+    /// </summary>
     void Start()
     {
         db = GetComponent<DBUserManager>();
@@ -57,6 +61,10 @@ public class SearchProfile : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// A function to search the username of a user by going through database values and finding the corresponding username.
+    /// </summary>
+    /// <param name="otherUserName"> otherUsername is the text that is acquired from the inputfield in unity.</param>
     public void SearchByUserName(string otherUserName)
     {
         bool found =false;

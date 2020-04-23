@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+ /// <summary>
+ /// LoadQuest class is a class that loads a quest by gathering data from the database and adding it to the list of avaialable quest.
+ /// </summary>
 public class LoadQuest : MonoBehaviour
 {
     List<Quest> quests = new List<Quest>();
