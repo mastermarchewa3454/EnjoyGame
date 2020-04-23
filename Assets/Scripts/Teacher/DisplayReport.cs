@@ -16,7 +16,48 @@ public class DisplayReport : MonoBehaviour
     public void Start()
     {
         db = FindObjectOfType<DBSummaryReportManager>();
-        StartCoroutine(GetStudentDetails());
+        if (PlayerPrefs.GetString("firstName").Equals("View All")){
+            StartCoroutine(GetClassDetails());
+        }
+        else
+        {
+            StartCoroutine(GetStudentDetails());
+        }
+    }
+
+    IEnumerator GetClassDetails()
+    {
+        int maxStage = 1;
+        int easyCorrect = 0;
+        int mediumCorrect = 0;
+        int hardCorrect = 0;
+        int easyTotal = 0;
+        int mediumTotal = 0;
+        int hardTotal = 0;
+
+        string classId = PlayerPrefs.GetString("otherUserId");
+        yield return StartCoroutine(db.GetClassSummaryReport(classId, callback: data => {
+            studentName.text = "Viewing summary report for";
+            studentClass.text = PlayerPrefs.GetString("className");
+
+            foreach (ClassSumReport sr in data)
+            {
+                if (sr.stageNumber > maxStage)
+                    maxStage = sr.stageNumber;
+
+                easyCorrect += sr.easyCorrect;
+                mediumCorrect += sr.mediumCorrect;
+                hardCorrect += sr.hardCorrect;
+                easyTotal += sr.easyTotal;
+                mediumTotal += sr.mediumTotal;
+                hardTotal += sr.hardTotal;
+            }
+
+            maxLevel.text = "Maximum Stage Reached: " + maxStage.ToString();
+            int[] correct = { easyCorrect, mediumCorrect, hardCorrect };
+            int[] total = { easyTotal, mediumTotal, hardTotal };
+            GetCurrentFill(correct, total);
+        }));
     }
 
     IEnumerator GetStudentDetails()
@@ -52,12 +93,6 @@ public class DisplayReport : MonoBehaviour
             int[] total = { easyTotal, mediumTotal, hardTotal };
             GetCurrentFill(correct, total);
         }));
-/*
-            Debug.Log(data[0].userId);
-            Debug.Log("Bye");
-            studentName.text = data[0].userId;
-            studentClass.text = PlayerPrefs.GetString("className");
-            maxLevel.text = data[0].stageNumber.ToString();*/
     }
 
     public void GetCurrentFill(int[] current, int[] maximum)

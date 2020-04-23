@@ -83,7 +83,7 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void EnterTeacherReport()
     {
-        if (PlayerPrefs.HasKey("Teacher"))
+        if (PlayerPrefs.GetInt("teacher") == 1)
         {
             SceneManager.LoadScene("TeacherReport");
         }

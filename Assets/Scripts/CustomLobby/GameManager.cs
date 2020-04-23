@@ -37,21 +37,6 @@ public class GameManager : MonoBehaviour
         db = FindObjectOfType<DBCustomLobbyManager>();
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown("space"))
-        {
-            string[] questions = new string[20];
-            string[] answers = new string[20];
-            for (int i=0; i<20; i++)
-            {
-                questions[i] = "Question " + (i+1);
-                answers[i] = "Answer " + (i+1);
-            }
-            StartCoroutine(db.CreateCustomLobby(questions, answers, loadingofScenings));
-        }
-    }
-
     /// <summary>
     /// Method to get question from the SerializeField questionInput
     /// </summary>

@@ -42,12 +42,20 @@ public class TeacherReportSummary : MonoBehaviour
     public void GenerateReport()
     {
         string userFirstName = dropdown.options[dropdown.value].text;
-        foreach (Student s in classes.students)
+        if (userFirstName.Equals("View All"))
         {
-            if (userFirstName.Equals(s.firstName))
+            PlayerPrefs.SetString("otherUserId", teacher.teachClassId);
+            PlayerPrefs.SetString("firstName", userFirstName);
+        }
+        else
+        {
+            foreach (Student s in classes.students)
             {
-                PlayerPrefs.SetString("otherUserId", s.userId);
-                PlayerPrefs.SetString("firstName", userFirstName);
+                if (userFirstName.Equals(s.firstName))
+                {
+                    PlayerPrefs.SetString("otherUserId", s.userId);
+                    PlayerPrefs.SetString("firstName", userFirstName);
+                }
             }
         }
         SceneManager.LoadScene("SummaryReportDetails");
