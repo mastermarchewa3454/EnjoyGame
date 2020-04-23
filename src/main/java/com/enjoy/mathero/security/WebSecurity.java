@@ -40,6 +40,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE)
                 .hasRole("ADMIN")
                 .anyRequest().authenticated().and()
+                .httpBasic().and()
                 .addFilter(getAuthenticationFilter())
                 .addFilter(new AuthorizationFilter(authenticationManager(), userRepository))
                 .sessionManagement()

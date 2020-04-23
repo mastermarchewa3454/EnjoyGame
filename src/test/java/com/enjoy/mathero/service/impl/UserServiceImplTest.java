@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -50,6 +51,9 @@ class UserServiceImplTest {
 
     @Mock
     BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Mock
+    ModelMapper modelMapper;
 
     @InjectMocks
     UserServiceImpl userService;

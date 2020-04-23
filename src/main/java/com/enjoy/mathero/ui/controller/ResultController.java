@@ -87,7 +87,9 @@ public class ResultController {
         DuoResultDto createdResult = resultService.createDuoResult(duoResultDto);
         BeanUtils.copyProperties(createdResult, returnValue);
         returnValue.setUserId1(userDto1.getUserId());
+        returnValue.setUsername1(userDto1.getUsername());
         returnValue.setUserId2(userDto2.getUserId());
+        returnValue.setUsername2(userDto2.getUsername());
 
         return returnValue;
     }

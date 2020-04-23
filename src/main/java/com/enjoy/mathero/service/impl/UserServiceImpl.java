@@ -15,7 +15,10 @@ import com.enjoy.mathero.shared.dto.ClassDto;
 import com.enjoy.mathero.shared.dto.RoleDto;
 import com.enjoy.mathero.shared.dto.UserDto;
 import com.enjoy.mathero.ui.model.response.ErrorMessages;
+import org.hibernate.collection.spi.PersistentCollection;
+import org.modelmapper.Condition;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.spi.MappingContext;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -131,12 +134,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserByUserId(String userId) {
+        ModelMapper modelMapper = new ModelMapper();
+
         UserEntity userEntity = userRepository.findByUserId(userId);
 
         if(userEntity == null)
             throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
-        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setPropertyCondition(new Condition<Object, Object>() {
+            public boolean applies(MappingContext<Object, Object> context) {
+                return !(context.getSource() instanceof PersistentCollection);
+            }
+        });
+
         UserDto userDto = modelMapper.map(userEntity, UserDto.class);
 
         return userDto;
@@ -144,12 +154,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getTeacherByUserId(String userId) {
+        ModelMapper modelMapper = new ModelMapper();
+
         UserEntity userEntity = userRepository.findByUserId(userId);
 
         if(userEntity == null || !userEntity.getRoles().get(0).getRoleName().equals("ROLE_TEACHER"))
             throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
-        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setPropertyCondition(new Condition<Object, Object>() {
+            public boolean applies(MappingContext<Object, Object> context) {
+                return !(context.getSource() instanceof PersistentCollection);
+            }
+        });
+
         UserDto userDto = modelMapper.map(userEntity, UserDto.class);
 
         return userDto;

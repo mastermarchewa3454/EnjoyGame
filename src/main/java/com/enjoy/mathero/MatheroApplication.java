@@ -1,5 +1,9 @@
 package com.enjoy.mathero;
 
+import org.hibernate.collection.spi.PersistentCollection;
+import org.modelmapper.Condition;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.spi.MappingContext;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -35,6 +39,7 @@ public class MatheroApplication extends SpringBootServletInitializer {
 		messageSource.setDefaultEncoding("UTF-8");
 		return messageSource;
 	}
+
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {

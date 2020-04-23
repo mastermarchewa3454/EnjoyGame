@@ -1,5 +1,9 @@
 package com.enjoy.mathero.shared;
 
+import org.hibernate.collection.spi.PersistentCollection;
+import org.modelmapper.Condition;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.spi.MappingContext;
 import org.springframework.stereotype.Component;
 
 import java.security.SecureRandom;
@@ -46,6 +50,5 @@ public class Utils {
         Random r = new Random();
         return r.nextInt((max - min) + 1) + min;
     }
-
 
 }

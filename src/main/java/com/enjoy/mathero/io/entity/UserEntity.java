@@ -45,7 +45,7 @@ public class UserEntity implements Serializable {
     @OneToOne(mappedBy = "teacherDetails", fetch = FetchType.LAZY)
     private ClassEntity teachClasses;
 
-    @OneToMany(mappedBy = "authorDetails", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "authorDetails")
     private List<CustomLobbyEntity> customLobbies = new ArrayList<>();
 
     @ManyToMany(cascade=CascadeType.MERGE, fetch = FetchType.EAGER)

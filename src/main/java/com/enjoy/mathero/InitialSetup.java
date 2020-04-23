@@ -48,11 +48,13 @@ public class InitialSetup {
         RoleEntity student = createRole("ROLE_STUDENT");
         RoleEntity teacher = createRole("ROLE_TEACHER");
 
-        UserEntity teacher1 = createTeacher("teacher1", "John", "Danish", "teacher", "teacher1@email.com", teacher);
+        UserEntity admin1 = createAdmin("admin", "Admin", "Admin", "admin", "admin@admin.com", admin);
+
+        UserEntity teacher1 = createTeacher("teacher1", "k18Wx9f1fiwKOiALEV1jg7woMCcJ8r", "John", "Danish", "teacher", "teacher1@email.com", teacher);
         UserEntity teacher2 = createTeacher("teacher2", "Ben", "Spanish", "teacher", "teacher2@email.com", teacher);
         UserEntity teacher3 = createTeacher("teacher3", "Kate", "Vanish", "teacher", "teacher3@email.com", teacher);
 
-        ClassEntity class1 = createClass("Class A", teacher1);
+        ClassEntity class1 = createClass("EFRnFJwGI742GEjvRWfFGx66OwerIi", "Class A", teacher1);
         ClassEntity class2 = createClass("Class B", teacher2);
         ClassEntity class3 = createClass("Class C", teacher3);
 
@@ -65,8 +67,8 @@ public class InitialSetup {
         UserEntity student5 = createStudent("student5", "Artur", "Skowronek", "student", "student5@email.com", 2, class2, student);
         UserEntity student6 = createStudent("student6", "Hermiona", "Granger", "student", "student6@email.com", 0, class3, student);
         UserEntity student7 = createStudent("student7", "Twoja", "Mama", "student", "student7@email.com", 0, class1, student);
-        UserEntity student8 = createStudent("student8", "Mlody", "Sarmata", "student", "student8@email.com", 3, class2, student);
-        UserEntity student9 = createStudent("student9", "Kuba", "Grabowski", "student", "student9@email.com", 0, class3, student);
+        UserEntity student8 = createStudent("student8", "HoP15nIoWYl3gzTK99Gj2362AoUpF1", "Mlody", "Sarmata", "student", "student8@email.com", 3, class2, student);
+        UserEntity student9 = createStudent("student9", "d7byuZdktSpfyaCuRx2Ym4MAcfoK7E", "Kuba", "Grabowski", "student", "student9@email.com", 0, class3, student);
         UserEntity student10 = createStudent("student10", "Quebona", "Fide", "student", "student10@email.com", 0, class1, student);
         UserEntity student11 = createStudent("student11", "Taco", "Hemingway", "student", "student11@email.com", 0, class2, student);
         UserEntity student12 = createStudent("student12", "Adam", "Mickiewicz", "student", "student12@email.com", 0, class3, student);
@@ -138,12 +140,71 @@ public class InitialSetup {
         return returnValue;
     }
 
+    private UserEntity createTeacher(String username, String teacherId, String firstName, String lastName, String password, String email, RoleEntity role){
+        UserEntity returnValue = new UserEntity();
+        UserEntity userEntity = userRepository.findByUsername(username);
+
+        if(userEntity == null){
+            returnValue.setUsername(username);
+            returnValue.setFirstName(firstName);
+            returnValue.setLastName(lastName);
+            returnValue.setEncryptedPassword(bCryptPasswordEncoder.encode(password));
+            returnValue.setEmail(email);
+            returnValue.setUserId(teacherId);
+            returnValue.setRoles(Arrays.asList(role));
+            userRepository.save(returnValue);
+        }
+        else{
+            returnValue = userEntity;
+        }
+
+        return returnValue;
+    }
+
+    private UserEntity createAdmin(String username, String firstName, String lastName, String password, String email, RoleEntity role){
+        UserEntity returnValue = new UserEntity();
+        UserEntity userEntity = userRepository.findByUsername(username);
+
+        if(userEntity == null){
+            returnValue.setUsername(username);
+            returnValue.setFirstName(firstName);
+            returnValue.setLastName(lastName);
+            returnValue.setEncryptedPassword(bCryptPasswordEncoder.encode(password));
+            returnValue.setEmail(email);
+            returnValue.setUserId(utils.generateUserID(30));
+            returnValue.setRoles(Arrays.asList(role));
+            userRepository.save(returnValue);
+        }
+        else{
+            returnValue = userEntity;
+        }
+
+        return returnValue;
+    }
+
     private ClassEntity createClass(String className, UserEntity teacherDetails){
         ClassEntity returnValue = new ClassEntity();
         ClassEntity classEntity = classRepository.findByClassName(className);
 
         if(classEntity == null){
             returnValue.setClassId(utils.generateClassId(30));
+            returnValue.setTeacherDetails(teacherDetails);
+            returnValue.setClassName(className);
+            classRepository.save(returnValue);
+        }
+        else{
+            returnValue = classEntity;
+        }
+
+        return returnValue;
+    }
+
+    private ClassEntity createClass(String classId, String className, UserEntity teacherDetails){
+        ClassEntity returnValue = new ClassEntity();
+        ClassEntity classEntity = classRepository.findByClassName(className);
+
+        if(classEntity == null){
+            returnValue.setClassId(classId);
             returnValue.setTeacherDetails(teacherDetails);
             returnValue.setClassName(className);
             classRepository.save(returnValue);
@@ -166,6 +227,29 @@ public class InitialSetup {
             returnValue.setEncryptedPassword(bCryptPasswordEncoder.encode(password));
             returnValue.setEmail(email);
             returnValue.setUserId(utils.generateUserID(30));
+            returnValue.setMaxStageCanPlay(maxStageCanPlay);
+            returnValue.setClassDetails(classDetails);
+            returnValue.setRoles(Arrays.asList(role));
+            userRepository.save(returnValue);
+        }
+        else {
+            returnValue = userEntity;
+        }
+
+        return returnValue;
+    }
+
+    private UserEntity createStudent(String username, String userId, String firstName, String lastName, String password, String email, int maxStageCanPlay, ClassEntity classDetails, RoleEntity role){
+        UserEntity returnValue = new UserEntity();
+        UserEntity userEntity = userRepository.findByUsername(username);
+
+        if(userEntity == null){
+            returnValue.setUsername(username);
+            returnValue.setFirstName(firstName);
+            returnValue.setLastName(lastName);
+            returnValue.setEncryptedPassword(bCryptPasswordEncoder.encode(password));
+            returnValue.setEmail(email);
+            returnValue.setUserId(userId);
             returnValue.setMaxStageCanPlay(maxStageCanPlay);
             returnValue.setClassDetails(classDetails);
             returnValue.setRoles(Arrays.asList(role));

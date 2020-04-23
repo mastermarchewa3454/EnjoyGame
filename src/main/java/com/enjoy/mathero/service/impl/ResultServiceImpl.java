@@ -9,12 +9,12 @@ import com.enjoy.mathero.io.repository.SoloResultRepository;
 import com.enjoy.mathero.io.repository.UserRepository;
 import com.enjoy.mathero.service.ResultService;
 import com.enjoy.mathero.shared.Utils;
-import com.enjoy.mathero.shared.dto.ClassStageSummaryDto;
-import com.enjoy.mathero.shared.dto.DuoResultDto;
-import com.enjoy.mathero.shared.dto.SoloResultDto;
-import com.enjoy.mathero.shared.dto.StageSummaryReportDto;
+import com.enjoy.mathero.shared.dto.*;
 import com.enjoy.mathero.ui.model.response.ErrorMessages;
+import org.hibernate.collection.spi.PersistentCollection;
+import org.modelmapper.Condition;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.spi.MappingContext;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,8 +42,15 @@ public class ResultServiceImpl implements ResultService {
 
     @Override
     public SoloResultDto createSoloResult(SoloResultDto soloResultDto) {
-
         ModelMapper modelMapper = new ModelMapper();
+
+        modelMapper.getConfiguration().setPropertyCondition(new Condition<Object, Object>() {
+            public boolean applies(MappingContext<Object, Object> context) {
+                return !(context.getSource() instanceof PersistentCollection);
+            }
+        });
+
+
         SoloResultEntity soloResultEntity = modelMapper.map(soloResultDto, SoloResultEntity.class);
 
         String publicResultId = utils.generateSoloResultID(30);
@@ -59,6 +66,13 @@ public class ResultServiceImpl implements ResultService {
     @Override
     public DuoResultDto createDuoResult(DuoResultDto duoResultDto) {
         ModelMapper modelMapper = new ModelMapper();
+
+        modelMapper.getConfiguration().setPropertyCondition(new Condition<Object, Object>() {
+            public boolean applies(MappingContext<Object, Object> context) {
+                return !(context.getSource() instanceof PersistentCollection);
+            }
+        });
+
 
         DuoResultEntity duoResultEntity = modelMapper.map(duoResultDto, DuoResultEntity.class);
 
@@ -82,10 +96,25 @@ public class ResultServiceImpl implements ResultService {
             throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
         List<SoloResultEntity> soloResultEntities = soloResultRepository.findAllByUserDetails(userEntity);
-        ModelMapper modelMapper = new ModelMapper();
         for(SoloResultEntity soloResultEntity: soloResultEntities){
-            returnValue.add(modelMapper.map(soloResultEntity, SoloResultDto.class));
+            SoloResultDto soloResultDto = new SoloResultDto();
+            UserDto userDto = new UserDto();
+            userDto.setUserId(soloResultEntity.getUserDetails().getUserId());
+            userDto.setUsername(soloResultEntity.getUserDetails().getUsername());
+            soloResultDto.setScore(soloResultEntity.getScore());
+            soloResultDto.setResultId(soloResultEntity.getResultId());
+            soloResultDto.setEasyCorrect(soloResultEntity.getEasyCorrect());
+            soloResultDto.setEasyTotal(soloResultEntity.getEasyTotal());
+            soloResultDto.setMediumTotal(soloResultEntity.getMediumTotal());
+            soloResultDto.setMediumCorrect(soloResultEntity.getMediumCorrect());
+            soloResultDto.setHardCorrect(soloResultEntity.getHardCorrect());
+            soloResultDto.setHardTotal(soloResultEntity.getHardTotal());
+            soloResultDto.setStageNumber(soloResultEntity.getStageNumber());
+            soloResultDto.setUserDetails(userDto);
+
+            returnValue.add(soloResultDto);
         }
+
 
         return returnValue;
     }
@@ -95,11 +124,24 @@ public class ResultServiceImpl implements ResultService {
         List<SoloResultDto> returnValue = new ArrayList<>();
 
         List<SoloResultEntity> top20 = soloResultRepository.findTop20ByOrderByScoreDesc();
-        ModelMapper modelMapper = new ModelMapper();
 
         for(SoloResultEntity soloResultEntity: top20){
-            returnValue.add(modelMapper.map(soloResultEntity, SoloResultDto.class));
-        }
+            SoloResultDto soloResultDto = new SoloResultDto();
+            UserDto userDto = new UserDto();
+            userDto.setUserId(soloResultEntity.getUserDetails().getUserId());
+            userDto.setUsername(soloResultEntity.getUserDetails().getUsername());
+            soloResultDto.setScore(soloResultEntity.getScore());
+            soloResultDto.setResultId(soloResultEntity.getResultId());
+            soloResultDto.setEasyCorrect(soloResultEntity.getEasyCorrect());
+            soloResultDto.setEasyTotal(soloResultEntity.getEasyTotal());
+            soloResultDto.setMediumTotal(soloResultEntity.getMediumTotal());
+            soloResultDto.setMediumCorrect(soloResultEntity.getMediumCorrect());
+            soloResultDto.setHardCorrect(soloResultEntity.getHardCorrect());
+            soloResultDto.setHardTotal(soloResultEntity.getHardTotal());
+            soloResultDto.setStageNumber(soloResultEntity.getStageNumber());
+            soloResultDto.setUserDetails(userDto);
+
+            returnValue.add(soloResultDto);        }
 
         return returnValue;
     }
@@ -112,8 +154,22 @@ public class ResultServiceImpl implements ResultService {
         ModelMapper modelMapper = new ModelMapper();
 
         for(SoloResultEntity soloResultEntity: top20){
-            returnValue.add(modelMapper.map(soloResultEntity, SoloResultDto.class));
-        }
+            SoloResultDto soloResultDto = new SoloResultDto();
+            UserDto userDto = new UserDto();
+            userDto.setUserId(soloResultEntity.getUserDetails().getUserId());
+            userDto.setUsername(soloResultEntity.getUserDetails().getUsername());
+            soloResultDto.setScore(soloResultEntity.getScore());
+            soloResultDto.setResultId(soloResultEntity.getResultId());
+            soloResultDto.setEasyCorrect(soloResultEntity.getEasyCorrect());
+            soloResultDto.setEasyTotal(soloResultEntity.getEasyTotal());
+            soloResultDto.setMediumTotal(soloResultEntity.getMediumTotal());
+            soloResultDto.setMediumCorrect(soloResultEntity.getMediumCorrect());
+            soloResultDto.setHardCorrect(soloResultEntity.getHardCorrect());
+            soloResultDto.setHardTotal(soloResultEntity.getHardTotal());
+            soloResultDto.setStageNumber(soloResultEntity.getStageNumber());
+            soloResultDto.setUserDetails(userDto);
+
+            returnValue.add(soloResultDto);        }
 
         return returnValue;
     }
@@ -126,7 +182,20 @@ public class ResultServiceImpl implements ResultService {
         ModelMapper modelMapper = new ModelMapper();
 
         for(DuoResultEntity duoResultEntity: top20){
-            returnValue.add(modelMapper.map(duoResultEntity, DuoResultDto.class));
+            DuoResultDto duoResultDto = new DuoResultDto();
+            UserDto userDto1 = new UserDto();
+            userDto1.setUserId(duoResultEntity.getUserDetails1().getUserId());
+            userDto1.setUsername(duoResultEntity.getUserDetails1().getUsername());
+            UserDto userDto2 = new UserDto();
+            userDto2.setUserId(duoResultEntity.getUserDetails1().getUserId());
+            userDto2.setUsername(duoResultEntity.getUserDetails1().getUsername());
+            duoResultDto.setScore(duoResultEntity.getScore());
+            duoResultDto.setResultId(duoResultEntity.getResultId());
+            duoResultDto.setStageNumber(duoResultEntity.getStageNumber());
+            duoResultDto.setUserDetails1(userDto1);
+            duoResultDto.setUserDetails2(userDto2);
+
+            returnValue.add(duoResultDto);
         }
 
         return returnValue;
@@ -140,7 +209,20 @@ public class ResultServiceImpl implements ResultService {
         ModelMapper modelMapper = new ModelMapper();
 
         for(DuoResultEntity duoResultEntity: top20){
-            returnValue.add(modelMapper.map(duoResultEntity, DuoResultDto.class));
+            DuoResultDto duoResultDto = new DuoResultDto();
+            UserDto userDto1 = new UserDto();
+            userDto1.setUserId(duoResultEntity.getUserDetails1().getUserId());
+            userDto1.setUsername(duoResultEntity.getUserDetails1().getUsername());
+            UserDto userDto2 = new UserDto();
+            userDto2.setUserId(duoResultEntity.getUserDetails1().getUserId());
+            userDto2.setUsername(duoResultEntity.getUserDetails1().getUsername());
+            duoResultDto.setScore(duoResultEntity.getScore());
+            duoResultDto.setResultId(duoResultEntity.getResultId());
+            duoResultDto.setStageNumber(duoResultEntity.getStageNumber());
+            duoResultDto.setUserDetails1(userDto1);
+            duoResultDto.setUserDetails2(userDto2);
+
+            returnValue.add(duoResultDto);
         }
 
         return returnValue;
