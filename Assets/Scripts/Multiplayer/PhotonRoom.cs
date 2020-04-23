@@ -29,6 +29,9 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     private float timeToStart;
     private int playersInGame;
 
+    public int playerHealth1;
+    public int playerHealth2;
+
     private void Awake()
     {
         if(PhotonRoom.theRoom == null)
@@ -64,6 +67,8 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     void OnSceneFinishedLoad(Scene scene, LoadSceneMode mode)
     {
         currentScene = scene.name;
+        Debug.Log("This is current scene: " + currentScene);
+        Debug.Log("This is scene.name " + scene.name);
         if(currentScene == MultiplayerSettings.multiSettings.multiScene)
         {
             isGameLoad = true;
@@ -81,6 +86,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     private void RPC_LoadedGameScene()
     {
         playersInGame++;
+        Debug.Log("number of players in game " + playersInGame);
         if(playersInGame == PhotonNetwork.PlayerList.Length)
         {
             pV.RPC("RPC_CreatePlayer", RpcTarget.All);
@@ -91,6 +97,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     private void RPC_CreatePlayer()
     {
         PhotonNetwork.Instantiate(Path.Combine("ForMulti","PhotonNetworkPlayer"), transform.position, Quaternion.identity,0);
+        playersInGame = playersInGame - 2;
     }
 
     void Start()
@@ -99,7 +106,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         readyToCount = false;
         isItStart = false;
         timeToStart = startTime;
-        atMaxPlayers = 10;
+        atMaxPlayers = startTime;
         timerHost.SetText("");
         timerPlayer.SetText("");
     }
@@ -218,7 +225,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     void RestartTime()
     {
         timeToStart = startTime;
-        atMaxPlayers = 10;
+        atMaxPlayers = startTime;
         readyToCount = false;
         isItStart = false;
         timerHost.SetText("");

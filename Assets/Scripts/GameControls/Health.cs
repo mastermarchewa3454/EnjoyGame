@@ -33,13 +33,13 @@ public class Health : MonoBehaviourPunCallbacks, IPunObservable
             {
                 if(MultiplayerSettings.multiSettings.multiScene != "Level 1")
                 {
-                    if (GameObject.FindGameObjectsWithTag("Player").Length == 1)
+                    if (gameObject.name == "Player")
                     {
-                        currHealth = sceneChanger.getPlayerHealth1();
+                        currHealth = PhotonRoom.theRoom.playerHealth1;
                     }
-                    else if (GameObject.FindGameObjectsWithTag("Player").Length == 2)
+                    else
                     {
-                        currHealth = sceneChanger.getPlayerHealth2();
+                        currHealth = PhotonRoom.theRoom.playerHealth2;
                     }
                 }
                 else
