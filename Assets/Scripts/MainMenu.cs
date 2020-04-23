@@ -154,13 +154,9 @@ public class MainMenu : MonoBehaviour
     ///</summary>
     public void LeaveFromCustomLobby()
     {
-        if (PlayerPrefs.HasKey("Teacher"))
+        if (PlayerPrefs.GetInt("Teacher") == 1)
         {
-            int flag = PlayerPrefs.GetInt("Teacher");
-            if (flag == 19)
-            {
-                EnterTeacherScreen();
-            }
+            EnterTeacherScreen();
         }
         else
         {

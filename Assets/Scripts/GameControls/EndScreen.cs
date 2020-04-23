@@ -109,6 +109,6 @@ public class EndScreen : MonoBehaviour
     /// </summary>
     public void ReturnMainMenu()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("StartScreen");
     }
 }
