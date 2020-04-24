@@ -118,15 +118,15 @@ public class UserControllerIT {
     @Test
     void testGetUser(){
         UserRest expected = new UserRest();
-        expected.setUserId("g8YzHXnQTQgU5SrQUwQJ4zTSsvHThV");
-        expected.setUsername("student1");
-        expected.setFirstName("Tazar");
-        expected.setLastName("Crag");
-        expected.setEmail("student1@email.com");
-        expected.setClassName("Class A");
+        expected.setUserId("HoP15nIoWYl3gzTK99Gj2362AoUpF1");
+        expected.setUsername("student8");
+        expected.setFirstName("Mlody");
+        expected.setLastName("Sarmata");
+        expected.setEmail("student8@email.com");
+        expected.setClassName("Class B");
 
         ResponseEntity<UserRest> response = restTemplate.getForEntity(
-                createURLWithPort("/users/g8YzHXnQTQgU5SrQUwQJ4zTSsvHThV"), UserRest.class);
+                createURLWithPort("/users/HoP15nIoWYl3gzTK99Gj2362AoUpF1"), UserRest.class);
 
         UserRest actual = response.getBody();
 
@@ -135,7 +135,6 @@ public class UserControllerIT {
         assertEquals(expected.getUserId(), actual.getUserId());
         assertEquals(expected.getUsername(), actual.getUsername());
         assertEquals(expected.getClassName(), actual.getClassName());
-        assertEquals("EFRnFJwGI742GEjvRWfFGx66OwerIi" , actual.getClassId());
 
     }
 
@@ -165,7 +164,7 @@ public class UserControllerIT {
     @Test
     void testGetUserSoloResults() {
         ResponseEntity<CustomList> response = restTemplate.getForEntity(
-                createURLWithPort("/users/g8YzHXnQTQgU5SrQUwQJ4zTSsvHThV/results"), CustomList.class);
+                createURLWithPort("/users/HoP15nIoWYl3gzTK99Gj2362AoUpF1/results"), CustomList.class);
 
         List actual = response.getBody().getWrapperList();
 
