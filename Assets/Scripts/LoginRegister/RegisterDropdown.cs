@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Handles dropdown for registration
+/// </summary>
 public class RegisterDropdown : MonoBehaviour
 {
     private bool isClassSelected = false;
     private string classSelected; 
 
+    /// <summary>
+    /// Handles the data
+    /// </summary>
+    /// <param name="val">Value of dropdown</param>
     public void HandleInputData(int val)
     {
         switch(val){

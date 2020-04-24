@@ -38,6 +38,9 @@ public class TextboxAnswer : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gets questions from CSV file
+    /// </summary>
     public void CSVQuestion()
     {
         TextAsset questdata = Resources.Load<TextAsset>("questdata");
@@ -55,6 +58,11 @@ public class TextboxAnswer : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Filters questions based on difficulty
+    /// </summary>
+    /// <param name="q">List of questions</param>
+    /// <returns>FIltered list of questions</returns>
     public List<Quest> FilterQuestion(List<Quest> q)
     {
         List<Quest> filteredquests = new List<Quest>();
@@ -84,6 +92,11 @@ public class TextboxAnswer : MonoBehaviour
         return filteredquests;
     }
 
+    /// <summary>
+    /// Picks a question based on the filtered questions
+    /// </summary>
+    /// <param name="q">List of questions</param>
+    /// <returns>Question ID</returns>
     public int PickRandomQuestion(List<Quest> q)
     {
         List<int> questions = new List<int>();
@@ -96,6 +109,10 @@ public class TextboxAnswer : MonoBehaviour
         return randomquestion;
     }
 
+    /// <summary>
+    /// Displayes selected question
+    /// </summary>
+    /// <param name="question"></param>
     public void DisplayQuestion(string question = null)
     {
         if (question == null)
@@ -122,7 +139,9 @@ public class TextboxAnswer : MonoBehaviour
         
     }
 
-
+    /// <summary>
+    /// Checks user's answer against correct answer
+    /// </summary>
     public void CheckUserAnswer()
     {
         string correctAnswer;

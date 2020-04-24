@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+/// <summary>
+/// Spawner class to spawn in players
+/// </summary>
 public class Spawner : MonoBehaviour
 {
     [SerializeField]
@@ -19,7 +22,10 @@ public class Spawner : MonoBehaviour
     GameObject player2;
 
     public static bool isDuoMode = false; 
-    // Start is called before the first frame update
+    
+    /// <summary>
+    ///Instantiates players
+    /// </summary>
     void Start()
     {     
         if(!isDuoMode)

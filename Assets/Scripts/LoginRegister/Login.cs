@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// Login function
+/// </summary>
 public class Login : MonoBehaviour
 {
     private TMP_InputField usernameField;
@@ -13,6 +16,9 @@ public class Login : MonoBehaviour
 
     private TMP_Text errorMsg;
 
+    /// <summary>
+    /// Finds fields
+    /// </summary>
     void Start()
     {
         db = GetComponent<DBUserManager>();
@@ -26,6 +32,10 @@ public class Login : MonoBehaviour
         PlayerPrefs.DeleteKey("userId");
     }
 
+    /// <summary>
+    /// Redirects user based on login success or not
+    /// </summary>
+    /// <param name="status"></param>
     void LoginRedirect(int status)
     {
         Debug.Log("Status code : " + status.ToString());
@@ -44,6 +54,9 @@ public class Login : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sends data to database
+    /// </summary>
     public void LoggingIn()
     {
         string username = usernameField.text;

@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+/// Register a new user
+/// </summary>
 public class Register : MonoBehaviour
 {
     private TMP_Dropdown dropdownMenu;
@@ -24,6 +27,9 @@ public class Register : MonoBehaviour
     private string username;
     private string password; 
 
+    /// <summary>
+    /// Sets up fields
+    /// </summary>
     private void Awake(){
         db = GetComponent<DBUserManager>();
         mm = FindObjectOfType<MainMenu>();
@@ -38,6 +44,10 @@ public class Register : MonoBehaviour
         registerButton = transform.Find("registerButton").GetComponent<Button>();
     }
 
+    /// <summary>
+    /// Handles the class dropdown
+    /// </summary>
+    /// <param name="val">Value of drop down</param>
     public void HandleInputData(int val)
     {
         switch(val){
@@ -65,6 +75,9 @@ public class Register : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Submits the form
+    /// </summary>
     public void SubmitForm()
     {
         //get the selected index
