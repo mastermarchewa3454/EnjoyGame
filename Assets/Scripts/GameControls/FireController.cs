@@ -21,8 +21,9 @@ public class FireController : MonoBehaviour
     private Camera cam;
     private Vector2 aimPos;
 
-    public static bool isDuoMode = false;
-    private PhotonView pV;
+    // For duoMode 
+    public static bool isDuoMode = false; // set to duoMode
+    private PhotonView pV; // get photonview
     /// <summary>
     /// Finds the relevant components
     /// </summary>
@@ -39,6 +40,7 @@ public class FireController : MonoBehaviour
 
     /// <summary>
     /// Gets update if player is firing
+    /// In duoMode, gets update if player is firing and check if fire is own by only one player
     /// </summary>
     void Update()
     {
