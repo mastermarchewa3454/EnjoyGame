@@ -22,6 +22,12 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of ResultService interface. Business logic to deal with results.
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 @Service
 public class ResultServiceImpl implements ResultService {
 
@@ -40,6 +46,11 @@ public class ResultServiceImpl implements ResultService {
     @Autowired
     Utils utils;
 
+    /**
+     * Creates solo result and stores it in the database
+     * @param soloResultDto details to be stored
+     * @return details saved
+     */
     @Override
     public SoloResultDto createSoloResult(SoloResultDto soloResultDto) {
         ModelMapper modelMapper = new ModelMapper();
@@ -63,6 +74,11 @@ public class ResultServiceImpl implements ResultService {
         return returnValue;
     }
 
+    /**
+     * Creates duo result and stores it in the database
+     * @param duoResultDto details to be saved
+     * @return stored details
+     */
     @Override
     public DuoResultDto createDuoResult(DuoResultDto duoResultDto) {
         ModelMapper modelMapper = new ModelMapper();
@@ -86,6 +102,11 @@ public class ResultServiceImpl implements ResultService {
         return returnValue;
     }
 
+    /**
+     * Returns list of solo results with give userId
+     * @param userId id of the user
+     * @return list of solo results
+     */
     @Override
     public List<SoloResultDto> getSoloResultsByUserId(String userId) {
         List<SoloResultDto> returnValue = new ArrayList<>();
@@ -119,6 +140,10 @@ public class ResultServiceImpl implements ResultService {
         return returnValue;
     }
 
+    /**
+     * Returns 20 solo results with highest score value, sorted.
+     * @return list of sorted solo results
+     */
     @Override
     public List<SoloResultDto> getTop20() {
         List<SoloResultDto> returnValue = new ArrayList<>();
@@ -146,6 +171,11 @@ public class ResultServiceImpl implements ResultService {
         return returnValue;
     }
 
+    /**
+     * Returns 20 solo results with highest score value and specified stage number, sorted.
+     * @param stageNumber number of stage
+     * @return list of solo results
+     */
     @Override
     public List<SoloResultDto> getTop20(int stageNumber) {
         List<SoloResultDto> returnValue = new ArrayList<>();
@@ -174,6 +204,10 @@ public class ResultServiceImpl implements ResultService {
         return returnValue;
     }
 
+    /**
+     * Returns 20 duo results with highest score value, sorted.
+     * @return list of duo results
+     */
     @Override
     public List<DuoResultDto> getTop20Duo() {
         List<DuoResultDto> returnValue = new ArrayList<>();
@@ -201,6 +235,11 @@ public class ResultServiceImpl implements ResultService {
         return returnValue;
     }
 
+    /**
+     * Returns 20 duo results with highest score value and specified stage number, sorted.
+     * @param stageNumber number of stage
+     * @return list of duo results
+     */
     @Override
     public List<DuoResultDto> getTop20Duo(int stageNumber) {
         List<DuoResultDto> returnValue = new ArrayList<>();
@@ -228,6 +267,12 @@ public class ResultServiceImpl implements ResultService {
         return returnValue;
     }
 
+    /**
+     * Returns stage summary report
+     * @param userId id of the user
+     * @param stageNumber number of stage
+     * @return details of stage summary report
+     */
     @Override
     public StageSummaryReportDto getStageSummaryReportByUserId(String userId, int stageNumber) {
         StageSummaryReportDto returnValue = new StageSummaryReportDto();
@@ -249,6 +294,11 @@ public class ResultServiceImpl implements ResultService {
         return returnValue;
     }
 
+    /**
+     * Returns list of all stage summary reports
+     * @param userId id of user
+     * @return list of stage summary reports
+     */
     @Override
     public List<StageSummaryReportDto> getAllStagesReportsByUserId(String userId) {
         List<StageSummaryReportDto> returnValue = new ArrayList<>();
@@ -266,6 +316,12 @@ public class ResultServiceImpl implements ResultService {
         return returnValue;
     }
 
+    /**
+     * Returns class stage summary report
+     * @param classId id of the class
+     * @param stageNumber number of stage
+     * @return list of class stage summaries
+     */
     @Override
     public ClassStageSummaryDto getClassStageSummaryByClassId(String classId, int stageNumber) {
         ClassStageSummaryDto returnValue = new ClassStageSummaryDto();
@@ -287,6 +343,11 @@ public class ResultServiceImpl implements ResultService {
         return returnValue;
     }
 
+    /**
+     * Returns list of all class stage summaries
+     * @param classId id of the class
+     * @return list of class stage summaries
+     */
     @Override
     public List<ClassStageSummaryDto> getAllClassStageSummaryByClassId(String classId) {
         List<ClassStageSummaryDto> returnValue = new ArrayList<>();

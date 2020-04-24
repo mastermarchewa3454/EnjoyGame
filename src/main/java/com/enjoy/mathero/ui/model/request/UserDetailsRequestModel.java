@@ -4,6 +4,12 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ * Request model for user
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 public class UserDetailsRequestModel {
 
     private String username;

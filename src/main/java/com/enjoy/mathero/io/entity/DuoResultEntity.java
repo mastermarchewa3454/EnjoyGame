@@ -3,6 +3,12 @@ package com.enjoy.mathero.io.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * Entity to store and retrieve duo result details from the database
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 @Entity(name = "duo_results")
 public class DuoResultEntity implements Serializable {
     private static final long serialVersionUID = -1720073433164520888L;

@@ -1,5 +1,11 @@
 package com.enjoy.mathero.security;
 
+/**
+ * Constant values to keep code more readable
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 public class SecurityConstants {
     public static final long EXPIRATION_TIME = 864000000;
     public static final String TOKEN_PREFIX = "Masniutko ";
@@ -9,5 +15,4 @@ public class SecurityConstants {
     public static final String CREATE_TEACHER_URL = "/teachers";
     public static final String CREATE_CLASS_URL = "/classes";
     public static final String TOKEN_SECRET = "jf9i4jgu83nfl0";
-    public static final String API_DOC = "/doc/**";
 }

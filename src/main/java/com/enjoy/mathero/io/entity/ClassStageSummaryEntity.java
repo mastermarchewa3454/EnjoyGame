@@ -1,6 +1,11 @@
 package com.enjoy.mathero.io.entity;
 
-
+/**
+ * Entity to store and retrieve class stage summary details from the database
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 public interface ClassStageSummaryEntity {
     String getClassId();
     String getClassName();

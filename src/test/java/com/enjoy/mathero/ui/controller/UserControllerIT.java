@@ -22,6 +22,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+/**
+ * Integration tests for UserController class
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserControllerIT {
 

@@ -5,6 +5,12 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Entity to store and retrieve role details from the database
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 @Entity(name = "roles")
 public class RoleEntity implements Serializable {
     private static final long serialVersionUID = -1941599417727065268L;

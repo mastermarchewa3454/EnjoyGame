@@ -8,6 +8,12 @@ import com.enjoy.mathero.shared.dto.StageSummaryReportDto;
 
 import java.util.List;
 
+/**
+ * Business logic to deal with results.
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 public interface ResultService {
     SoloResultDto createSoloResult(SoloResultDto soloResultDto);
     DuoResultDto createDuoResult(DuoResultDto duoResultDto);

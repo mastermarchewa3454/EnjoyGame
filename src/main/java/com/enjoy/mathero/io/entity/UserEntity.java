@@ -5,6 +5,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Entity to store and retrieve user details from the database
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 @Entity(name="users")
 public class UserEntity implements Serializable {
 

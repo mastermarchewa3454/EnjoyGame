@@ -13,6 +13,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+/**
+ * Main Spring class with all beans and main method
+ */
 @SpringBootApplication
 public class MatheroApplication extends SpringBootServletInitializer {
 

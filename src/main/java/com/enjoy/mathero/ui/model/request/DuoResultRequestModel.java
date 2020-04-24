@@ -1,5 +1,11 @@
 package com.enjoy.mathero.ui.model.request;
 
+/**
+ * Request model for duo result
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 public class DuoResultRequestModel {
 
     private Integer score;

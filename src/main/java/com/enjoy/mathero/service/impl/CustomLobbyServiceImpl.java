@@ -1,7 +1,6 @@
 package com.enjoy.mathero.service.impl;
 
 import com.enjoy.mathero.exceptions.CustomLobbyServiceException;
-import com.enjoy.mathero.exceptions.UserServiceException;
 import com.enjoy.mathero.io.entity.CustomLobbyEntity;
 import com.enjoy.mathero.io.entity.QuestionEntity;
 import com.enjoy.mathero.io.entity.UserEntity;
@@ -12,7 +11,6 @@ import com.enjoy.mathero.shared.MapUtils;
 import com.enjoy.mathero.shared.Utils;
 import com.enjoy.mathero.shared.dto.CustomLobbyDto;
 import com.enjoy.mathero.shared.dto.QuestionDto;
-import com.enjoy.mathero.shared.dto.UserDto;
 import com.enjoy.mathero.ui.model.response.ErrorMessages;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +18,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+/**
+ * Implementation of CustomLobbyService interface. Business logic to deal with custom lobbies.
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 @Service
 public class CustomLobbyServiceImpl implements CustomLobbyService {
 
@@ -34,7 +37,11 @@ public class CustomLobbyServiceImpl implements CustomLobbyService {
     @Autowired
     Utils utils;
 
-
+    /**
+     * Creates custom lobby in the database
+     * @param customLobbyDto details to be stored
+     * @return stored custom lobby details
+     */
     @Override
     public CustomLobbyDto createCustomLobby(CustomLobbyDto customLobbyDto) {
 
@@ -64,6 +71,11 @@ public class CustomLobbyServiceImpl implements CustomLobbyService {
         return returnValue;
     }
 
+    /**
+     * Returns custom lobby from database by lobby id
+     * @param lobbyId id of the lobby
+     * @return custom lobby details
+     */
     @Override
     public CustomLobbyDto getCustomLobbyByLobbyId(String lobbyId) {
 

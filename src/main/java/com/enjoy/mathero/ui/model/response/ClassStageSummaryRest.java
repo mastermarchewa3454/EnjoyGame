@@ -1,5 +1,11 @@
 package com.enjoy.mathero.ui.model.response;
 
+/**
+ * Response model for class stage summary
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 public class ClassStageSummaryRest {
     private String classId;
     private String className;

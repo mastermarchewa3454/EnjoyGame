@@ -35,6 +35,13 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Implementation of UserService interface. Business logic to deal with users.
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -53,6 +60,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    /**
+     * Creates user and stores it in the database
+     * @param user user details to be stored
+     * @param role role of the user
+     * @param className class of the user
+     * @return stored user details
+     */
     @Override
     public UserDto createUser(UserDto user, String role, String className) {
 
@@ -96,6 +110,12 @@ public class UserServiceImpl implements UserService {
         return returnValue;
     }
 
+    /**
+     * Updates user details in the database
+     * @param userId id of the users
+     * @param user details to be updated
+     * @return
+     */
     @Override
     public UserDto updateUser(String userId, UserDto user) {
         UserDto userDto = new UserDto();
@@ -114,6 +134,11 @@ public class UserServiceImpl implements UserService {
         return userDto;
     }
 
+    /**
+     * Returns user by username
+     * @param username username of the user
+     * @return user details
+     */
     @Override
     public UserDto getUser(String username) {
         UserEntity userEntity = userRepository.findByUsername(username);
@@ -132,6 +157,11 @@ public class UserServiceImpl implements UserService {
         return userDto;
     }
 
+    /**
+     * Returns user by user id
+     * @param userId id of the user
+     * @return user details
+     */
     @Override
     public UserDto getUserByUserId(String userId) {
         ModelMapper modelMapper = new ModelMapper();
@@ -152,6 +182,11 @@ public class UserServiceImpl implements UserService {
         return userDto;
     }
 
+    /**
+     * Returns teacher by user id
+     * @param userId id of the teacher
+     * @return teacher details
+     */
     @Override
     public UserDto getTeacherByUserId(String userId) {
         ModelMapper modelMapper = new ModelMapper();
@@ -172,6 +207,12 @@ public class UserServiceImpl implements UserService {
         return userDto;
     }
 
+    /**
+     * Returns user detials with authorities, used in the authentication/authorization
+     * @param username username of the user
+     * @return user details object
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity userEntity = userRepository.findByUsername(username);
@@ -188,6 +229,10 @@ public class UserServiceImpl implements UserService {
         return new User(userEntity.getUsername(), userEntity.getEncryptedPassword(), authorities);
     }
 
+    /**
+     * Deletes the user from database
+     * @param userId id of the user
+     */
     @Override
     public void deleteUser(String userId) {
         UserEntity userEntity = userRepository.findByUserId(userId);
@@ -198,6 +243,12 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(userEntity);
     }
 
+    /**
+     * Returns list of users
+     * @param page page to be returned
+     * @param limit amount of users per page
+     * @return list of user details
+     */
     @Override
     public List<UserDto> getUsers(int page, int limit) {
         List<UserDto> returnValue = new ArrayList<>();

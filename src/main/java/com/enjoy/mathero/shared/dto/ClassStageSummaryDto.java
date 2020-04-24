@@ -1,5 +1,11 @@
 package com.enjoy.mathero.shared.dto;
 
+/**
+ * Class used to transfer class stage summary data between layers
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 public class ClassStageSummaryDto {
     private String classId;
     private String className;

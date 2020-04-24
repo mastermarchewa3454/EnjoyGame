@@ -1,5 +1,11 @@
 package com.enjoy.mathero.ui.model.request;
 
+/**
+ * Request model for max stage updating
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 public class MaxStageRequestModel {
 
     private Integer maxStageCanPlay;

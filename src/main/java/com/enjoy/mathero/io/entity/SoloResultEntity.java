@@ -3,6 +3,12 @@ package com.enjoy.mathero.io.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * Entity to store and retrieve solo result details from the database
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 @Entity(name="solo_results")
 public class SoloResultEntity implements Serializable {
     private static final long serialVersionUID = 4837288633221331456L;

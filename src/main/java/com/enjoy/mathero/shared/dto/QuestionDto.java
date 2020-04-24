@@ -1,5 +1,11 @@
 package com.enjoy.mathero.shared.dto;
 
+/**
+ * Class used to transfer question data between layers
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 public class QuestionDto {
     private long id;
     private String content;

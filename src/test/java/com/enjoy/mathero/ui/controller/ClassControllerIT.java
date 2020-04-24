@@ -17,6 +17,12 @@ import java.util.Random;
 
 import static org.junit.Assert.*;
 
+/**
+ * Integration tests for ClassController class
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ClassControllerIT {
 

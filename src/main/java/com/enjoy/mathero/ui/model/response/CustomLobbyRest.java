@@ -2,6 +2,12 @@ package com.enjoy.mathero.ui.model.response;
 
 import java.util.List;
 
+/**
+ * Response model for custom lobby
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 public class CustomLobbyRest {
 
     private String authorId;

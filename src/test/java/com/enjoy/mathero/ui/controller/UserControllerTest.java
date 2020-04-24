@@ -41,6 +41,12 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.*;
 
+/**
+ * Unit tests for UserController class
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 class UserControllerTest {
 
     @Mock

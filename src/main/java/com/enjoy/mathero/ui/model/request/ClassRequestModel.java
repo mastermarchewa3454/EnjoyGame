@@ -1,5 +1,11 @@
 package com.enjoy.mathero.ui.model.request;
 
+/**
+ * Request model for class
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 public class ClassRequestModel {
 
     private String className;

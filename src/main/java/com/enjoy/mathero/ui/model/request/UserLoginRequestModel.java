@@ -3,6 +3,12 @@ package com.enjoy.mathero.ui.model.request;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ * Request model for login
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 public class UserLoginRequestModel {
 
     @NotNull(message = "Username cannot be null!")

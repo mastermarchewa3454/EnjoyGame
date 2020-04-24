@@ -6,6 +6,12 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+/**
+ * Class that validates max stage update model
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 @Component
 public class MaxStageValidator implements Validator {
 
@@ -16,6 +22,11 @@ public class MaxStageValidator implements Validator {
         return MaxStageRequestModel.class.equals(clazz);
     }
 
+    /**
+     * Performs validation
+     * @param target duo result details
+     * @param errors errors generated during validation
+     */
     @Override
     public void validate(Object target, Errors errors) {
         MaxStageRequestModel details = (MaxStageRequestModel) target;

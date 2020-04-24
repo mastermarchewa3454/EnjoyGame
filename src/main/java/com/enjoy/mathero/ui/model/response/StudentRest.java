@@ -1,5 +1,11 @@
 package com.enjoy.mathero.ui.model.response;
 
+/**
+ * Response model for student
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 public class StudentRest {
     private String userId;
     private String firstName;

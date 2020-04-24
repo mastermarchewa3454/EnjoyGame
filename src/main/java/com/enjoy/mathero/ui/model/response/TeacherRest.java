@@ -1,8 +1,12 @@
 package com.enjoy.mathero.ui.model.response;
 
-import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * Response model for teacher
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 public class TeacherRest {
     private String userId;
     private String firstName;

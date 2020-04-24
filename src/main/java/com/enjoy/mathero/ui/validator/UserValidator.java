@@ -10,6 +10,12 @@ import org.springframework.validation.Validator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class that validates user model
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 @Component
 public class UserValidator implements Validator {
 
@@ -26,6 +32,11 @@ public class UserValidator implements Validator {
         return UserDetailsRequestModel.class.equals(clazz);
     }
 
+    /**
+     * Performs validation
+     * @param target user details
+     * @param errors errors generated during validation
+     */
     @Override
     public void validate(Object target, Errors errors) {
         UserDetailsRequestModel details = (UserDetailsRequestModel) target;

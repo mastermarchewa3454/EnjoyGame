@@ -3,6 +3,12 @@ package com.enjoy.mathero.io.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * Entity to store and retrieve question details from the database
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 @Entity(name = "questions")
 public class QuestionEntity implements Serializable {
     private static final long serialVersionUID = 8588490449536644867L;

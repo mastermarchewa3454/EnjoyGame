@@ -1,5 +1,11 @@
 package com.enjoy.mathero.ui.model.response;
 
+/**
+ * Response model for solo result
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 public class SoloResultRest {
     private String userId;
     private String username;

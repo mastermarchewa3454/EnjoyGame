@@ -1,5 +1,11 @@
 package com.enjoy.mathero.ui.model.response;
 
+/**
+ * Response model for duo result
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 public class DuoResultRest {
     private String userId1;
     private String username1;

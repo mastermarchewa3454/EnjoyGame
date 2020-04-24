@@ -22,6 +22,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Class to support authentication process
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
 
@@ -29,6 +35,14 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         this.authenticationManager = authenticationManager;
     }
 
+    /**
+     * Method to perform user authentication
+     *
+     * @param request incoming request
+     * @param response response that should be send back to user
+     * @return Authentication object with authentication details
+     * @throws AuthenticationException
+     */
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
@@ -48,6 +62,15 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         }
     }
 
+    /**
+     * method called if authentication is successful. Generates JWT token used in authorization and adds it to the response header.
+     *
+     * @param request incoming request
+     * @param response response that should be send back to user
+     * @param authResult  Authentication object with authentication details
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
 

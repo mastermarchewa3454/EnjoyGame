@@ -16,6 +16,12 @@ import org.springframework.beans.BeanUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class with static functions to map between entity, dto and rest classes
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 public class MapUtils {
     public static ClassRest classDtoToClassRest(ClassDto classDto){
         ClassRest classRest = new ClassRest();

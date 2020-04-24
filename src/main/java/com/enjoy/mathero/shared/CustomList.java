@@ -7,6 +7,12 @@ import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Wrapper list for JSON responses
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public class CustomList<T> extends AbstractList<T> {
     private List<T> wrapperList = new ArrayList<>();

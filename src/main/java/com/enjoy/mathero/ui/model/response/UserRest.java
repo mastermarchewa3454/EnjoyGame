@@ -1,5 +1,11 @@
 package com.enjoy.mathero.ui.model.response;
 
+/**
+ * Response model for user
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 public class UserRest {
 
     private String userId;

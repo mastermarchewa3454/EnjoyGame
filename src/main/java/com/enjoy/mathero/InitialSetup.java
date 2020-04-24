@@ -17,6 +17,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Initial data that should be stored in the database.
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 @Component
 public class InitialSetup {
 

@@ -11,6 +11,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * SpringBoot repository to query database for solo results.
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 @Repository
 public interface SoloResultRepository extends CrudRepository<SoloResultEntity, Long> {
     List<SoloResultEntity> findAllByUserDetails(UserEntity userEntity);

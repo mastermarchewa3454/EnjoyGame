@@ -15,14 +15,17 @@ import com.enjoy.mathero.ui.model.response.ErrorMessages;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of ClassService interface. Business logic to deal with classes.
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 @Service
 public class ClassServiceImpl implements ClassService {
 
@@ -35,6 +38,13 @@ public class ClassServiceImpl implements ClassService {
     @Autowired
     Utils utils;
 
+    /**
+     * Creates class and calls ClassRepository to save it in the database
+     *
+     * @param classDto class details
+     * @param teacherId id of the teacher
+     * @return details stored in the database
+     */
     @Override
     public ClassDto create(ClassDto classDto, String teacherId) {
         ClassDto returnValue = new ClassDto();
@@ -57,6 +67,11 @@ public class ClassServiceImpl implements ClassService {
         return returnValue;
     }
 
+    /**
+     * Returns class form database by class name
+     * @param className name of the class
+     * @return class details
+     */
     @Override
     public ClassDto getClassByClassName(String className) {
         ClassDto returnValue;
@@ -70,6 +85,11 @@ public class ClassServiceImpl implements ClassService {
         return returnValue;
     }
 
+    /**
+     * Returns class from database by class id
+     * @param classId id of the class
+     * @return class details
+     */
     @Override
     public ClassDto getClassByClassId(String classId) {
         ClassDto returnValue;
@@ -83,6 +103,10 @@ public class ClassServiceImpl implements ClassService {
         return returnValue;
     }
 
+    /**
+     * Returns oll classes
+     * @return list of all class details
+     */
     @Override
     public List<ClassDto> getClasses() {
         List<ClassDto> returnValue = new ArrayList<>();

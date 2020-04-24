@@ -1,6 +1,11 @@
 package com.enjoy.mathero.ui.model.request;
 
-
+/**
+ * Request model for question
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 public class QuestionRequestModel {
 
     private String content;

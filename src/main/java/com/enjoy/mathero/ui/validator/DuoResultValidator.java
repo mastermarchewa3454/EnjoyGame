@@ -6,6 +6,12 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+/**
+ * Class that validates duo result model
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 @Component
 public class DuoResultValidator implements Validator {
 

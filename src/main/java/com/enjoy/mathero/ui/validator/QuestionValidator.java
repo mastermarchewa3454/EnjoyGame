@@ -6,6 +6,12 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+/**
+ * Class that validates question model
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 @Component
 public class QuestionValidator implements Validator {
     @Override
@@ -13,6 +19,11 @@ public class QuestionValidator implements Validator {
         return QuestionRequestModel.class.equals(clazz);
     }
 
+    /**
+     * Performs validation
+     * @param target question details
+     * @param errors errors generated during validation
+     */
     @Override
     public void validate(Object target, Errors errors) {
         QuestionRequestModel details = (QuestionRequestModel) target;

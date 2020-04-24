@@ -6,6 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * SpringBoot repository to query database for duo results.
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 @Repository
 public interface DuoResultRepository extends CrudRepository<DuoResultEntity, Long> {
     List<DuoResultEntity> findTop20ByOrderByScoreDesc();

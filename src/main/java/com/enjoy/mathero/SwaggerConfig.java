@@ -18,6 +18,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 
+/**
+ * Class to create and configure api documentation
+ */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {

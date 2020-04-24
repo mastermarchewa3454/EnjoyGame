@@ -6,6 +6,12 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+/**
+ * Class that validates solo result model
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 @Component
 public class SoloResultValidator implements Validator {
 
@@ -16,6 +22,11 @@ public class SoloResultValidator implements Validator {
         return SoloResultRequestModel.class.equals(clazz);
     }
 
+    /**
+     * Performs validation
+     * @param target solo result details
+     * @param errors errors generated during validation
+     */
     @Override
     public void validate(Object target, Errors errors) {
         SoloResultRequestModel details = (SoloResultRequestModel) target;

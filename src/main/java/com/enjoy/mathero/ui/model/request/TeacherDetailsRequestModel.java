@@ -1,7 +1,12 @@
 package com.enjoy.mathero.ui.model.request;
 
-import java.util.List;
 
+/**
+ * Request model for teacher
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 public class TeacherDetailsRequestModel {
 
     private String username;

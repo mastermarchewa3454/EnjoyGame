@@ -1,5 +1,11 @@
 package com.enjoy.mathero.ui.model.response;
 
+/**
+ * Static values with error messages to keep code more readable
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 public enum ErrorMessages {
 
     MISSING_REQUIRED_FIELD("Missing required field. Please check documentation for required fields"),

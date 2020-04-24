@@ -35,6 +35,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.*;
 
+/**
+ * Unit tests for UserServiceImpl class
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 class UserServiceImplTest {
 
     @Mock

@@ -5,6 +5,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Entity to store and retrieve custom lobby details from the database
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 @Entity(name = "custom_lobbies")
 public class CustomLobbyEntity implements Serializable {
     private static final long serialVersionUID = -7041407542997346950L;

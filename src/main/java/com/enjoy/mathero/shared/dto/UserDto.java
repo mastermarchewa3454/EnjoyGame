@@ -1,10 +1,15 @@
 package com.enjoy.mathero.shared.dto;
 
-import com.enjoy.mathero.io.entity.ClassEntity;
 
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Class used to transfer user data between layers
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 public class UserDto implements Serializable {
 
     private static final long serialVersionUID = -7421968725101561415L;

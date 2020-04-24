@@ -238,7 +238,7 @@ public class UserController {
     @ApiImplicitParam(name = "Authorization", value = "Authorization token", paramType = "header", required = true)
     public StageSummaryReportRest getStageSummaryReport(
             @ApiParam(value = "Stage number for which summary report will be generated", required = true) @RequestParam(name = "stageNumber") int stageNumber,
-            @ApiParam(value = "Class id for which summary report will be generated", required = true) @PathVariable String userId){
+            @ApiParam(value = "User id for which summary report will be generated", required = true) @PathVariable String userId){
         StageSummaryReportRest returnValue = new StageSummaryReportRest();
 
         UserDto userDto = userService.getUserByUserId(userId);

@@ -2,6 +2,12 @@ package com.enjoy.mathero.shared.dto;
 
 import java.util.List;
 
+/**
+ * Class used to transfer custom lobby data between layers
+ *
+ * @author Kamil Rogoda
+ * @version 1.0.0
+ */
 public class CustomLobbyDto {
     private long id;
     private String lobbyId;
