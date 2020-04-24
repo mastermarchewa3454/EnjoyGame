@@ -5,7 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-
+/// <summary>
+/// Class to contain the functions required during leaderboard
+/// </summary>
 public class SoloHighscoreTable : MonoBehaviour
 {
     private Transform entryContainer;
@@ -56,6 +58,9 @@ public class SoloHighscoreTable : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Method to decide which leaderboard to load based on which button that the user clicked
+    /// </summary>
     public void OnClick(int index){ 
         if(entryTransform != null)
             Destroy(entryTransform.gameObject);
@@ -94,6 +99,9 @@ public class SoloHighscoreTable : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method to display the leaderboard entries
+    /// </summary>
     private void DisplayLeaderboard(Result[] ra){
         List<Result> resultList = new List<Result>(ra);
 
@@ -111,6 +119,9 @@ public class SoloHighscoreTable : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method to create a copy of a highscore entry
+    /// </summary>
     private void CreateHighscoreEntryTransform(Result highscoreEntry, Transform container, List<Transform> transformList){
         entryTransform = Instantiate(entryTemplate, container);
         float templateHeight = 51f;
