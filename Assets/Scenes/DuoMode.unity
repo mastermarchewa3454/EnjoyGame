@@ -692,6 +692,7 @@ GameObject:
   m_Component:
   - component: {fileID: 276317614}
   - component: {fileID: 276317613}
+  - component: {fileID: 276317615}
   m_Layer: 0
   m_Name: LobbyController
   m_TagString: Untagged
@@ -715,6 +716,7 @@ MonoBehaviour:
   waitingTextJoinLobby: {fileID: 1114552218}
   lobbyIDJoinLobby: {fileID: 1278154614}
   username: {fileID: 941776827}
+  leaderID: {fileID: 315314081}
   searchButton: {fileID: 180908069}
   cancelButton: {fileID: 1874293262}
   playButton: {fileID: 1863900368}
@@ -734,6 +736,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &276317615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276317612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c1f6adcd63f9974e94ccb65fe1d2d0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &277021399
 GameObject:
   m_ObjectHideFlags: 0
@@ -1027,6 +1041,8 @@ MonoBehaviour:
   timerPlayer: {fileID: 1209088273}
   playersInRoom: 0
   startTime: 10
+  playerHealth1: 0
+  playerHealth2: 0
 --- !u!4 &311866442
 Transform:
   m_ObjectHideFlags: 0

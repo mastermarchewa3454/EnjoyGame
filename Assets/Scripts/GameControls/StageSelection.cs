@@ -26,7 +26,7 @@ public class StageSelection : MonoBehaviour
         db = GetComponent<DBResultsManager>();
     }
 
-    void UnlockStages()
+    void UnlockStages(Student s)
     {
         stagesCleared = PlayerPrefs.GetInt("stagesCleared", 0);
         for (int i = 0; i <= stagesCleared; i++)

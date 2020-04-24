@@ -71,7 +71,7 @@ public class DBUserManager : DBManager
         callback(int.Parse(status));
     }
 
-    public IEnumerator GetUser(System.Action callback)
+    public IEnumerator GetUser(System.Action<Student> callback)
     {
         if (userId == null)
             Debug.Log("Log in first");
@@ -81,7 +81,7 @@ public class DBUserManager : DBManager
             yield return StartCoroutine(GetData("/users/" + userId, callback: data => userString = data));
             Student student = JsonUtility.FromJson<Student>(userString);
             PlayerPrefs.SetInt("stagesCleared", student.maxStageCanPlay);
-            callback();
+            callback(student);
         }
     }
 
