@@ -3,13 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Handles correct / wrong answers
+/// </summary>
 public class Question : MonoBehaviour
 {
+    /// <summary>
+    /// Back button is clicked
+    /// </summary>
     public void GetBack()
     {
         SceneManager.LoadScene("Item Choice");
     }
 
+    /// <summary>
+    /// User answers correctly, and item effects are applied.
+    /// </summary>
     public void GetCorrect()
     {
         string attribute = PlayerPrefs.GetString("temp");
@@ -30,6 +39,9 @@ public class Question : MonoBehaviour
         SceneManager.LoadScene("Item room");
     }
 
+    /// <summary>
+    /// User answers wrongly, nothing happens
+    /// </summary>
     public void GetWrong()
     {
         SceneManager.LoadScene("Item room");

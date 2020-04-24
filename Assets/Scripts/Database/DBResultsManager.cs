@@ -2,12 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// DB manager for Results
+/// </summary>
 public class DBResultsManager : DBManager
 {
     Result result;
     Result[] results;
     DuoResult[] duoResults;
 
+    /// <summary>
+    /// Saves results at the end of a run
+    /// </summary>
+    /// <param name="results">Array containing data from the run</param>
+    /// <returns></returns>
     public IEnumerator SaveResults(int[] results)
     {
         string score = "{\"score\":\"" + results[8] + "\"," +
@@ -22,6 +30,11 @@ public class DBResultsManager : DBManager
         Debug.Log("Score submitted!");
     }
 
+    /// <summary>
+    /// Updates the max stage, when player has cleared 60 levels.
+    /// </summary>
+    /// <param name="stage"></param>
+    /// <returns></returns>
     public IEnumerator SetMaxStage(int stage)
     {
         string stageData = "{\"maxStageCanPlay\":\"" + stage.ToString() + "\"}";
@@ -29,6 +42,12 @@ public class DBResultsManager : DBManager
         Debug.Log("Max stage set");
     }
 
+    /// <summary>
+    /// Gets results of a user.
+    /// </summary>
+    /// <param name="stage">If stage is set, gets results for that stage only</param>
+    /// <param name="callback">Callback</param>
+    /// <returns></returns>
     public IEnumerator GetUserResults(int stage=-1, System.Action callback=null)
     {
         if (userId == null)
@@ -68,6 +87,12 @@ public class DBResultsManager : DBManager
         }
     }
 
+    /// <summary>
+    /// Gets data of solo top 10
+    /// </summary>
+    /// <param name="index">Stage number</param>
+    /// <param name="callback">Callback</param>
+    /// <returns></returns>
     public IEnumerator GetTop10(int index, System.Action<Result[]> callback)
     {
         if (userId == null)
@@ -85,6 +110,12 @@ public class DBResultsManager : DBManager
         }
     }
 
+    /// <summary>
+    /// Gets data of duo top 10
+    /// </summary>
+    /// <param name="index">Stage number</param>
+    /// <param name="callback">Callback</param>
+    /// <returns></returns>
     public IEnumerator GetDuoTop10(int index, System.Action<DuoResult[]> callback)
     {
         if (userId == null)
@@ -103,6 +134,9 @@ public class DBResultsManager : DBManager
     }
 }
 
+/// <summary>
+/// Results class to parse JSON
+/// </summary>
 [System.Serializable]
 public class Result
 {
@@ -118,6 +152,9 @@ public class Result
     public int hardTotal;
 }
 
+/// <summary>
+/// DuoResults class to parse JSON
+/// </summary>
 [System.Serializable]
 public class DuoResult
 {

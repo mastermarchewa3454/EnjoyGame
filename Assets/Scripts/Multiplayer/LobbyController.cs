@@ -12,24 +12,33 @@ public class LobbyController : MonoBehaviourPunCallbacks
     public GameObject enterRoomButton;
     public TextMeshProUGUI waitingTextJoinLobby;
     public TextMeshProUGUI lobbyIDJoinLobby;
-    public TextMeshProUGUI username;
-
+    public TMP_Text leaderID;   // For create room lobby
 
     public GameObject searchButton;
     public GameObject cancelButton;
     public GameObject playButton;
     public TextMeshProUGUI waitingTextCreateLobby;
     public TextMeshProUGUI lobbyIDCreateLobby;
+
+    string user;    // Stores username of current user
+    DBUserManager db;
+
     private void Awake()
     {
         lobby = this;
     }
     void Start()
     {
+        db = GetComponent<DBUserManager>();
+        StartCoroutine(db.GetUser(data =>
+        {
+            user = data.username;
+            leaderID.text = user;
+        }));
+
         PhotonNetwork.ConnectUsingSettings(); // Connects to server
         waitingTextJoinLobby.SetText("");
         lobbyIDJoinLobby.SetText("");
-        username.SetText("");
         enterRoomButton.SetActive(false);
 
         
@@ -53,14 +62,9 @@ public class LobbyController : MonoBehaviourPunCallbacks
         {
             waitingTextJoinLobby.SetText("Write lobbyID");
         }
-        else if (username.GetParsedText().Equals(""))
-        {
-            waitingTextJoinLobby.SetText("Write username");
-        }
         else
         {
             string roomID = lobbyIDJoinLobby.GetParsedText();
-            string user = username.GetParsedText();
             waitingTextJoinLobby.SetText("Waiting...");
             PhotonNetwork.NickName = user;
             Debug.Log("The roomID is " + roomID);

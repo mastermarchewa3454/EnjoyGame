@@ -2,8 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// DB manager for summary report
+/// </summary>
 public class DBSummaryReportManager : DBManager
 {
+    /// <summary>
+    /// Gets summary report of any user.
+    /// </summary>
+    /// <param name="otherUserId">userID of any user</param>
+    /// <param name="stage">Stage number</param>
+    /// <param name="callback">Callback</param>
+    /// <returns></returns>
     public IEnumerator GetSummaryReport(string otherUserId, int stage, System.Action<SumReport> callback)
     {
         SumReport result;
@@ -19,6 +29,12 @@ public class DBSummaryReportManager : DBManager
         }
     }
 
+    /// <summary>
+    /// Gets summary report for a certain stage of any user.
+    /// </summary>
+    /// <param name="otherUserId">userID of any user</param>
+    /// <param name="callback">Callback</param>
+    /// <returns></returns>
     public IEnumerator GetSummaryReport(string otherUserId, System.Action<SumReport[]> callback)
     {
         SumReport[] results;
@@ -34,6 +50,12 @@ public class DBSummaryReportManager : DBManager
         }
     }
 
+    /// <summary>
+    /// Gets summary report for a class.
+    /// </summary>
+    /// <param name="otherUserId">classID of class</param>
+    /// <param name="callback">Callback</param>
+    /// <returns></returns>
     public IEnumerator GetClassSummaryReport(string otherUserId, System.Action<ClassSumReport[]> callback)
     {
         ClassSumReport[] results;
@@ -50,6 +72,9 @@ public class DBSummaryReportManager : DBManager
     }
 }
 
+/// <summary>
+/// SumReport class to parse JSON
+/// </summary>
 [System.Serializable]
 public class SumReport
 {
@@ -64,6 +89,9 @@ public class SumReport
     public int hardTotal;
 }
 
+/// <summary>
+/// ClassSumReport class to parse JSON
+/// </summary>
 [System.Serializable]
 public class ClassSumReport
 {

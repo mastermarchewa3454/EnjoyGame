@@ -69,6 +69,11 @@ public class Health : MonoBehaviourPunCallbacks, IPunObservable
         
     }
 
+    /// <summary>
+    /// Sets health for duo mode
+    /// </summary>
+    /// <param name="stream"></param>
+    /// <param name="info"></param>
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)

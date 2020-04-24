@@ -7,8 +7,22 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.Networking;
 
+/// <summary>
+/// DB manager for users
+/// </summary>
 public class DBUserManager : DBManager
 {
+    /// <summary>
+    /// Registers a user
+    /// </summary>
+    /// <param name="username">Username of user</param>
+    /// <param name="firstName">First name of user</param>
+    /// <param name="lastName">Last name of user</param>
+    /// <param name="classId">CLass of user</param>
+    /// <param name="email">Email of user</param>
+    /// <param name="password">Password of user</param>
+    /// <param name="callback">Callback</param>
+    /// <returns></returns>
     public IEnumerator Register(string username,
                         string firstName,
                         string lastName,
@@ -62,6 +76,13 @@ public class DBUserManager : DBManager
         }));
     }
 
+    /// <summary>
+    /// Authenticates a user
+    /// </summary>
+    /// <param name="username">Username of user</param>
+    /// <param name="password">Password of user</param>
+    /// <param name="callback">Callback</param>
+    /// <returns></returns>
     public IEnumerator Login(string username, string password, System.Action<int> callback)
     {
         string loginDetails = "{\"username\":\"" + username + "\"," +
@@ -71,7 +92,12 @@ public class DBUserManager : DBManager
         callback(int.Parse(status));
     }
 
-    public IEnumerator GetUser(System.Action callback)
+    /// <summary>
+    /// Gets details of user
+    /// </summary>
+    /// <param name="callback">Callback</param>
+    /// <returns></returns>
+    public IEnumerator GetUser(System.Action<Student> callback)
     {
         if (userId == null)
             Debug.Log("Log in first");
@@ -81,10 +107,15 @@ public class DBUserManager : DBManager
             yield return StartCoroutine(GetData("/users/" + userId, callback: data => userString = data));
             Student student = JsonUtility.FromJson<Student>(userString);
             PlayerPrefs.SetInt("stagesCleared", student.maxStageCanPlay);
-            callback();
+            callback(student);
         }
     }
 
+    /// <summary>
+    /// Gets details of all users.
+    /// </summary>
+    /// <param name="callback">Callback</param>
+    /// <returns></returns>
     public IEnumerator GetUsers(System.Action<Student[]> callback)
     {
         if (userId == null)
@@ -101,6 +132,12 @@ public class DBUserManager : DBManager
         }
     }
 
+    /// <summary>
+    /// Gets details of a class.
+    /// </summary>
+    /// <param name="classId">classID of class</param>
+    /// <param name="callback">Callback</param>
+    /// <returns></returns>
     public IEnumerator GetClasses(string classId, System.Action<Class> callback)
     {
         string classString = "";
@@ -123,6 +160,11 @@ public class DBUserManager : DBManager
         callback(c);
     }
 
+    /// <summary>
+    /// Gets all classes
+    /// </summary>
+    /// <param name="callback">Callback</param>
+    /// <returns></returns>
     public IEnumerator GetClasses(System.Action<Class[]> callback)
     {
         string classString = "";
@@ -147,6 +189,11 @@ public class DBUserManager : DBManager
         }
     }
 
+    /// <summary>
+    /// Gets the details of teacher
+    /// </summary>
+    /// <param name="callback">Callback</param>
+    /// <returns></returns>
     public IEnumerator GetTeacher(System.Action<Teacher> callback)
     {
         string teacherString = "";
@@ -156,7 +203,9 @@ public class DBUserManager : DBManager
     }
 }
 
-
+/// <summary>
+/// Student class to help parse JSON
+/// </summary>
 [System.Serializable]
 public class Student
 {
@@ -170,6 +219,9 @@ public class Student
     public string username;
 }
 
+/// <summary>
+/// Class class to parse JSON
+/// </summary>
 [System.Serializable]
 public class Class
 {
@@ -181,6 +233,9 @@ public class Class
     public List<Student> students;
 }
 
+/// <summary>
+/// Teacher class to parse JSON
+/// </summary>
 [System.Serializable]
 public class Teacher
 {

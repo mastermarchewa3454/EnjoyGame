@@ -4,18 +4,30 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Text;
 
+/// <summary>
+/// Base class for handling access to database
+/// </summary>
 public class DBManager : MonoBehaviour
 {
     private string url = "http://18.185.65.201:8080/mathero";
     protected string userId;
     protected string authHeader;
 
+    /// <summary>
+    /// Set up userId and authHeader
+    /// </summary>
     void Awake()
     {
         userId = PlayerPrefs.GetString("userId", null);
         authHeader = PlayerPrefs.GetString("authHeader", null);
     }
 
+    /// <summary>
+    /// Sends a GET request to DB
+    /// </summary>
+    /// <param name="endpoint">Endpoint to send to</param>
+    /// <param name="callback">Callback</param>
+    /// <returns></returns>
     protected IEnumerator GetData(string endpoint, System.Action<string> callback = null)
     {
         if (authHeader == null)
@@ -41,6 +53,14 @@ public class DBManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sends a POST request to DB
+    /// </summary>
+    /// <param name="endpoint">Endpoint to send to</param>
+    /// <param name="body">Body of data</param>
+    /// <param name="setAuth">Flag to set authHeader, only to be used in log in</param>
+    /// <param name="callback">Callback</param>
+    /// <returns></returns>
     protected IEnumerator PostData(string endpoint, string body, bool setAuth = false, System.Action<string> callback = null)
     {
         byte[] bodyRaw = Encoding.UTF8.GetBytes(body);
@@ -97,6 +117,10 @@ public class DBManager : MonoBehaviour
 
 }
 
+
+/// <summary>
+/// Helper class to parse JSON arrays
+/// </summary>
 public static class JsonHelper
 {
     public static T[] FromJson<T>(string json)
