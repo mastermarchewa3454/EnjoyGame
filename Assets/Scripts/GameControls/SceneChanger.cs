@@ -19,14 +19,14 @@ public class SceneChanger : MonoBehaviour
     float timer;
     int level;
 
-    // for multi 
-    public static bool isDuoMode = false;
-    private PhotonView pV;
-    GameObject[] players;
+    // for duoMode
+    public static bool isDuoMode = false; // set to duoMode
+    private PhotonView pV; // get photonview
+    GameObject[] players; // get players for the multiplayer
     int  playerHealth1;
     int playerHealth2;
     /// <summary>
-    /// Gets player components
+    /// Gets player components, if it is not duoMode
     /// </summary>
     void Start()
     {
@@ -43,6 +43,8 @@ public class SceneChanger : MonoBehaviour
     /// <summary>
     /// Changes to next game scene.
     /// Saves any relevant data before transition.
+    /// If it is multiplayer, save the health value of player and get the name of the scene.
+    /// Get the name of the scene.
     /// </summary>
     public void ChangeToNextScene()
     {
@@ -108,7 +110,9 @@ public class SceneChanger : MonoBehaviour
     {
         SceneManager.LoadScene("StartScreen");
     }
-
+    /// <summary>
+    /// Load Item room
+    /// </summary>
     public void ChangeToItemRoom()
     {
         SceneManager.LoadScene("Item room");

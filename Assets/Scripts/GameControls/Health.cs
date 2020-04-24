@@ -17,11 +17,13 @@ public class Health : MonoBehaviourPunCallbacks, IPunObservable
     SceneChanger sceneChanger;
     GameHUD gameHUD;
 
-    public static bool isDuoMode = false;
-    private PhotonView pV;
+    // For duoMode 
+    public static bool isDuoMode = false; // set to duoMode
+    private PhotonView pV; // get photonview
 
     /// <summary>
     /// Gets the health bars of entities
+    /// In duoMode, get the value of current health from PhotonRoom class
     /// </summary>
     void Start()
     {
@@ -96,6 +98,9 @@ public class Health : MonoBehaviourPunCallbacks, IPunObservable
         float sizeNormalized = (float)currHealth / totalHealth;
         bar.localScale = new Vector2(sizeNormalized, 1f);
     }
+    /// <summary>
+    /// Updates the health bar in duoMode
+    /// </summary>
     private void Update()
     {
         if (isDuoMode)
@@ -103,6 +108,9 @@ public class Health : MonoBehaviourPunCallbacks, IPunObservable
             UpdateBar();
         }                     
     }
+    /// <summary>
+    /// Destroy the object in network
+    /// </summary>
     [PunRPC]
     private void isDead()
     {   

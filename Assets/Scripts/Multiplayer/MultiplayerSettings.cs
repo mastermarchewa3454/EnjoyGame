@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Script for handling multiplayer atributes.
+/// </summary>
 public class MultiplayerSettings : MonoBehaviour
 {
     public static MultiplayerSettings multiSettings;
@@ -11,6 +14,9 @@ public class MultiplayerSettings : MonoBehaviour
     public string menuScene;
     public string multiScene;
 
+    /// <summary>
+    /// Keep this class open in the game.
+    /// </summary>
     private void Awake()
     {
         if(MultiplayerSettings.multiSettings == null)

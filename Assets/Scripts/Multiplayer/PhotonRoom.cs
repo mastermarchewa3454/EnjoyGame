@@ -8,6 +8,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Script for handling room atributes.
+/// </summary>
 public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
 {
     // the room
@@ -29,9 +32,13 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     private float timeToStart;
     private int playersInGame;
 
+    // player health value
     public int playerHealth1;
     public int playerHealth2;
 
+    /// <summary>
+    /// Keep this class open in the game.
+    /// </summary>
     private void Awake()
     {
         if(PhotonRoom.theRoom == null)
@@ -49,6 +56,9 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         DontDestroyOnLoad(this.gameObject);
     }
 
+    /// <summary>
+    /// Enable loading the scene.
+    /// </summary>
     public override void OnEnable()
     {
         base.OnEnable();
@@ -57,6 +67,9 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
     }
 
+    /// <summary>
+    /// Disable loading the scene.
+    /// </summary>
     public override void OnDisable()
     {
         base.OnDisable();
@@ -64,6 +77,11 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         SceneManager.sceneLoaded -= OnSceneFinishedLoad;
     }
 
+    /// <summary>
+    /// Initialize player when scene finishing loading.
+    /// </summary>
+    /// <param name="scene"></param>
+    /// <param name="mode"></param>
     void OnSceneFinishedLoad(Scene scene, LoadSceneMode mode)
     {
         currentScene = scene.name;
@@ -82,6 +100,10 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
             }
         }
     }
+
+    /// <summary>
+    /// Load the players in the PhotonNetwork.
+    /// </summary>
     [PunRPC]
     private void RPC_LoadedGameScene()
     {
@@ -93,6 +115,10 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         }
                            
     }
+
+    /// <summary>
+    /// Create the player in the PhotonNetwork.
+    /// </summary>
     [PunRPC]
     private void RPC_CreatePlayer()
     {
@@ -100,6 +126,9 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         playersInGame = playersInGame - 2;
     }
 
+    /// <summary>
+    /// Set the parameters for the game.
+    /// </summary>
     void Start()
     {
         pV = GetComponent<PhotonView>();
@@ -111,7 +140,9 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         timerPlayer.SetText("");
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Check if the countdown can start. Restart the time if user leave the room.
+    /// </summary>
     void Update()
     {
         if(MultiplayerSettings.multiSettings.delayStarting)
@@ -150,6 +181,9 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         }
     }
 
+    /// <summary>
+    /// Check if the user join the room (for joining lobby).
+    /// </summary>
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
@@ -171,6 +205,10 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         }
     }
 
+    /// <summary>
+    /// Check if other player join the room (for creating lobby).
+    /// </summary>
+    /// <param name="newPlayer"></param>
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
@@ -198,6 +236,11 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         }
     }
 
+    /// <summary>
+    /// Start the game.
+    /// Set parameters to duo mode.
+    /// Load the level.
+    /// </summary>
     void StartGame()
     {
         setToDuoMode();
@@ -213,6 +256,10 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         }       
         PhotonNetwork.LoadLevel(MultiplayerSettings.multiSettings.multiScene);        
     }
+
+    /// <summary>
+    /// Set the parameters for duoMode.
+    /// </summary>
     void setToDuoMode()
     {
         Spawner.isDuoMode = true;
@@ -222,6 +269,10 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         SceneChanger.isDuoMode = true;
         NextLevelDoor.isDuoMode = true;
     }
+    
+    /// <summary>
+    /// Restart the timer.
+    /// </summary>
     void RestartTime()
     {
         timeToStart = startTime;
