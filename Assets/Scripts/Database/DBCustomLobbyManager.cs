@@ -2,8 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// DB manager for custom lobbies
+/// </summary>
 public class DBCustomLobbyManager : DBManager
 {
+    /// <summary>
+    /// Creates a new custom lobby
+    /// </summary>
+    /// <param name="questions">Array of 20 questions</param>
+    /// <param name="answers">Array of 20 answers</param>
+    /// <param name="callback">Callback</param>
+    /// <returns></returns>
     public IEnumerator CreateCustomLobby(string[] questions, string[] answers, System.Action callback)
     {
 
@@ -37,6 +47,11 @@ public class DBCustomLobbyManager : DBManager
         Debug.Log("Custom Lobby Created");
     }
 
+    /// <summary>
+    /// Parses data from database.
+    /// </summary>
+    /// <param name="customLobbyString">JSON string from database</param>
+    /// <param name="callback">Callback</param>
     public void gettingCustomLobby(string customLobbyString, System.Action callback)
     {
         CustomLobby customlobby = JsonUtility.FromJson<CustomLobby>(customLobbyString);
@@ -47,6 +62,12 @@ public class DBCustomLobbyManager : DBManager
         callback();
     }
 
+    /// <summary>
+    /// Fetches data for a custom lobby, based on lobbyID.
+    /// </summary>
+    /// <param name="lobbyId">7 character lobby ID</param>
+    /// <param name="callback">Callback</param>
+    /// <returns></returns>
     public IEnumerator JoinCustomLobby(string lobbyId, System.Action<string> callback=null)
     {
         string lobbyString = "";
@@ -58,6 +79,9 @@ public class DBCustomLobbyManager : DBManager
             callback(null);
     }
 
+    /// <summary>
+    /// Custom Lobby class to parse JSON
+    /// </summary>
     [System.Serializable]
     public class CustomLobby
     {
