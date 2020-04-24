@@ -4,16 +4,19 @@ import com.enjoy.mathero.shared.CustomList;
 import com.enjoy.mathero.ui.model.request.DuoResultRequestModel;
 import com.enjoy.mathero.ui.model.response.DuoResultRest;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 import java.util.Random;
 
 import static org.junit.Assert.*;
 
+@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ResultControllerIT {
 
