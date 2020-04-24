@@ -6,17 +6,34 @@ using TMPro;
 
 public class CustomLobbyController : MonoBehaviour
 {
+    /// <summary>
+    /// This will create a variable name of db of class DBCustomLobbyManager
+    /// </summary>
     DBCustomLobbyManager db;
+
+    /// <summary>
+    /// This will create a variable name, errorMsg of class TMP_Text
+    /// </summary>
     public TMP_Text errorMsg;
 
+    /// <summary>
+    /// This will create a variable name lobbyID of class TMP_InputField
+    /// </summary>
     [SerializeField]
     TMP_InputField lobbyId;
 
+    /// <summary>
+    /// When the scene is first called, unity will find the component of DBCustomLobbyManager and interact with the database.
+    /// </summary>
     void Start()
     {
         db = GetComponent<DBCustomLobbyManager>();
     }
 
+    /// <summary>
+    /// This function will get the customlobbyid and verify with the database to ensure that the lobbyID is correct. 
+    /// Once verified, the game will then be loaded. Otherwise, it will not be loaded.
+    /// </summary>
     public void JoinLobby()
     {
         StartCoroutine(db.JoinCustomLobby(lobbyId.text, questions => {
@@ -34,6 +51,11 @@ public class CustomLobbyController : MonoBehaviour
         }));
     }
 
+    /// <summary>
+    /// This function will call a split based on the JSON string obtained in the database and converted it into
+    /// a list of strings that will be used by unity in the game process.
+    /// </summary>
+    /// <param name="questions">questions parameter will be a string of question.</param>
     void FormatQuestions(string questions)
     {
         string[] split = questions.Split(new char[] { '{', '}', ',' }, System.StringSplitOptions.RemoveEmptyEntries);

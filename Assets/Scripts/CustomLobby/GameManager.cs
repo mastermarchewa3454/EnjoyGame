@@ -90,7 +90,9 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// This function will load CustomLobbyComplete scene.
+    /// </summary>
     public void loadingofScenings()
     {
         SceneManager.LoadScene("CustomLobbyComplete");

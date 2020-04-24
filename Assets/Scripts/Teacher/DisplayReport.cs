@@ -6,13 +6,33 @@ using TMPro;
 
 public class DisplayReport : MonoBehaviour
 {
+    /// <summary>
+    /// Instantiating a class of TMP_Text that will be used in unity of variable name studentName.
+    /// This will be the name of user that is being searched on.
+    /// </summary>
     public TMP_Text studentName;
+    /// <summary>
+    /// Instantiating a class of TMP_Text that will be used in unity of variable name studentClass
+    /// This will be the name of student's class 
+    /// </summary>
     public TMP_Text studentClass;
+    /// <summary>
+    /// Instantiating a class of TMP_Text that will be used in unity of variable maxLevel
+    /// this will be maximum level he has reached.
+    /// </summary>
     public TMP_Text maxLevel;
 
+    /// <summary>
+    /// Instantiating a DBSummaryReportManager of variable name db, that will call the DB. 
+    /// </summary>
     DBSummaryReportManager db;
+    /// <summary>
+    /// Creating a variable name user of SumReport[] class that will contain all the relevant student's summary report.
+    /// </summary>
     SumReport[] user;
-
+    /// <summary>
+    /// 
+    /// </summary>
     public void Start()
     {
         db = FindObjectOfType<DBSummaryReportManager>();
@@ -24,7 +44,10 @@ public class DisplayReport : MonoBehaviour
             StartCoroutine(GetStudentDetails());
         }
     }
-
+    /// <summary>
+    /// This function will get the classdetails for the total number of correct and total number of questions.
+    /// </summary>
+    /// <returns></returns>
     IEnumerator GetClassDetails()
     {
         int maxStage = 1;
@@ -59,7 +82,11 @@ public class DisplayReport : MonoBehaviour
             GetCurrentFill(correct, total);
         }));
     }
-
+    /// <summary>
+    /// This function will make use of IEnumerator that will connect with database so as to return the summary report 
+    /// of the required student details.
+    /// </summary>
+    /// <returns>It goes through database and returns the total number correct and total number of questions</returns>
     IEnumerator GetStudentDetails()
     {
         int maxStage = 1;
@@ -94,7 +121,12 @@ public class DisplayReport : MonoBehaviour
             GetCurrentFill(correct, total);
         }));
     }
-
+/// <summary>
+/// GetCurrentFill is a function that will be called so as to get the percentage of correctly answered questions 
+/// over the total amount of questions answered.
+/// </summary>
+/// <param name="current">current is the parameter that will be the numerator used</param>
+/// <param name="maximum">maximum will be the parameter that will be the denominator that will be used</param>
     public void GetCurrentFill(int[] current, int[] maximum)
     {
         int minimum = 0;
